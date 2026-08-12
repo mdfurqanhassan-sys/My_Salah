@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Salah</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0F2B1E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Salah">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-top:#0F2B1E;
+    --bg-bot:#050B07;
+    --card:rgba(255,255,255,0.035);
+    --card-active:rgba(212,168,67,0.08);
+    --line: rgba(255,255,255,0.07);
+    --line-active: rgba(212,168,67,0.35);
+    --gold:#D4A843;
+    --gold-soft:#E8C877;
+    --ivory:#F3EFE3;
+    --sage:#8FA396;
+    --sage-dim:#5C6E63;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: radial-gradient(ellipse 120% 60% at 50% 0%, var(--bg-top) 0%, var(--bg-bot) 65%);
+    background-attachment: fixed;
+    color: var(--ivory);
+    font-family: 'Inter', sans-serif;
+    min-height:100vh;
+  }
+  .app{ max-width: 480px; margin: 0 auto; padding: 28px 18px 100px; min-height:100vh; position:relative; }
+
+  header{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:22px; }
+  .brand h1{
+    font-family:'Amiri', serif; font-weight:700; font-size: 26px; margin:0 0 4px; color: var(--gold-soft);
+  }
+  .loc-row{ display:flex; align-items:center; gap:5px; font-size:13px; color:var(--sage); }
+  .loc-row svg{ width:13px; height:13px; flex-shrink:0; }
+  .settings-icon{
+    width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; background:transparent;
+    color: var(--ivory); flex-shrink:0;
+  }
+  .settings-icon svg{ width:17px; height:17px; }
+  .settings-icon:hover{ border-color: var(--line-active); }
+
+  .next-card{
+    background: var(--card); border:1px solid var(--line); border-radius:24px;
+    padding:22px 20px 24px; text-align:center; margin-bottom:22px;
+  }
+  .next-label{ font-size:11px; letter-spacing:0.18em; color:var(--sage); text-transform:uppercase; margin-bottom:10px; }
+  .next-name-row{ display:flex; align-items:baseline; justify-content:center; gap:9px; margin-bottom:8px; }
+  .next-name{ font-family:'Amiri', serif; font-weight:700; font-size:27px; color:var(--gold-soft); }
+  .next-name-ar{ font-family:'Amiri', serif; font-size:17px; color:var(--sage); }
+  .countdown{ font-size:38px; font-weight:600; letter-spacing:0.03em; color:var(--ivory); font-variant-numeric: tabular-nums; }
+  .next-at{ font-size:13px; color:var(--sage); margin-top:6px; }
+
+  .list{ display:flex; flex-direction:column; gap:10px; }
+  .row{
+    background: var(--card); border:1px solid var(--line); border-radius:999px;
+    padding:14px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .row.active{ background: var(--card-active); border-color: var(--line-active); }
+  .row-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+  .row-icon{ width:20px; height:20px; color:var(--gold); flex-shrink:0; opacity:0.85; }
+  .row-names{ min-width:0; }
+  .row-name{ font-size:15px; font-weight:600; color: var(--ivory); }
+  .row-name-ar{ font-family:'Amiri', serif; font-size:12px; color:var(--sage-dim); margin-top:1px; }
+  .row-right{ display:flex; align-items:center; gap:9px; flex-shrink:0; }
+  .mute-btn{ width:17px; height:17px; color: var(--sage-dim); cursor:pointer; background:none; border:none; padding:0; display:flex; }
+  .mute-btn.on{ color: var(--gold); }
+  .row-time{ font-size:15px; font-weight:600; color: var(--ivory); font-variant-numeric: tabular-nums; }
+  .row.active .row-time{ color: var(--gold-soft); }
+  .row.sunrise .row-time{ color: var(--sage); font-weight:500; }
+
+  .tab-panel{ display:none; }
+  .tab-panel.show{ display:block; }
+
+  .setting-card{ background: var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; margin-bottom:14px; }
+  .setting-card h3{ font-size:13px; font-weight:600; color: var(--gold-soft); margin:0 0 12px; text-transform:uppercase; letter-spacing:0.08em; }
+  .field{ margin-bottom:12px; }
+  .field:last-child{ margin-bottom:0; }
+  .field label{ display:block; font-size:11px; color:var(--sage); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em; }
+  .field input, .field select{
+    width:100%; background: rgba(255,255,255,0.04); border:1px solid var(--line); color:var(--ivory);
+    padding:11px 13px; border-radius:10px; font-family:'Inter',sans-serif; font-size:14px;
+  }
+  .field input:focus, .field select:focus{ outline:none; border-color: var(--gold); }
+  .btn{
+    font-family:'Inter',sans-serif; font-size:14px; font-weight:600; padding:12px 18px;
+    border-radius:10px; cursor:pointer; border:1px solid var(--line); background:transparent; color:var(--ivory);
+    width:100%;
+  }
+  .btn.primary{ background: var(--gold); border-color: var(--gold); color: #201804; }
+  .btn.primary:hover{ background: var(--gold-soft); }
+  .btn-row{ display:flex; gap:10px; }
+  .status-msg{ font-size:12px; color:var(--sage); margin-top:10px; min-height:14px; }
+  .status-msg.err{ color:#D4756A; }
+  .toggle-row{ display:flex; align-items:center; justify-content:space-between; padding:4px 0; }
+  .toggle-row span{ font-size:14px; color: var(--ivory); }
+  .toggle{ width:38px; height:22px; border-radius:20px; background: rgba(255,255,255,0.08); border:1px solid var(--line); position:relative; cursor:pointer; flex-shrink:0; }
+  .toggle.on{ background: var(--gold); border-color: var(--gold); }
+  .toggle .knob{ position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#0F1B14; transition:left .15s ease; }
+  .toggle.on .knob{ left:18px; background:#201804; }
+
+  .compass-wrap{ display:flex; flex-direction:column; align-items:center; padding: 10px 0 6px; }
+  .compass-circle{ width:230px; height:230px; border-radius:50%; border:1px solid var(--line); background: var(--card); position:relative; margin-bottom:18px; transition: transform .2s linear; }
+  .compass-n{ position:absolute; top:10px; left:50%; transform:translateX(-50%); font-size:11px; color:var(--sage); letter-spacing:0.1em; }
+  .qibla-arrow{ position:absolute; top:50%; left:50%; width:2px; height:96px; background: var(--gold); transform-origin: bottom center; }
+  .qibla-arrow::before{ content:''; position:absolute; top:-8px; left:-6px; width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent; border-bottom:12px solid var(--gold); }
+  .compass-center{ position:absolute; top:50%; left:50%; width:8px; height:8px; margin:-4px; border-radius:50%; background: var(--ivory); }
+  .qibla-info{ text-align:center; }
+  .qibla-info .deg{ font-size:26px; font-weight:600; color: var(--gold-soft); }
+  .qibla-info .sub{ font-size:12px; color:var(--sage); margin-top:4px; }
+
+  .guide-card{ background: var(--card); border:1px solid var(--line); border-radius:18px; padding:16px 18px; margin-bottom:10px; }
+  .guide-card .g-top{ display:flex; align-items:baseline; gap:8px; margin-bottom:5px; }
+  .guide-card .g-name{ font-family:'Amiri', serif; font-weight:700; font-size:17px; color: var(--gold-soft); }
+  .guide-card .g-ar{ font-family:'Amiri', serif; font-size:13px; color:var(--sage); }
+  .guide-card p{ font-size:13px; color: var(--sage); line-height:1.55; margin:0; }
+
+  nav.bottom{
+    position:fixed; left:0; right:0; bottom:0; background: rgba(6,15,10,0.92); backdrop-filter: blur(10px);
+    border-top:1px solid var(--line); display:flex; justify-content:center; z-index:40;
+  }
+  nav.bottom .inner{ max-width:480px; width:100%; display:flex; }
+  .nav-btn{
+    flex:1; background:none; border:none; color: var(--sage-dim); display:flex; flex-direction:column;
+    align-items:center; gap:4px; padding:12px 4px 10px; cursor:pointer; font-family:'Inter',sans-serif; font-size:11px;
+  }
+  .nav-btn svg{ width:21px; height:21px; }
+  .nav-btn.active{ color: var(--gold); }
+
+  .banner{
+    position:fixed; left:50%; bottom:78px; transform: translateX(-50%) translateY(140%);
+    background: var(--gold); color:#201804; padding:13px 20px; border-radius:12px;
+    font-size:14px; font-weight:600; box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+    transition: transform .35s ease; z-index:50; max-width: 88vw; text-align:center;
+  }
+  .banner.show{ transform: translateX(-50%) translateY(0); }
+
+  .empty{ text-align:center; color:var(--sage); font-size:13px; padding:40px 16px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="brand">
+      <h1>My Salah</h1>
+      <div class="loc-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span id="locLabel">Set location</span>
+      </div>
+    </div>
+    <button class="settings-icon" id="headerSettings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h10M17 6h3M4 12h3M9 12h11M4 18h13M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+    </button>
+  </header>
+
+  <div class="tab-panel show" id="tab-salah">
+    <div id="content">
+      <div class="empty">Set your location in Alerts to load today's times.</div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-compass">
+    <div class="setting-card" style="text-align:center;">
+      <h3>Qibla direction</h3>
+      <div class="compass-wrap">
+        <div class="compass-circle" id="compassCircle">
+          <div class="compass-n">N</div>
+          <div class="qibla-arrow" id="qiblaArrow"></div>
+          <div class="compass-center"></div>
+        </div>
+        <div class="qibla-info">
+          <div class="deg" id="qiblaDeg">—</div>
+          <div class="sub">degrees from true north</div>
+        </div>
+      </div>
+      <button class="btn" id="enableCompassBtn" style="margin-top:16px;">Enable live compass</button>
+      <div class="status-msg" id="compassStatus"></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-alerts">
+    <div class="setting-card">
+      <h3>Location</h3>
+      <div class="btn-row" style="margin-bottom:12px;">
+        <button class="btn primary" id="geoBtn">Use my location</button>
+      </div>
+      <div class="field">
+        <label for="city">City</label>
+        <input id="city" type="text" placeholder="Dammam" />
+      </div>
+      <div class="field">
+        <label for="country">Country</label>
+        <input id="country" type="text" placeholder="Saudi Arabia" />
+      </div>
+      <div class="field">
+        <label for="method">Calculation method</label>
+        <select id="method">
+          <option value="4">Umm al-Qura, Makkah</option>
+          <option value="2">Islamic Society of North America</option>
+          <option value="3">Muslim World League</option>
+          <option value="5">Egyptian General Authority</option>
+          <option value="1">University of Islamic Sciences, Karachi</option>
+          <option value="8">Gulf Region</option>
+          <option value="10">Qatar</option>
+          <option value="11">Singapore</option>
+          <option value="13">Diyanet, Turkey</option>
+          <option value="15">Moonsighting Committee</option>
+        </select>
+      </div>
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn primary" id="applyCity">Save location</button>
+      </div>
+      <div class="status-msg" id="statusMsg"></div>
+    </div>
+
+    <div class="setting-card">
+      <h3>Reminders</h3>
+      <div class="field">
+        <label for="lead">Remind me</label>
+        <select id="lead">
+          <option value="0">At prayer time</option>
+          <option value="5">5 minutes early</option>
+          <option value="10">10 minutes early</option>
+          <option value="15">15 minutes early</option>
+        </select>
+      </div>
+      <div class="toggle-row">
+        <span>Sound</span>
+        <div class="toggle" id="soundToggle"><div class="knob"></div></div>
+      </div>
+      <div class="toggle-row">
+        <span>Browser notifications</span>
+        <div class="toggle" id="notifToggle"><div class="knob"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-guide">
+    <div class="guide-card"><div class="g-top"><span class="g-name">Fajr</span><span class="g-ar">الفجر</span></div><p>The dawn prayer, offered between first light and sunrise. It marks the start of the fasting day and is prayed before the sky brightens.</p></div>
+    <div class="guide-card"><div class="g-top"><span class="g-name">Dhuhr</span><span class="g-ar">الظهر</span></div><p>The midday prayer, offered once the sun begins to descend from its highest point. In many cities it falls shortly before or after noon.</p></div>
+    <div class="guide-card"><div class="g-top"><span class="g-name">Asr</span><span class="g-ar">العصر</span></div><p>The afternoon prayer, offered when the shadow of an object roughly matches its length. Its window runs until shortly before sunset.</p></div>
+    <div class="guide-card"><div class="g-top"><span class="g-name">Maghrib</span><span class="g-ar">المغرب</span></div><p>The sunset prayer, offered just after the sun fully sets. It has one of the shorter windows of the five prayers.</p></div>
+    <div class="guide-card"><div class="g-top"><span class="g-name">Isha</span><span class="g-ar">العشاء</span></div><p>The night prayer, offered once twilight has faded. Its window extends until Fajr the next morning.</p></div>
+    <div class="guide-card"><div class="g-top"><span class="g-name">Using this app</span></div><p>Tap the speaker icon beside a prayer to turn its reminder on or off. Set how early you're notified, and enable sound or browser notifications, from the Alerts tab.</p></div>
+  </div>
+
+</div>
+
+<div class="banner" id="banner"></div>
+
+<nav class="bottom">
+  <div class="inner">
+    <button class="nav-btn active" data-tab="salah">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+      Salah
+    </button>
+    <button class="nav-btn" data-tab="compass">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2.5 6L9 15l2.5-6z"/></svg>
+      Compass
+    </button>
+    <button class="nav-btn" data-tab="alerts">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 5-2 6-2 6h16s-2-1-2-6"/><path d="M10.5 20a1.5 1.5 0 0 0 3 0"/></svg>
+      Alerts
+    </button>
+    <button class="nav-btn" data-tab="guide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z"/><path d="M20 18H6.5A2.5 2.5 0 0 0 4 20.5"/></svg>
+      Guide
+    </button>
+  </div>
+</nav>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('service-worker.js').catch(function(){});
+  });
+}
+
+(function(){
+  var PRAYER_ORDER = ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+  var DISPLAY_ORDER = ['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'];
+  var ARABIC = { Fajr:'الفجر', Sunrise:'الشروق', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
+  var ICONS = {
+    Fajr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 12.5A6.5 6.5 0 1 1 11.5 6a5 5 0 0 0 6.5 6.5Z"/></svg>',
+    Sunrise: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v5M4.2 10.2l1.8 1.8M19.8 10.2 18 12M2 15h20M6 15a6 6 0 0 1 12 0"/></svg>',
+    Dhuhr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="9" r="4"/><path d="M12 1v2M3.5 9h2M6 3.5l1.4 1.4"/><path d="M2 20h20"/></svg>',
+    Asr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="11" r="4"/><path d="M4.5 11h2M6.5 5.5l1.4 1.4"/><path d="M2 20h20"/></svg>',
+    Maghrib: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v6M8 8l4 3 4-3"/><path d="M4 15a8 8 0 0 1 16 0"/><path d="M2 15h20M2 20h20"/></svg>',
+    Isha: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 12.5A6.5 6.5 0 1 1 11.5 6a5 5 0 0 0 6.5 6.5Z"/></svg>'
+  };
+  var SPEAKER_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg>';
+  var SPEAKER_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M15 9l5 6M20 9l-5 6"/></svg>';
+  var KAABA = { lat: 21.4225, lng: 39.8262 };
+
+  var state = {
+    mode: null, lat: null, lng: null, city: '', country: '',
+    method: '4', lead: '0',
+    reminders: { Fajr:true, Dhuhr:true, Asr:true, Maghrib:true, Isha:true },
+    soundOn: true, notifOn: false,
+    firedKeys: {}
+  };
+  var timings = null, tomorrowTimings = null, hijri = null, tickHandle = null;
+
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  function todayKey(){ var d = new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function dmy(d){ return pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear(); }
+  function cleanTime(t){ return t.split(' ')[0]; }
+  function fmt12(dateObj){
+    var h = dateObj.getHours(), m = dateObj.getMinutes();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12; if(h12 === 0) h12 = 12;
+    return h12 + ':' + pad(m) + ' ' + ampm;
+  }
+
+  async function loadSettings(){
+    try{
+      var res = await window.storage.get('settings', false);
+      if(res && res.value) Object.assign(state, JSON.parse(res.value));
+    }catch(e){}
+  }
+  async function saveSettings(){
+    try{
+      await window.storage.set('settings', JSON.stringify({
+        mode: state.mode, lat: state.lat, lng: state.lng, city: state.city, country: state.country,
+        method: state.method, lead: state.lead, reminders: state.reminders, soundOn: state.soundOn, notifOn: state.notifOn
+      }), false);
+    }catch(e){}
+  }
+
+  function setStatus(msg, isErr){
+    var el = document.getElementById('statusMsg');
+    el.textContent = msg || '';
+    el.className = 'status-msg' + (isErr ? ' err' : '');
+  }
+
+  async function fetchTimings(dateObj){
+    var dateStr = dmy(dateObj);
+    var url;
+    if(state.mode === 'geo'){
+      url = 'https://api.aladhan.com/v1/timings/' + dateStr + '?latitude=' + state.lat + '&longitude=' + state.lng + '&method=' + state.method;
+    } else {
+      url = 'https://api.aladhan.com/v1/timingsByCity/' + dateStr + '?city=' + encodeURIComponent(state.city) + '&country=' + encodeURIComponent(state.country) + '&method=' + state.method;
+    }
+    var resp = await fetch(url);
+    if(!resp.ok) throw new Error('Request failed');
+    var json = await resp.json();
+    if(json.code !== 200) throw new Error('Could not find that location');
+    return json.data;
+  }
+
+  function timeToDate(baseDate, hhmm){
+    var parts = cleanTime(hhmm).split(':');
+    var d = new Date(baseDate);
+    d.setHours(parseInt(parts[0],10), parseInt(parts[1],10), 0, 0);
+    return d;
+  }
+
+  async function loadAll(){
+    setStatus('Loading prayer times…');
+    try{
+      var now = new Date();
+      var tomorrow = new Date(now); tomorrow.setDate(tomorrow.getDate()+1);
+      var todayData = await fetchTimings(now);
+      var tmrwData = await fetchTimings(tomorrow);
+      timings = todayData.timings;
+      tomorrowTimings = tmrwData.timings;
+      hijri = todayData.date.hijri;
+      document.getElementById('locLabel').textContent = state.mode === 'geo' ? 'Current location' : (state.city + ', ' + state.country);
+      setStatus('');
+      render();
+      renderCompass();
+      startTicking();
+      await saveSettings();
+    }catch(e){
+      setStatus(e.message || 'Could not load prayer times. Check the spelling and try again.', true);
+    }
+  }
+
+  function getPrayerDate(name, useTomorrow){
+    var src = useTomorrow ? tomorrowTimings : timings;
+    var base = new Date();
+    if(useTomorrow) base.setDate(base.getDate()+1);
+    return timeToDate(base, src[name]);
+  }
+  function getYesterdayIsha(){
+    var d = new Date(); d.setDate(d.getDate()-1);
+    return timeToDate(d, timings['Isha']);
+  }
+
+  function nextPrayerInfo(){
+    var now = new Date();
+    for(var i=0;i<PRAYER_ORDER.length;i++){
+      var d = getPrayerDate(PRAYER_ORDER[i], false);
+      if(d > now) return { name: PRAYER_ORDER[i], time: d };
+    }
+    return { name: 'Fajr', time: getPrayerDate('Fajr', true), isTomorrow: true };
+  }
+
+  function fmtCountdown(ms){
+    if(ms < 0) ms = 0;
+    var totalSec = Math.floor(ms/1000);
+    var h = Math.floor(totalSec/3600), m = Math.floor((totalSec%3600)/60), s = totalSec%60;
+    return pad(h)+':'+pad(m)+':'+pad(s);
+  }
+
+  function render(){
+    if(!timings) return;
+    var nextInfo = nextPrayerInfo();
+    var now = new Date();
+    var msLeft = nextInfo.time - now;
+    var nextTimeStr = nextInfo.isTomorrow ? fmt12(getPrayerDate('Fajr', true)) : fmt12(timings ? timeToDate(now, timings[nextInfo.name]) : now);
+
+    var html = '';
+    html += '<div class="next-card">';
+    html += '<div class="next-label">Next prayer</div>';
+    html += '<div class="next-name-row"><span class="next-name">' + nextInfo.name + '</span><span class="next-name-ar">' + ARABIC[nextInfo.name] + '</span></div>';
+    html += '<div class="countdown">' + fmtCountdown(msLeft) + '</div>';
+    html += '<div class="next-at">at ' + nextTimeStr + '</div>';
+    html += '</div>';
+
+    html += '<div class="list">';
+    DISPLAY_ORDER.forEach(function(name){
+      var d = timeToDate(now, timings[name]);
+      var isActive = name === nextInfo.name && !nextInfo.isTomorrow;
+      var isSunrise = name === 'Sunrise';
+      html += '<div class="row ' + (isActive?'active':'') + ' ' + (isSunrise?'sunrise':'') + '">';
+      html += '<div class="row-left"><div class="row-icon">' + ICONS[name] + '</div>';
+      html += '<div class="row-names"><div class="row-name">' + name + '</div><div class="row-name-ar">' + ARABIC[name] + '</div></div></div>';
+      html += '<div class="row-right">';
+      if(!isSunrise){
+        var on = !!state.reminders[name];
+        html += '<button class="mute-btn ' + (on?'on':'') + '" data-prayer="' + name + '">' + (on ? SPEAKER_ON : SPEAKER_OFF) + '</button>';
+      }
+      html += '<div class="row-time">' + fmt12(d) + '</div>';
+      html += '</div></div>';
+    });
+    html += '</div>';
+
+    document.getElementById('content').innerHTML = html;
+
+    document.querySelectorAll('.mute-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var name = btn.getAttribute('data-prayer');
+        state.reminders[name] = !state.reminders[name];
+        var on = state.reminders[name];
+        btn.classList.toggle('on', on);
+        btn.innerHTML = on ? SPEAKER_ON : SPEAKER_OFF;
+        saveSettings();
+      });
+    });
+  }
+
+  function updateTick(){
+    if(!timings) return;
+    var nextInfo = nextPrayerInfo();
+    var now = new Date();
+    var msLeft = nextInfo.time - now;
+    var el = document.querySelector('.countdown');
+    if(el) el.textContent = fmtCountdown(msLeft);
+    checkReminders(now);
+  }
+
+  function playChime(){
+    if(!state.soundOn) return;
+    try{
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      [880,660,440].forEach(function(freq,i){
+        var osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.type = 'sine'; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, ctx.currentTime + i*0.28);
+        gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + i*0.28 + 0.05);
+        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + i*0.28 + 0.5);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + i*0.28); osc.stop(ctx.currentTime + i*0.28 + 0.55);
+      });
+    }catch(e){}
+  }
+
+  function showBanner(text){
+    var b = document.getElementById('banner');
+    b.textContent = text; b.classList.add('show');
+    setTimeout(function(){ b.classList.remove('show'); }, 6000);
+  }
+
+  function checkReminders(now){
+    var lead = parseInt(state.lead, 10);
+    PRAYER_ORDER.forEach(function(name){
+      if(!state.reminders[name]) return;
+      var d = getPrayerDate(name, false);
+      var target = new Date(d.getTime() - lead*60000);
+      var diff = target - now;
+      var key = todayKey() + '-' + name + '-' + lead;
+      if(diff <= 0 && diff > -60000 && !state.firedKeys[key]){
+        state.firedKeys[key] = true;
+        var msg = lead === 0 ? (name + ' — time to pray') : (name + ' in ' + lead + ' minutes');
+        showBanner(msg);
+        playChime();
+        if(state.notifOn && window.Notification && Notification.permission === 'granted'){
+          try{ new Notification('Salah', { body: msg }); }catch(e){}
+        }
+      }
+    });
+  }
+
+  function startTicking(){
+    if(tickHandle) clearInterval(tickHandle);
+    tickHandle = setInterval(function(){
+      updateTick();
+      var k = todayKey();
+      if(k !== startTicking._lastDay){ startTicking._lastDay = k; loadAll(); }
+    }, 1000);
+    startTicking._lastDay = todayKey();
+  }
+
+  function bearingToQibla(lat, lng){
+    var phi1 = lat*Math.PI/180, phi2 = KAABA.lat*Math.PI/180;
+    var dLambda = (KAABA.lng-lng)*Math.PI/180;
+    var y = Math.sin(dLambda)*Math.cos(phi2);
+    var x = Math.cos(phi1)*Math.sin(phi2) - Math.sin(phi1)*Math.cos(phi2)*Math.cos(dLambda);
+    var theta = Math.atan2(y,x)*180/Math.PI;
+    return (theta+360)%360;
+  }
+
+  var qiblaBearing = null;
+  function renderCompass(){
+    if(state.lat == null || state.lng == null){
+      document.getElementById('qiblaDeg').textContent = 'Set a location';
+      return;
+    }
+    qiblaBearing = bearingToQibla(parseFloat(state.lat), parseFloat(state.lng));
+    document.getElementById('qiblaDeg').textContent = Math.round(qiblaBearing) + '°';
+    document.getElementById('qiblaArrow').style.transform = 'rotate(' + qiblaBearing + 'deg)';
+  }
+
+  document.getElementById('enableCompassBtn').addEventListener('click', function(){
+    var cs = document.getElementById('compassStatus');
+    function attach(){
+      window.addEventListener('deviceorientationabsolute', onOrient, true);
+      window.addEventListener('deviceorientation', onOrient, true);
+      cs.textContent = 'Live compass enabled. Point your phone flat.';
+      cs.className = 'status-msg';
+    }
+    function onOrient(e){
+      var heading = e.webkitCompassHeading != null ? e.webkitCompassHeading : (e.alpha != null ? (360-e.alpha) : null);
+      if(heading == null || qiblaBearing == null) return;
+      var rel = (qiblaBearing - heading + 360) % 360;
+      document.getElementById('qiblaArrow').style.transform = 'rotate(' + rel + 'deg)';
+      document.getElementById('compassCircle').style.transform = 'rotate(' + (-heading) + 'deg)';
+    }
+    if(typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      DeviceOrientationEvent.requestPermission().then(function(perm){
+        if(perm === 'granted') attach();
+        else { cs.textContent = 'Permission denied.'; cs.className = 'status-msg err'; }
+      }).catch(function(){ cs.textContent = 'Compass not available on this device.'; cs.className = 'status-msg err'; });
+    } else if('DeviceOrientationEvent' in window){
+      attach();
+    } else {
+      cs.textContent = 'Live compass not supported here — showing fixed bearing instead.';
+      cs.className = 'status-msg err';
+    }
+  });
+
+  document.querySelectorAll('.nav-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('show'); });
+      document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.add('show');
+    });
+  });
+  document.getElementById('headerSettings').addEventListener('click', function(){
+    document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-tab')==='alerts'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('show'); });
+    document.getElementById('tab-alerts').classList.add('show');
+  });
+
+  document.getElementById('geoBtn').addEventListener('click', function(){
+    if(!navigator.geolocation){ setStatus('Geolocation is not available in this browser.', true); return; }
+    setStatus('Requesting your location…');
+    navigator.geolocation.getCurrentPosition(function(pos){
+      state.mode = 'geo';
+      state.lat = pos.coords.latitude.toFixed(4);
+      state.lng = pos.coords.longitude.toFixed(4);
+      state.method = document.getElementById('method').value;
+      state.lead = document.getElementById('lead').value;
+      loadAll();
+    }, function(){
+      setStatus('Could not get your location. Enter a city instead.', true);
+    }, { timeout: 10000 });
+  });
+
+  document.getElementById('applyCity').addEventListener('click', function(){
+    var city = document.getElementById('city').value.trim();
+    var country = document.getElementById('country').value.trim();
+    if(!city || !country){ setStatus('Enter both a city and a country.', true); return; }
+    state.mode = 'city'; state.city = city; state.country = country;
+    state.method = document.getElementById('method').value;
+    state.lead = document.getElementById('lead').value;
+    loadAll();
+  });
+
+  document.getElementById('soundToggle').addEventListener('click', function(){
+    state.soundOn = !state.soundOn;
+    this.classList.toggle('on', state.soundOn);
+    saveSettings();
+  });
+  document.getElementById('notifToggle').addEventListener('click', function(){
+    var el = this;
+    if(!state.notifOn){
+      if(!window.Notification){ setStatus('Notifications are not supported here.', true); return; }
+      Notification.requestPermission().then(function(perm){
+        state.notifOn = perm === 'granted';
+        el.classList.toggle('on', state.notifOn);
+        saveSettings();
+      });
+    } else {
+      state.notifOn = false;
+      el.classList.remove('on');
+      saveSettings();
+    }
+  });
+
+  (async function init(){
+    await loadSettings();
+    document.getElementById('soundToggle').classList.toggle('on', state.soundOn);
+    document.getElementById('notifToggle').classList.toggle('on', !!(state.notifOn && window.Notification && Notification.permission === 'granted'));
+    document.getElementById('method').value = state.method;
+    document.getElementById('lead').value = state.lead;
+    if(state.city) document.getElementById('city').value = state.city;
+    if(state.country) document.getElementById('country').value = state.country;
+
+    if((state.mode === 'geo' && state.lat) || (state.mode === 'city' && state.city)){
+      loadAll();
+    } else {
+      document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-tab')==='alerts'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('show'); });
+      document.getElementById('tab-alerts').classList.add('show');
+    }
+  })();
+})();
+</script>
+</body>
+</html>
