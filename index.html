@@ -113,15 +113,38 @@
   .toggle .knob{ position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#0F1B14; transition:left .15s ease; }
   .toggle.on .knob{ left:18px; background:#201804; }
 
-  .compass-wrap{ display:flex; flex-direction:column; align-items:center; padding: 10px 0 6px; }
-  .compass-circle{ width:230px; height:230px; border-radius:50%; border:1px solid var(--line); background: var(--card); position:relative; margin-bottom:18px; transition: transform .2s linear; }
-  .compass-n{ position:absolute; top:10px; left:50%; transform:translateX(-50%); font-size:11px; color:var(--sage); letter-spacing:0.1em; }
-  .qibla-arrow{ position:absolute; top:50%; left:50%; width:2px; height:96px; background: var(--gold); transform-origin: bottom center; }
-  .qibla-arrow::before{ content:''; position:absolute; top:-8px; left:-6px; width:0; height:0; border-left:7px solid transparent; border-right:7px solid transparent; border-bottom:12px solid var(--gold); }
-  .compass-center{ position:absolute; top:50%; left:50%; width:8px; height:8px; margin:-4px; border-radius:50%; background: var(--ivory); }
-  .qibla-info{ text-align:center; }
-  .qibla-info .deg{ font-size:26px; font-weight:600; color: var(--gold-soft); }
+  .compass-wrap{ display:flex; flex-direction:column; align-items:center; padding: 6px 0 4px; }
+  .compass-stage{ position:relative; width:264px; height:264px; margin-bottom:6px; }
+  .compass-stage svg{ width:100%; height:100%; display:block; overflow:visible; }
+  .dial-ring{ transition: transform .12s linear; }
+  .tick-major{ stroke: var(--sage); stroke-width:2; }
+  .tick-minor{ stroke: var(--sage-dim); stroke-width:1; }
+  .dial-label{ font-family:'Inter',sans-serif; font-size:13px; font-weight:700; fill: var(--ivory); }
+  .dial-label.n{ fill: var(--gold-soft); }
+  .kaaba-marker circle{ fill: var(--gold); transition: r .2s ease, fill .2s ease; }
+  .kaaba-marker.aligned circle{ fill:#4CD37A; }
+  .kaaba-marker .glow{ opacity:0; fill: #4CD37A; transition: opacity .2s ease; }
+  @keyframes pulseGlow{ 0%{ opacity:0.35; r:16; } 100%{ opacity:0; r:30; } }
+  .kaaba-marker.aligned .glow{ opacity:0.35; animation: pulseGlow 1.4s ease-out infinite; }
+  .fixed-pointer{ fill: var(--gold-soft); transition: fill .2s ease; }
+  .fixed-pointer.aligned{ fill:#4CD37A; }
+  .compass-face{ fill: var(--card); stroke: var(--line); stroke-width:1.5; }
+  .compass-face.aligned{ stroke: #4CD37A; }
+  .compass-center-dot{ fill: var(--ivory); }
+  .heading-readout{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; pointer-events:none; }
+  .heading-readout .deg{ font-size:30px; font-weight:700; color: var(--ivory); font-variant-numeric: tabular-nums; }
+  .heading-readout .cap{ font-size:10px; letter-spacing:0.14em; color: var(--sage); text-transform:uppercase; margin-top:2px; }
+  .compass-status-line{ display:flex; align-items:center; gap:6px; font-size:13px; color:var(--sage); margin:10px 0 2px; min-height:18px; }
+  .compass-status-line.aligned{ color:#4CD37A; font-weight:600; }
+  .accuracy-chip{ display:inline-flex; align-items:center; gap:5px; font-size:11px; color:var(--sage); border:1px solid var(--line); border-radius:20px; padding:4px 10px; margin-top:4px; }
+  .accuracy-chip .dot{ width:6px; height:6px; border-radius:50%; background: var(--sage-dim); }
+  .accuracy-chip .dot.good{ background:#4CD37A; }
+  .accuracy-chip .dot.fair{ background:#D4A843; }
+  .accuracy-chip .dot.poor{ background:#D4756A; }
+  .qibla-info{ text-align:center; margin-top:10px;}
+  .qibla-info .deg{ font-size:22px; font-weight:600; color: var(--gold-soft); }
   .qibla-info .sub{ font-size:12px; color:var(--sage); margin-top:4px; }
+  .calib-tip{ font-size:12px; color:var(--sage); line-height:1.5; text-align:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
 
   .guide-card{ background: var(--card); border:1px solid var(--line); border-radius:18px; padding:16px 18px; margin-bottom:10px; }
   .guide-card .g-top{ display:flex; align-items:baseline; gap:8px; margin-bottom:5px; }
@@ -178,18 +201,28 @@
     <div class="setting-card" style="text-align:center;">
       <h3>Qibla direction</h3>
       <div class="compass-wrap">
-        <div class="compass-circle" id="compassCircle">
-          <div class="compass-n">N</div>
-          <div class="qibla-arrow" id="qiblaArrow"></div>
-          <div class="compass-center"></div>
+        <div class="compass-stage">
+          <svg viewBox="0 0 264 264">
+            <circle class="compass-face" id="compassFace" cx="132" cy="132" r="118"/>
+            <g class="dial-ring" id="dialRing"></g>
+            <polygon class="fixed-pointer" id="fixedPointer" points="132,10 122,32 142,32"/>
+            <circle class="compass-center-dot" cx="132" cy="132" r="4"/>
+          </svg>
+          <div class="heading-readout">
+            <div class="deg" id="headingDeg">--°</div>
+            <div class="cap" id="headingCap">heading</div>
+          </div>
         </div>
+        <div class="compass-status-line" id="compassStatusLine">Enable live compass to begin</div>
+        <div class="accuracy-chip" id="accuracyChip" style="display:none;"><span class="dot" id="accuracyDot"></span><span id="accuracyText">Accuracy unknown</span></div>
         <div class="qibla-info">
           <div class="deg" id="qiblaDeg">—</div>
-          <div class="sub">degrees from true north</div>
+          <div class="sub">Kaaba bearing, degrees from true north</div>
         </div>
       </div>
-      <button class="btn" id="enableCompassBtn" style="margin-top:16px;">Enable live compass</button>
+      <button class="btn primary" id="enableCompassBtn" style="margin-top:16px;">Enable live compass</button>
       <div class="status-msg" id="compassStatus"></div>
+      <div class="calib-tip">If the direction looks off, move your phone in a slow figure-8 a few times to calibrate its magnetic sensor, and keep it away from metal or magnets.</div>
     </div>
   </div>
 
@@ -537,6 +570,62 @@ if('serviceWorker' in navigator){
   }
 
   var qiblaBearing = null;
+  var ALIGN_THRESHOLD = 6; // degrees
+  var wasAligned = false;
+  var DIAL_CX = 132, DIAL_CY = 132, DIAL_R = 118;
+
+  function polar(cx, cy, r, angleDeg){
+    var rad = angleDeg * Math.PI / 180;
+    return { x: cx + r * Math.sin(rad), y: cy - r * Math.cos(rad) };
+  }
+
+  function buildDial(){
+    var g = document.getElementById('dialRing');
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var frag = document.createDocumentFragment();
+    for(var deg=0; deg<360; deg+=15){
+      var isMajor = deg % 90 === 0;
+      var isMid = deg % 45 === 0 && !isMajor;
+      var outer = DIAL_R - 4;
+      var inner = outer - (isMajor ? 16 : isMid ? 11 : 7);
+      var p1 = polar(DIAL_CX, DIAL_CY, outer, deg);
+      var p2 = polar(DIAL_CX, DIAL_CY, inner, deg);
+      var line = document.createElementNS(svgNS,'line');
+      line.setAttribute('x1', p1.x); line.setAttribute('y1', p1.y);
+      line.setAttribute('x2', p2.x); line.setAttribute('y2', p2.y);
+      line.setAttribute('class', isMajor ? 'tick-major' : 'tick-minor');
+      frag.appendChild(line);
+    }
+    var labels = [['N',0,true],['E',90,false],['S',180,false],['W',270,false]];
+    labels.forEach(function(l){
+      var p = polar(DIAL_CX, DIAL_CY, DIAL_R - 32, l[1]);
+      var text = document.createElementNS(svgNS,'text');
+      text.setAttribute('x', p.x); text.setAttribute('y', p.y + 5);
+      text.setAttribute('text-anchor','middle');
+      text.setAttribute('class', 'dial-label' + (l[2] ? ' n' : ''));
+      text.textContent = l[0];
+      frag.appendChild(text);
+    });
+    var marker = document.createElementNS(svgNS,'g');
+    marker.setAttribute('class','kaaba-marker');
+    marker.setAttribute('id','kaabaMarker');
+    var glow = document.createElementNS(svgNS,'circle');
+    glow.setAttribute('class','glow'); glow.setAttribute('r','16'); glow.setAttribute('fill','#4CD37A');
+    var dot = document.createElementNS(svgNS,'circle');
+    dot.setAttribute('r','9'); dot.setAttribute('stroke','#0B2018'); dot.setAttribute('stroke-width','2');
+    marker.appendChild(glow); marker.appendChild(dot);
+    frag.appendChild(marker);
+    g.appendChild(frag);
+  }
+  buildDial();
+
+  function positionKaabaMarker(){
+    if(qiblaBearing == null) return;
+    var p = polar(DIAL_CX, DIAL_CY, DIAL_R - 58, qiblaBearing);
+    var marker = document.getElementById('kaabaMarker');
+    marker.querySelectorAll('circle').forEach(function(c){ c.setAttribute('cx', p.x); c.setAttribute('cy', p.y); });
+  }
+
   function renderCompass(){
     if(state.lat == null || state.lng == null){
       document.getElementById('qiblaDeg').textContent = 'Set a location';
@@ -544,33 +633,106 @@ if('serviceWorker' in navigator){
     }
     qiblaBearing = bearingToQibla(parseFloat(state.lat), parseFloat(state.lng));
     document.getElementById('qiblaDeg').textContent = Math.round(qiblaBearing) + '°';
-    document.getElementById('qiblaArrow').style.transform = 'rotate(' + qiblaBearing + 'deg)';
+    positionKaabaMarker();
+  }
+
+  function getScreenAngle(){
+    if(window.screen && window.screen.orientation && typeof window.screen.orientation.angle === 'number') return window.screen.orientation.angle;
+    if(typeof window.orientation === 'number') return window.orientation;
+    return 0;
+  }
+
+  function setAccuracyChip(level, label){
+    var chip = document.getElementById('accuracyChip');
+    var dot = document.getElementById('accuracyDot');
+    var text = document.getElementById('accuracyText');
+    chip.style.display = 'inline-flex';
+    dot.className = 'dot ' + level;
+    text.textContent = label;
+  }
+
+  function updateCompassVisual(heading){
+    if(qiblaBearing == null) return;
+    document.getElementById('dialRing').setAttribute('transform', 'rotate(' + (-heading) + ' ' + DIAL_CX + ' ' + DIAL_CY + ')');
+    document.getElementById('headingDeg').textContent = Math.round(heading) + '°';
+
+    var diff = Math.abs(qiblaBearing - heading);
+    diff = Math.min(diff, 360 - diff);
+    var aligned = diff <= ALIGN_THRESHOLD;
+
+    document.getElementById('kaabaMarker').classList.toggle('aligned', aligned);
+    document.getElementById('fixedPointer').classList.toggle('aligned', aligned);
+    document.getElementById('compassFace').classList.toggle('aligned', aligned);
+    var statusLine = document.getElementById('compassStatusLine');
+    if(aligned){
+      statusLine.textContent = '✓ Facing the Kaaba';
+      statusLine.classList.add('aligned');
+    } else {
+      statusLine.textContent = 'Rotate to align with the marker';
+      statusLine.classList.remove('aligned');
+    }
+    if(aligned && !wasAligned){
+      if(navigator.vibrate){ try{ navigator.vibrate(120); }catch(e){} }
+    }
+    wasAligned = aligned;
   }
 
   document.getElementById('enableCompassBtn').addEventListener('click', function(){
     var cs = document.getElementById('compassStatus');
+    var usingAbsolute = false;
+
+    function classifyAccuracy(acc){
+      if(acc == null || isNaN(acc)){ setAccuracyChip('', 'Accuracy unknown'); return; }
+      if(acc < 15) setAccuracyChip('good', 'Good accuracy (±' + Math.round(acc) + '°)');
+      else if(acc < 35) setAccuracyChip('fair', 'Fair accuracy (±' + Math.round(acc) + '°) — try calibrating');
+      else setAccuracyChip('poor', 'Low accuracy — calibrate your compass');
+    }
+
+    function onAbsolute(e){
+      usingAbsolute = true;
+      var heading = (360 - e.alpha) % 360;
+      heading = (heading + getScreenAngle() + 360) % 360;
+      updateCompassVisual(heading);
+      classifyAccuracy(null);
+    }
+    function onWebkit(e){
+      if(typeof e.webkitCompassHeading !== 'number') return;
+      usingAbsolute = true;
+      var heading = (e.webkitCompassHeading + getScreenAngle() + 360) % 360;
+      updateCompassVisual(heading);
+      classifyAccuracy(e.webkitCompassAccuracy);
+    }
+    function onRelative(e){
+      if(usingAbsolute) return;
+      if(e.absolute === true){ onAbsolute(e); return; }
+      if(e.alpha == null) return;
+      var heading = (360 - e.alpha) % 360;
+      heading = (heading + getScreenAngle() + 360) % 360;
+      updateCompassVisual(heading);
+      classifyAccuracy(null);
+    }
+
     function attach(){
-      window.addEventListener('deviceorientationabsolute', onOrient, true);
-      window.addEventListener('deviceorientation', onOrient, true);
-      cs.textContent = 'Live compass enabled. Point your phone flat.';
+      window.addEventListener('deviceorientationabsolute', onAbsolute, true);
+      window.addEventListener('deviceorientation', onWebkit, true);
+      window.addEventListener('deviceorientation', onRelative, true);
+      cs.textContent = 'Live compass enabled — hold your phone flat.';
       cs.className = 'status-msg';
+      document.getElementById('enableCompassBtn').textContent = 'Compass active';
+      document.getElementById('enableCompassBtn').disabled = true;
     }
-    function onOrient(e){
-      var heading = e.webkitCompassHeading != null ? e.webkitCompassHeading : (e.alpha != null ? (360-e.alpha) : null);
-      if(heading == null || qiblaBearing == null) return;
-      var rel = (qiblaBearing - heading + 360) % 360;
-      document.getElementById('qiblaArrow').style.transform = 'rotate(' + rel + 'deg)';
-      document.getElementById('compassCircle').style.transform = 'rotate(' + (-heading) + 'deg)';
-    }
+
     if(typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      // iOS 13+ Safari: explicit permission required
       DeviceOrientationEvent.requestPermission().then(function(perm){
         if(perm === 'granted') attach();
-        else { cs.textContent = 'Permission denied.'; cs.className = 'status-msg err'; }
+        else { cs.textContent = 'Permission denied. Allow motion & orientation access in Settings to use the live compass.'; cs.className = 'status-msg err'; }
       }).catch(function(){ cs.textContent = 'Compass not available on this device.'; cs.className = 'status-msg err'; });
     } else if('DeviceOrientationEvent' in window){
+      // Android Chrome / Firefox and other browsers: no permission prompt needed
       attach();
     } else {
-      cs.textContent = 'Live compass not supported here — showing fixed bearing instead.';
+      cs.textContent = 'Live compass not supported in this browser — showing the fixed bearing instead.';
       cs.className = 'status-msg err';
     }
   });
