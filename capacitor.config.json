@@ -1,0 +1,11 @@
+{
+  "appId": "com.myprayers.app",
+  "appName": "My Prayers",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}

@@ -1,9 +1,19 @@
-var CACHE_NAME = 'salah-shell-v1';
+var CACHE_NAME = 'salah-shell-v3';
 var SHELL_FILES = [
+  './',
   './index.html',
   './manifest.json',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './adhan-makkah.mp3',
+  './adhan-madinah.mp3',
+  './adhan-alaqsa.mp3',
+  './adhan-alafasy.mp3',
+  './adhan-abdulbasit.mp3',
+  './adhan-fajr.mp3',
+  './classic-48073.mp3',
+  './classic-phone-25660.mp3',
+  './iphone-ringtone-47958.mp3'
 ];
 
 self.addEventListener('install', function(event){
@@ -40,6 +50,23 @@ self.addEventListener('fetch', function(event){
         return networkResp;
       }).catch(function(){ return cached; });
       return cached || fetchPromise;
+    })
+  );
+});
+
+self.addEventListener('notificationclick', function(event){
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function(clientList){
+      for (var i = 0; i < clientList.length; i++) {
+        var client = clientList[i];
+        if (client.url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow('/');
+      }
     })
   );
 });

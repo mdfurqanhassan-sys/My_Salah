@@ -1,13 +1,13 @@
 {
-  "name": "My Salah",
-  "short_name": "Salah",
-  "description": "Prayer time reminders and Qibla direction",
+  "name": "My Prayers",
+  "short_name": "My Prayers",
+  "description": "Daily prayer times, qibla direction, and silent-mode reminders for every salah.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0B2018",
-  "theme_color": "#0F2B1E",
+  "theme_color": "#07120f",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },

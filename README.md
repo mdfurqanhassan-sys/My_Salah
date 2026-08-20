@@ -1,42 +1,85 @@
-# My Salah — install on Android
+# My Prayers
 
-This is a Progressive Web App (PWA). Android can't install a raw HTML file as
-an app, but once these files are hosted on the web (even for free), Chrome
-will let you install it like a normal app — home screen icon, its own window,
-no address bar.
+Daily prayer times, qibla compass, and salah reminders — as a PWA or a native Android app.
 
-## 1. Host the files (pick one, both are free)
+## Option A — Install as a PWA (fastest)
 
-**GitHub Pages**
-1. Create a new GitHub repo and upload all files in this folder
-   (`index.html`, `manifest.json`, `service-worker.js`, the three icon PNGs).
-2. Go to the repo's Settings → Pages → set source to the `main` branch.
-3. GitHub gives you a URL like `https://yourname.github.io/salah-app/`.
+Android can't install a raw HTML file, but once these files are hosted over HTTPS, Chrome lets you install the app like any other — home screen icon, full screen, no address bar.
 
-**Netlify Drop** (no account needed)
-1. Go to https://app.netlify.com/drop
-2. Drag this whole folder onto the page.
-3. Netlify gives you a live HTTPS URL immediately.
+1. Host the `www` folder (or the project root files) on **GitHub Pages** or **Netlify Drop**.
+2. Open the hosted URL in Chrome on your phone.
+3. Menu → **Install app** / **Add to Home screen**.
 
-A PWA can only be installed from an `https://` URL, not from a file opened
-directly on your phone — that's an Android/Chrome requirement, not something
-this app can work around.
+## Option B — Build a real Android app (APK)
 
-## 2. Install it on your phone
+This project includes a **Capacitor** Android wrapper so you can build an installable `.apk` or publish to the Play Store.
 
-1. Open the hosted URL in Chrome on your Android phone.
-2. Tap the **⋮** menu in the top right.
-3. Tap **Install app** (or **Add to Home screen**).
-4. Confirm — the icon appears on your home screen and opens full-screen,
-   like any other app.
+### What you need
+
+- [Node.js](https://nodejs.org/) (already used for dependencies)
+- [Android Studio](https://developer.android.com/studio) with Android SDK
+- JDK 17+ (bundled with recent Android Studio)
+
+### Build steps
+
+1. Install dependencies (once):
+
+   ```bash
+   npm install
+   ```
+
+2. Sync web files into the Android project:
+
+   ```bash
+   npm run cap:sync
+   ```
+
+3. Open the Android project in Android Studio:
+
+   ```bash
+   npm run android
+   ```
+
+   Or manually: open the `android` folder in Android Studio.
+
+4. In Android Studio: **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
+
+5. Install the APK on your phone (enable “Install unknown apps” if sideloading).
+
+### After editing the app
+
+Edit `index.html` at the project root, then run:
+
+```bash
+npm run cap:sync
+```
+
+Rebuild in Android Studio.
+
+### Android features
+
+- **Location** — used for prayer times and qibla (permissions are in `AndroidManifest.xml`).
+- **Compass** — uses the phone’s orientation sensors in the WebView.
+- **Settings** — saved with `localStorage` on the device.
+- **Notifications** — browser notifications work while the app is open; background push would need extra native plugins later.
+
+## Project layout
+
+| Path | Purpose |
+|------|---------|
+| `index.html` | Main app (edit this) |
+| `www/` | Copy synced into the Android app by Capacitor |
+| `manifest.json` | PWA install metadata |
+| `service-worker.js` | Offline shell caching |
+| `android/` | Native Android Studio project |
+| `capacitor.config.json` | Capacitor settings |
 
 ## Notes
 
-- Prayer times still need an internet connection to fetch (they come from
-  the Aladhan API live each day). The app shell itself (layout, icons, your
-  saved settings) works offline once installed.
-- Your location, reminder toggles, and preferences are stored on your device
-  and carry over between sessions.
-- If you'd rather have a real `.apk`/Play Store listing later, you can feed
-  the hosted URL into https://www.pwabuilder.com, which packages an
-  installed PWA into a signed Android app bundle for you.
+- Prayer times are fetched live from the [Aladhan API](https://aladhan.com/prayer-times-api) — internet is required for daily times.
+- The app shell (UI, icons, saved settings) works offline after first load.
+- For Play Store release, sign the app in Android Studio (**Build → Generate Signed Bundle / APK**).
+
+## Alternative — PWA Builder
+
+If you host the app on HTTPS, you can also package it at [PWABuilder](https://www.pwabuilder.com/) without Android Studio. Capacitor gives you more control and bundles everything locally.
