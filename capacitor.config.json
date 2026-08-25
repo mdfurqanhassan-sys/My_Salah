@@ -7,5 +7,12 @@
   },
   "android": {
     "allowMixedContent": false
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_launcher",
+      "iconColor": "#1db954",
+      "sound": "classic_48073"
+    }
   }
 }
