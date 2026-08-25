@@ -3,6 +3,18 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>My Prayers</title>
+<meta name="description" content="Daily prayer times, luxury Qibla compass, customizable Adhan alarms, and premium themes.">
+<meta property="og:title" content="My Prayers">
+<meta property="og:description" content="Daily prayer times, luxury Qibla compass, customizable Adhan alarms, and premium themes.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#06181b" id="themeMeta">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Prayers">
 <title>My Salah</title>
 <meta name="description" content="Daily prayer times, Qibla compass, Tasbih counter, nearby Masjids, and customizable Adhan alarms.">
 <meta property="og:title" content="My Salah">
@@ -19,6 +31,7 @@
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/jameel-noori-nastaleeq">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Nastaliq+Urdu:wght@400;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -33,6 +46,33 @@
      ROOT VARIABLES & RESET
      ================================================================ */
   :root{
+    --bg-top: #0e2922;
+    --bg-bot: #04120e;
+    --card: rgba(10,26,20,0.78);
+    --card-active: rgba(235,193,93,0.14);
+    --line: rgba(232,203,120,0.16);
+    --line-active: rgba(246,203,87,0.35);
+    --gold: #E7C76C;
+    --gold-soft: #F2D586;
+    --gold-deep: #C59A3F;
+    --cyan-glow: #00F5C4;
+    --cyan-dim: #2DD4BF;
+    --ivory: #F8F2DE;
+    --sage: #B5CEA4;
+    --sage-dim: #8BA679;
+    --accent: #00F5C4;
+    --danger: #E06C75;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; padding:0; height:100%; }
+  body{
+    background: radial-gradient(ellipse 120% 70% at 50% 0%, var(--bg-top) 0%, var(--bg-bot) 75%);
+    background-attachment: fixed;
+    color: var(--ivory);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background .4s cubic-bezier(0.16, 1, 0.3, 1);
     --bg: #080f0a;
     --bg-card: rgba(14,28,18,0.92);
     --bg-card-elevated: #0d1a12;
@@ -77,11 +117,236 @@
   .app{
     max-width: 480px;
     margin: 0 auto;
+    padding: 24px 18px 110px;
     padding: 12px 14px 90px;
     min-height: 100vh;
     position: relative;
   }
 
+  /* Header */
+  header{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .brand h1{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin: 0 0 4px;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+  .loc-row{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    cursor: pointer;
+  }
+  .loc-row svg{ width: 13px; height: 13px; flex-shrink: 0; color: var(--gold); }
+  .settings-icon{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(255,255,255,0.05);
+    color: var(--ivory);
+    flex-shrink: 0;
+    transition: all .2s ease;
+  }
+  .settings-icon svg{ width: 18px; height: 18px; }
+  .settings-icon:active{ transform: scale(0.95); background: rgba(255,255,255,0.1); border-color: var(--gold); }
+
+  /* Cards */
+  .card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 14px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+    transition: all .3s ease;
+  }
+  .card-title{
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0 0 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title svg{ width: 15px; height: 15px; }
+
+  /* Next Prayer Card */
+  .next-card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 22px 20px 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 16px 45px rgba(0,0,0,0.28);
+    position: relative;
+    overflow: hidden;
+  }
+  .next-card::after{
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .next-label{
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .next-name-row{
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .next-name{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--gold);
+    letter-spacing: 0.01em;
+  }
+  .next-name-ar{
+    font-family: 'Amiri', serif;
+    font-size: 19px;
+    color: var(--sage);
+  }
+  .countdown{
+    font-family: 'Inter', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
+    font-variant-numeric: tabular-nums;
+    margin: 4px 0;
+  }
+  .next-at{
+    font-size: 13px;
+    color: var(--sage);
+    margin-top: 4px;
+  }
+
+  /* Prayer Times List */
+  .list{ display: flex; flex-direction: column; gap: 10px; }
+  .row{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 13px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: all .25s ease;
+  }
+  .row.active{
+    background: var(--card-active);
+    border-color: var(--line-active);
+    transform: scale(1.015);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  }
+  .row-left{ display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .row-icon{ width: 22px; height: 22px; color: var(--gold); flex-shrink: 0; opacity: 0.9; }
+  .row-names{ min-width: 0; }
+  .row-name{ font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 700; color: var(--ivory); }
+  .row-name-ar{ font-family: 'Amiri', serif; font-size: 12px; color: var(--sage); margin-top: 1px; }
+  .row-right{ display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .mute-btn{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: var(--sage-dim);
+    cursor: pointer;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s ease;
+  }
+  .mute-btn svg{ width: 16px; height: 16px; }
+  .mute-btn.on{ color: var(--gold); background: rgba(235,193,93,0.12); border-color: var(--line); }
+  .row-time{ font-size: 15px; font-weight: 600; color: var(--ivory); font-variant-numeric: tabular-nums; }
+  .row.active .row-time{ color: var(--gold-soft); font-weight: 700; }
+  .row.sunrise .row-time{ color: var(--sage); font-weight: 500; }
+
+  /* Tab Panels */
+  .tab-panel{ display: none; }
+  .tab-panel.show{ display: block; animation: fadeIn .25s ease; }
+  @keyframes fadeIn{ from{ opacity:0; transform: translateY(6px); } to{ opacity:1; transform: translateY(0); } }
+
+  /* Form & UI Elements */
+  .field{ margin-bottom: 12px; }
+  .field:last-child{ margin-bottom: 0; }
+  .field label{
+    display: block;
+    font-size: 11px;
+    color: var(--sage);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .field input, .field select{
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--line);
+    color: var(--ivory);
+    padding: 11px 13px;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    transition: border-color .2s ease;
+  }
+  .field select option{
+    background: #121e17;
+    color: #fff;
+  }
+  .field input:focus, .field select:focus{
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.08);
+  }
+  .btn{
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.05);
+    color: var(--ivory);
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   /* ================================================================
      HEADER
      ================================================================ */
@@ -981,6 +1246,57 @@
   }
   .btn:active{ transform: scale(0.98); }
   .btn.primary{
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #121810;
+    font-weight: 700;
+  }
+  .btn.primary:hover{ background: var(--gold-soft); }
+  .btn.sm{ padding: 8px 12px; font-size: 12px; border-radius: 9px; }
+  .btn.outline{ background: transparent; border-color: var(--line); color: var(--gold); }
+  .btn.danger{ background: rgba(224,108,117,0.18); border-color: var(--danger); color: #fff; }
+  .btn-row{ display: flex; gap: 10px; }
+  .status-msg{ font-size: 12px; color: var(--sage); margin-top: 10px; min-height: 14px; }
+  .status-msg.err{ color: var(--danger); }
+
+  /* Toggles */
+  .toggle-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+  .toggle-row-text{ display: flex; flex-direction: column; }
+  .toggle-row-title{ font-size: 14px; font-weight: 500; color: var(--ivory); }
+  .toggle-row-desc{ font-size: 11px; color: var(--sage); margin-top: 2px; }
+  .toggle{
+    width: 44px;
+    height: 24px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--line);
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background .2s ease;
+  }
+  .toggle.on{ background: var(--gold); border-color: var(--gold); }
+  .toggle .knob{
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #0F1B14;
+    transition: left .18s cubic-bezier(0.16, 1, 0.3, 1), background .18s ease;
+  }
+  .toggle.on .knob{ left: 22px; background: #1a1708; }
+
+  /* Alarm Tab Styling */
+  .alarm-prayer-card{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
     background: var(--green); border-color: var(--green);
     color: #000; font-weight: 700;
   }
@@ -1030,6 +1346,550 @@
   .alarm-prayer-card:last-child{ margin-bottom: 0; }
   .alarm-prayer-card.disabled{ opacity: 0.55; }
   .alarm-card-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .alarm-card-left{ display: flex; align-items: center; gap: 10px; }
+  .alarm-card-icon{ width: 20px; height: 20px; color: var(--gold); }
+  .alarm-card-title{ font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--ivory); }
+  .alarm-card-time{ font-size: 13px; color: var(--gold-soft); font-weight: 600; margin-left: 6px; font-variant-numeric: tabular-nums; }
+  .alarm-card-controls{
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 8px;
+    align-items: center;
+  }
+  .alarm-sound-wrap{ display: flex; align-items: center; gap: 6px; }
+  .alarm-sound-wrap select{
+    padding: 7px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--line);
+    color: var(--ivory);
+    width: 100%;
+  }
+  .alarm-lead-wrap select{
+    padding: 7px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--line);
+    color: var(--ivory);
+    width: 100%;
+  }
+  .play-preview-btn{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(235,193,93,0.15);
+    border: 1px solid var(--line);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all .2s ease;
+  }
+  .play-preview-btn svg{ width: 14px; height: 14px; }
+  .play-preview-btn.playing{
+    background: var(--gold);
+    color: #1a1708;
+    animation: pulsePlay 1s infinite alternate;
+  }
+  @keyframes pulsePlay{ from{ transform: scale(1); } to{ transform: scale(1.02); } }
+
+  /* Preset Adhan Buttons */
+  .adhan-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .adhan-item-btn{
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 6px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--ivory);
+    transition: all .2s ease;
+  }
+  .adhan-item-btn:hover, .adhan-item-btn.selected{
+    background: var(--card-active);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .adhan-item-title{ font-size: 12px; font-weight: 600; display: block; }
+  .adhan-item-sub{ font-size: 10px; color: var(--sage); display: block; margin-top: 2px; }
+
+  /* Visual Theme Grid */
+  .theme-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .theme-card{
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all .25s ease;
+  }
+  .theme-card:hover{
+    border-color: var(--gold-soft);
+    background: rgba(255,255,255,0.08);
+  }
+  .theme-card.active{
+    background: var(--card-active);
+    border-color: var(--gold);
+    box-shadow: 0 0 12px rgba(231,199,108,0.2);
+  }
+  .theme-card-info{ display: flex; flex-direction: column; gap: 2px; }
+  .theme-card-name{ font-size: 13px; font-weight: 600; color: var(--ivory); }
+  .theme-card.active .theme-card-name{ color: var(--gold); }
+  .theme-swatches{ display: flex; gap: 5px; margin-top: 4px; }
+  .theme-dot{ width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); }
+  .theme-card-check{ color: var(--gold); opacity: 0; transform: scale(0.6); transition: all .2s ease; }
+  .theme-card.active .theme-card-check{ opacity: 1; transform: scale(1); }
+
+  /* ==========================================================================
+     LUXURY QIBLA COMPASS
+     ========================================================================== */
+  .qibla-header{
+    text-align: center;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .qibla-header-title{
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: 0.32em;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+  .qibla-header-ornament{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .qibla-header-ornament .line{
+    height: 1px;
+    width: 38px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .qibla-header-ornament svg{ width: 14px; height: 14px; color: var(--gold); }
+
+  .qibla-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 4px 0 10px;
+  }
+
+  .compass-outer-bezel{
+    position: relative;
+    width: 324px;
+    height: 324px;
+    border-radius: 50%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.65), inset 0 0 25px rgba(0,0,0,0.85), 0 0 35px rgba(45, 212, 191, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #0e272b 0%, #06171a 75%, #02090b 100%);
+    border: 2px solid rgba(231,199,108,0.35);
+    overflow: hidden;
+  }
+
+  .compass-svg{
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  /* Ticks & Labels */
+  .tick-fine{ stroke: rgba(231,199,108,0.35); stroke-width: 1; }
+  .tick-med{ stroke: rgba(231,199,108,0.7); stroke-width: 1.5; }
+  .tick-major{ stroke: var(--gold); stroke-width: 2; }
+  .dial-number{
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    fill: var(--gold-soft);
+  }
+  .dial-cardinal{
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    fill: var(--cyan-glow);
+    filter: drop-shadow(0 0 6px rgba(0,245,196,0.85));
+  }
+
+  /* Islamic Rosette Pattern */
+  .rosette-line{
+    stroke: rgba(45, 212, 191, 0.16);
+    stroke-width: 0.9;
+    fill: none;
+  }
+
+  /* Kaaba 3D Marker on Dial */
+  .kaaba-halo{
+    fill: radial-gradient(circle, rgba(235,180,50,0.85) 0%, transparent 70%);
+    opacity: 0.6;
+    animation: kaabaGlowPulse 2s infinite alternate;
+  }
+  @keyframes kaabaGlowPulse{
+    from{ opacity: 0.5; r: 24; }
+    to{ opacity: 0.9; r: 32; }
+  }
+
+  /* Status Bar */
+  .compass-alignment-status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sage);
+    margin: 14px 0 6px;
+    min-height: 20px;
+    transition: all .2s ease;
+  }
+  .compass-alignment-status.aligned{
+    color: var(--cyan-glow);
+    text-shadow: 0 0 10px rgba(0,245,196,0.6);
+  }
+
+  /* Direction & Distance Cards (Matching Reference Image) */
+  .qibla-info-panel{
+    width: 100%;
+    background: rgba(14, 28, 30, 0.85);
+    border: 1px solid rgba(45, 212, 191, 0.2);
+    border-radius: 24px;
+    padding: 16px 20px;
+    margin-top: 10px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color .3s ease, box-shadow .3s ease;
+  }
+  .qibla-info-panel.aligned{
+    border-color: var(--cyan-glow);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 25px rgba(0,245,196,0.25);
+  }
+
+  .qibla-info-row{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .qibla-info-row:not(:last-child){
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .qibla-badge-icon{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(45, 212, 191, 0.1);
+    border: 1px solid rgba(45, 212, 191, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--gold);
+    box-shadow: inset 0 0 12px rgba(45, 212, 191, 0.15);
+  }
+  .qibla-badge-icon.kaaba-badge{
+    background: rgba(235, 180, 50, 0.12);
+    border-color: rgba(235, 180, 50, 0.35);
+    box-shadow: inset 0 0 12px rgba(235, 180, 50, 0.18);
+  }
+  .qibla-badge-icon svg{ width: 26px; height: 26px; }
+
+  .qibla-text-block{
+    display: flex;
+    flex-direction: column;
+  }
+  .qibla-text-label{
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+  }
+  .qibla-text-val{
+    font-family: 'Outfit', sans-serif;
+    font-size: 25px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .qibla-text-val .sub-arrow{
+    color: var(--gold);
+    display: inline-flex;
+    transform: rotate(45deg);
+  }
+
+  /* Bottom Navigation */
+  nav.bottom{
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(6,18,16,0.94);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: center;
+    z-index: 40;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  nav.bottom .inner{ max-width: 480px; width: 100%; display: flex; }
+  .nav-btn{
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--sage-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 4px 10px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    transition: all .2s ease;
+  }
+  .nav-btn svg{ width: 22px; height: 22px; transition: transform .2s ease; }
+  .nav-btn:active svg{ transform: scale(0.9); }
+  .nav-btn.active{ color: var(--cyan-glow); font-weight: 600; }
+  .nav-btn.active svg{ color: var(--cyan-glow); }
+
+  /* Ringing Alarm Modal / Overlay */
+  .alarm-modal-backdrop{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+  }
+  .alarm-modal-backdrop.show{ opacity: 1; pointer-events: auto; }
+  .alarm-modal-box{
+    background: var(--card);
+    border: 2px solid var(--gold);
+    border-radius: 28px;
+    padding: 30px 24px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(231,199,108,0.25);
+    animation: modalPulse 2s infinite alternate;
+  }
+  @keyframes modalPulse{ from{ transform: scale(1); } to{ transform: scale(1.02); } }
+  .alarm-modal-bell{
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: rgba(231,199,108,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    animation: ringWobble 1s infinite ease-in-out;
+  }
+  .alarm-modal-bell svg{ width: 34px; height: 34px; }
+  @keyframes ringWobble{
+    0%, 100%{ transform: rotate(0deg); }
+    20%, 60%{ transform: rotate(15deg); }
+    40%, 80%{ transform: rotate(-15deg); }
+  }
+  .alarm-modal-title{ font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; color: var(--gold); margin: 0 0 4px; }
+  .alarm-modal-sub{ font-size: 15px; color: var(--sage); margin-bottom: 24px; }
+  .alarm-modal-actions{ display: flex; flex-direction: column; gap: 10px; }
+
+  /* Toast Notification */
+  .banner{
+    position: fixed;
+    left: 50%;
+    bottom: 94px;
+    transform: translateX(-50%) translateY(140%);
+    background: var(--gold);
+    color: #181406;
+    padding: 14px 24px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    transition: transform .45s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 50;
+    max-width: 92vw;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .banner.show{ transform: translateX(-50%) translateY(0); pointer-events: auto; }
+  .banner-close{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* Azkar Styling */
+  .azkar-item{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .azkar-ar{
+    font-family: 'Amiri', serif;
+    font-size: 24px;
+    line-height: 1.8;
+    color: var(--gold-soft);
+    text-align: right;
+    margin-bottom: 12px;
+  }
+  .azkar-en{
+    font-size: 14px;
+    color: var(--sage);
+    line-height: 1.5;
+  }
+  .azkar-translit{
+    font-size: 13px;
+    color: var(--gold-deep);
+    font-style: italic;
+    margin-top: 4px;
+  }
+  .azkar-count{
+    display: inline-block;
+    background: var(--gold);
+    color: #000;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-top: 12px;
+  }
+
+  .cal-card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+  }
+  .cal-hijri-date{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .cal-greg-date{
+    font-size: 15px;
+    color: var(--sage);
+    margin-top: 6px;
+  }
+  .cal-events{
+    margin-top: 20px;
+    text-align: left;
+  }
+  .cal-event-item{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .cal-event-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+  .cal-event-text{ font-size: 14px; color: var(--ivory); }
+
+  /* Settings Modal Overrides */
+  .settings-modal{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 24px 18px 40px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .settings-modal.show{ display: flex; animation: slideUp .3s ease; }
+  @keyframes slideUp{ from{ transform: translateY(100%); } to{ transform: translateY(0); } }
+  .settings-modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .settings-modal-title{ font-size: 20px; font-weight: 700; color: var(--gold); }
+  .close-modal{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .empty{ text-align: center; color: var(--sage); font-size: 14px; padding: 50px 16px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <h1>My Prayers</h1>
+      <div class="loc-row" id="headerLocRow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span id="locLabel">Set location</span>
     display: flex; align-items: center; justify-content: space-between;
   }
   .alarm-card-left{ display: flex; align-items: center; gap: 10px; }
@@ -8652,6 +9512,138 @@ window.TAJWEED_BOOK_PAGES = [
           <strong>Dues (مستحق الحرف):</strong> The conditional characteristics present under specific vowel or neighboring letter rules.
         </div>
 
+  <!-- TAB 1: SALAH / PRAYERS -->
+  <div class="tab-panel show" id="tab-salah">
+    <div id="content">
+      <div class="empty">Set your location in Settings to load today's prayer times.</div>
+    </div>
+  </div>
+
+  <!-- TAB 2: LUXURY QIBLA COMPASS -->
+  <div class="tab-panel" id="tab-compass">
+
+    <!-- Qibla Top Header with Islamic 8-Point Star Ornament -->
+    <div class="qibla-header">
+      <h2 class="qibla-header-title">QIBLA</h2>
+      <div class="qibla-header-ornament">
+        <div class="line"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <polygon points="12 2 15 8 22 8 17 13 19 20 12 16 5 20 7 13 2 8 9 8 12 2"/>
+        </svg>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <!-- Compass Dial Container -->
+    <div class="qibla-container">
+      <div class="compass-outer-bezel">
+        <svg class="compass-svg" viewBox="0 0 324 324" id="compassSvg">
+          <defs>
+            <clipPath id="dialClip">
+              <circle cx="162" cy="162" r="144"/>
+            </clipPath>
+
+            <linearGradient id="cyanNeedleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00F5C4"/>
+              <stop offset="60%" stop-color="#2DD4BF"/>
+              <stop offset="100%" stop-color="#0D9488"/>
+            </linearGradient>
+            <linearGradient id="goldNeedleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFF0B3"/>
+              <stop offset="40%" stop-color="#E7C76C"/>
+              <stop offset="100%" stop-color="#B8860B"/>
+            </linearGradient>
+            <radialGradient id="kaabaHaloGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFD700" stop-opacity="0.9"/>
+              <stop offset="50%" stop-color="#E5A93C" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#E5A93C" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="bezelGold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F2D586"/>
+              <stop offset="50%" stop-color="#8B6508"/>
+              <stop offset="100%" stop-color="#E7C76C"/>
+            </linearGradient>
+            <radialGradient id="centerHubGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#00F5C4"/>
+              <stop offset="40%" stop-color="#0B2F33"/>
+              <stop offset="85%" stop-color="#E7C76C"/>
+              <stop offset="100%" stop-color="#7B5B0F"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Outer Metallic Rings -->
+          <circle cx="162" cy="162" r="156" fill="none" stroke="url(#bezelGold)" stroke-width="2.5"/>
+          <circle cx="162" cy="162" r="150" fill="none" stroke="rgba(45, 212, 191, 0.25)" stroke-width="1.2"/>
+          <circle cx="162" cy="162" r="144" fill="#071b1f" stroke="rgba(231, 199, 108, 0.4)" stroke-width="1"/>
+
+          <!-- Dial Interior (Strictly Clipped) -->
+          <g clip-path="url(#dialClip)">
+
+            <!-- Rotating Dial Group -->
+            <g id="dialRing">
+              <g id="rosetteBg" opacity="0.65"></g>
+              <g id="dialTicks"></g>
+              <circle cx="162" cy="162" r="102" fill="none" stroke="rgba(45, 212, 191, 0.3)" stroke-dasharray="2 4"/>
+
+              <!-- Kaaba 3D Marker on Dial -->
+              <g id="kaabaMarkerOnDial">
+                <circle id="kaabaHaloCircle" cx="162" cy="64" r="24" fill="url(#kaabaHaloGrad)" class="kaaba-halo"/>
+                <g id="kaaba3DModel" transform="translate(147, 49)">
+                  <polygon points="15,29 27,22 15,15 3,22" fill="rgba(0,0,0,0.5)"/>
+                  <polygon points="3,12 15,19 15,29 3,22" fill="#141414"/>
+                  <polygon points="15,19 27,12 27,22 15,29" fill="#222222"/>
+                  <polygon points="15,8 27,12 15,19 3,12" fill="#2E2E2E"/>
+                  <polygon points="3,14.5 15,21.5 15,23.2 3,16.2" fill="#E7C76C"/>
+                  <polygon points="15,21.5 27,14.5 27,16.2 15,23.2" fill="#F2D586"/>
+                  <polygon points="17.5,20 21.5,17.5 21.5,22 17.5,24.5" fill="#F8E5A1"/>
+                  <polygon points="15,8 27,12 25.5,12.7 15,9 4.5,12.7 3,12" fill="#D4AF37"/>
+                </g>
+              </g>
+            </g>
+
+            <!-- Dual-Tone 3D Needle -->
+            <g id="needleAssembly">
+              <g id="northArrowGroup">
+                <polygon points="162,162 153,162 162,56" fill="#00F5C4" filter="drop-shadow(0 0 6px rgba(0,245,196,0.8))"/>
+                <polygon points="162,162 171,162 162,56" fill="#0D9488"/>
+                <line x1="162" y1="162" x2="162" y2="56" stroke="#E6FFFA" stroke-width="1.2"/>
+              </g>
+
+              <g id="kaabaArrowGroup">
+                <polygon points="162,162 153,162 162,268" fill="#F2D586" filter="drop-shadow(0 0 6px rgba(231,199,108,0.7))"/>
+                <polygon points="162,162 171,162 162,268" fill="#B8860B"/>
+                <polygon points="162,278 152,256 162,261 172,256" fill="url(#goldNeedleGrad)"/>
+                <line x1="162" y1="162" x2="162" y2="278" stroke="#FFFDF5" stroke-width="1.2"/>
+              </g>
+
+              <circle cx="162" cy="162" r="14" fill="#0B2F33" stroke="url(#bezelGold)" stroke-width="2.5"/>
+              <circle cx="162" cy="162" r="7" fill="url(#centerHubGrad)" filter="drop-shadow(0 0 4px #00F5C4)"/>
+              <circle cx="162" cy="162" r="2.5" fill="#FFFFFF"/>
+            </g>
+
+          </g>
+        </svg>
+      </div>
+
+      <!-- Live Alignment Status Line -->
+      <div class="compass-alignment-status" id="compassStatusLine">
+        Rotate phone to align with the Kaaba
+      </div>
+
+      <!-- Direction & Distance Cards -->
+      <div class="qibla-info-panel" id="qiblaInfoPanel">
+        <div class="qibla-info-row">
+          <div class="qibla-badge-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 19 21 12 17 5 21 12 2" fill="var(--gold)" stroke="none"/>
+            </svg>
+          </div>
+          <div class="qibla-text-block">
+            <span class="qibla-text-label">Direction:</span>
+            <div class="qibla-text-val">
+              <span id="qiblaDegLarge">—°</span>
+              <span class="sub-arrow">➤</span>
+            </div>
         <h3 class="tj-topic-title">History of Tajweed</h3>
         <p>At the time of the Prophet ﷺ there was no need for people to study Tajweed because they spoke Classical Arabic naturally. As Islam spread and Arabs mixed with non-Arabs, scholars codified Tajweed rules to preserve the exact oral tradition received from Angel Jibreel (AS).</p>
 
@@ -8752,6 +9744,57 @@ window.TAJWEED_BOOK_PAGES = [
           <strong>Technical Meaning (المعنى الاصطلاحي):</strong> إِعْطَاءُ كُلِّ حَرْفٍ حَقَّهُ وَمُسْتَحَقَّهُ (Giving every letter its exact rights, articulation point, and description).
         </div>
 
+        <div class="qibla-info-row">
+          <div class="qibla-badge-icon kaaba-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="12 3 21 8 21 17 12 22 3 17 3 8 12 3" fill="rgba(235,180,50,0.2)"/>
+              <line x1="12" y1="22" x2="12" y2="8" stroke="var(--gold)"/>
+              <line x1="21" y1="8" x2="12" y2="8" stroke="var(--gold)"/>
+              <line x1="3" y1="8" x2="12" y2="8" stroke="var(--gold)"/>
+            </svg>
+          </div>
+          <div class="qibla-text-block">
+            <span class="qibla-text-label">Distance to Kaaba:</span>
+            <div class="qibla-text-val">
+              <span id="kaabaDistance">— km</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calib-tip" style="text-align:center; font-size:12px; color:var(--sage); margin-top:14px;">
+        Hold phone flat. Move in a slow figure-8 motion if calibration is required.
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: ALARM & ADHAN -->
+  <div class="tab-panel" id="tab-alarm">
+
+    <!-- Master Audio & Test Controls -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Alarm Controls
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-row-text">
+          <span class="toggle-row-title">Sound Alarms</span>
+          <span class="toggle-row-desc">Play Adhan or chosen ringtone</span>
+        </div>
+        <div class="toggle" id="soundToggle"><div class="knob"></div></div>
+      </div>
+      <div class="toggle-row" style="margin-top:8px;">
+        <div class="toggle-row-text">
+          <span class="toggle-row-title">Vibration</span>
+          <span class="toggle-row-desc">Haptic feedback when alarm sounds</span>
+        </div>
+        <div class="toggle" id="vibrateToggle"><div class="knob"></div></div>
+      </div>
+      <div class="toggle-row" style="margin-top:8px;">
+        <div class="toggle-row-text">
+          <span class="toggle-row-title">Mobile Notifications</span>
+          <span class="toggle-row-desc">Display alerts in phone notification bar</span>
         <h3 class="tj-topic-title">4 Great Virtues of Tajweed</h3>
         <div class="tj-card-grid">
           <div class="tj-rule-card">
@@ -8771,7 +9814,111 @@ window.TAJWEED_BOOK_PAGES = [
             <p>The Qur'an intercedes for its reciter on the Day of Judgment, leading them to Jannah [Tabarani].</p>
           </div>
         </div>
+        <div class="toggle" id="notifToggle"><div class="knob"></div></div>
       </div>
+      <div style="margin-top:14px; display:flex; gap:10px;">
+        <button class="btn outline" id="testAlarmBtn" style="flex:1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Test Alarm Now
+        </button>
+        <button class="btn outline" id="stopPreviewGlobalBtn" style="width:auto; display:none;" title="Stop playing preview">
+          Stop Audio
+        </button>
+      </div>
+    </div>
+
+    <!-- Per-Prayer Alarm Configuration -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Prayer Alarms & Adhan
+      </div>
+      <div id="alarmPrayersList"></div>
+    </div>
+
+    <!-- Adhan Sound Presets (Using Local High-Quality Bundled MP3s) -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        Adhan Library (Offline & High Quality)
+      </div>
+      <div class="adhan-grid">
+        <div class="adhan-item-btn" data-sound="adhan-makkah.mp3" data-name="Makkah">
+          <span class="adhan-item-title">Makkah</span>
+          <span class="adhan-item-sub">Haram Makkah</span>
+        </div>
+        <div class="adhan-item-btn" data-sound="adhan-madinah.mp3" data-name="Madina">
+          <span class="adhan-item-title">Madina</span>
+          <span class="adhan-item-sub">Haram Madani</span>
+        </div>
+        <div class="adhan-item-btn" data-sound="adhan-alaqsa.mp3" data-name="Al-Aqsa">
+          <span class="adhan-item-title">Al-Aqsa</span>
+          <span class="adhan-item-sub">Jerusalem</span>
+        </div>
+        <div class="adhan-item-btn" data-sound="adhan-alafasy.mp3" data-name="Mishary Alafasy">
+          <span class="adhan-item-title">Alafasy</span>
+          <span class="adhan-item-sub">Mishary Rashid</span>
+        </div>
+        <div class="adhan-item-btn" data-sound="adhan-abdulbasit.mp3" data-name="Abdul Basit">
+          <span class="adhan-item-title">Abdul Basit</span>
+          <span class="adhan-item-sub">Classic Egypt</span>
+        </div>
+        <div class="adhan-item-btn" data-sound="adhan-fajr.mp3" data-name="Fajr Special">
+          <span class="adhan-item-title">Fajr Adhan</span>
+          <span class="adhan-item-sub">As-Salatu Khayr</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="customUrl">Custom Audio URL (.mp3)</label>
+        <div style="display:flex; gap:8px;">
+          <input id="customUrl" type="text" placeholder="https://example.com/audio.mp3" style="flex:1;" />
+          <button class="btn primary" id="saveCustomUrlBtn" style="width:auto; padding:0 16px;">Save</button>
+        </div>
+      </div>
+      <div class="status-msg" id="adhanStatus"></div>
+    </div>
+
+  </div>
+
+  <!-- TAB 4: SETTINGS & THEMES -->
+  <div class="tab-panel" id="tab-settings">
+
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Location
+      </div>
+      <div class="btn-row" style="margin-bottom:12px;">
+        <button class="btn primary" id="geoBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Locate Me (GPS)
+        </button>
+      </div>
+      <div class="field">
+        <label for="city">City</label>
+        <input id="city" type="text" placeholder="e.g. Dammam / London / New York" />
+      </div>
+      <div class="field">
+        <label for="country">Country</label>
+        <input id="country" type="text" placeholder="e.g. Saudi Arabia / UK / USA" />
+      </div>
+      <div class="field">
+        <label for="method">Calculation Method</label>
+        <select id="method">
+          <option value="4">Umm al-Qura, Makkah</option>
+          <option value="2">Islamic Society of North America (ISNA)</option>
+          <option value="3">Muslim World League (MWL)</option>
+          <option value="5">Egyptian General Authority</option>
+          <option value="1">University of Islamic Sciences, Karachi</option>
+          <option value="8">Gulf Region</option>
+          <option value="10">Qatar</option>
+          <option value="11">Singapore (MUIS)</option>
+          <option value="13">Diyanet İşleri Başkanlığı, Turkey</option>
+          <option value="15">Moonsighting Committee Worldwide</option>
+        </select>
+      </div>
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn primary" id="applyCity">Save Location</button>
     `
   },
   {
@@ -8940,6 +10087,29 @@ window.TAJWEED_BOOK_PAGES = [
       <div class="tj-text-page">
         <h2 class="tj-section-heading">Rules of RAA (أحكام الراء)</h2>
 
+    <!-- Visual Themes Selection -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+        App Themes
+      </div>
+      <p style="font-size:12px; color:var(--sage); margin:0 0 10px;">Select your preferred colorway and look:</p>
+      <div class="theme-grid" id="themeGrid"></div>
+    </div>
+
+    <!-- About & App Info -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        About App
+      </div>
+      <p style="font-size:13px; color:var(--sage); line-height:1.5; margin:0 0 8px;">
+        <strong>My Prayers</strong> gives you precise prayer times, luxury live Qibla compass alignment, distance to Kaaba, customizable Adhan alarms, and Android notification drawer alerts.
+      </p>
+      <div style="font-size:11px; color:var(--sage-dim);">Version 2.0 • Android & Web Ready</div>
+    </div>
+
+  </div>
         <div class="tj-card-grid">
           <div class="tj-rule-card">
             <h4 style="color:#ff5252;">Raa is HEAVY (مفخمة) when:</h4>
@@ -9038,6 +10208,45 @@ window.TAJWEED_BOOK_PAGES = [
           <strong>Single Letter:</strong> <strong>ب (Baa)</strong>
         </div>
 
+<!-- Interactive Alarm Ringing Modal / Banner -->
+<div class="alarm-modal-backdrop" id="alarmModal">
+  <div class="alarm-modal-box">
+    <div class="alarm-modal-bell">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <div class="alarm-modal-title" id="alarmModalTitle">Fajr Prayer</div>
+    <div class="alarm-modal-sub" id="alarmModalSub">Time for prayer • حي على الصلاة</div>
+    <div class="alarm-modal-actions">
+      <button class="btn primary" id="alarmDismissBtn">Dismiss Alarm</button>
+      <button class="btn outline" id="alarmSnoozeBtn">Snooze (5 Mins)</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Toast Banner -->
+<div class="banner" id="banner"></div>
+
+<!-- Bottom Navigation Bar (4 tabs: Salah, Compass, Alarm, Settings) -->
+<nav class="bottom">
+  <div class="inner">
+    <button class="nav-btn active" data-tab="salah" id="navSalah">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+      Salah
+    </button>
+    <button class="nav-btn" data-tab="compass" id="navCompass">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>
+      Compass
+    </button>
+    <button class="nav-btn" data-tab="alarm" id="navAlarm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Alarm
+    </button>
+    <button class="nav-btn" data-tab="settings" id="navSettings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h10M17 6h3M4 12h3M9 12h11M4 18h13M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+      Settings
+    </button>
+  </div>
+</nav>
         <h3 class="tj-topic-title">Examples</h3>
         <div class="tj-table-wrap">
           <table class="tj-table">
@@ -9641,6 +10850,212 @@ window.TAJWEED_BOOK_PAGES = [
       <div class="tj-text-page">
         <h2 class="tj-section-heading">Safeer, Leen, and Inhiraf</h2>
 
+(function(){
+  var PRAYER_ORDER = ['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+  var ALL_PRAYERS = ['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha'];
+  var ARABIC = { Fajr:'الفجر', Sunrise:'الشروق', Dhuhr:'الظهر', Asr:'العصر', Maghrib:'المغرب', Isha:'العشاء' };
+
+  var ICONS = {
+    Fajr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 12.5A6.5 6.5 0 1 1 11.5 6a5 5 0 0 0 6.5 6.5Z"/></svg>',
+    Sunrise: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v5M4.2 10.2l1.8 1.8M19.8 10.2 18 12M2 15h20M6 15a6 6 0 0 1 12 0"/></svg>',
+    Dhuhr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="9" r="4"/><path d="M12 1v2M3.5 9h2M6 3.5l1.4 1.4"/><path d="M2 20h20"/></svg>',
+    Asr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="11" r="4"/><path d="M4.5 11h2M6.5 5.5l1.4 1.4"/><path d="M2 20h20"/></svg>',
+    Maghrib: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v6M8 8l4 3 4-3"/><path d="M4 15a8 8 0 0 1 16 0"/><path d="M2 15h20M2 20h20"/></svg>',
+    Isha: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 12.5A6.5 6.5 0 1 1 11.5 6a5 5 0 0 0 6.5 6.5Z"/></svg>'
+  };
+
+  var SPEAKER_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg>';
+  var SPEAKER_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9v6h3l5 4V5L7 9H4z"/><path d="M15 9l5 6M20 9l-5 6"/></svg>';
+  var KAABA = { lat: 21.4225, lng: 39.8262 };
+
+  // 8 Curated Premium Themes
+  var THEMES = {
+    emerald: {
+      name: 'Emerald Gold',
+      swatches: ['#0d2d18', '#E7C76C', '#04120a'],
+      meta: '#04120a',
+      vars: {
+        'bg-top': '#0d2d18', 'bg-bot': '#04120a', 'card': 'rgba(10,26,15,0.78)', 'card-active': 'rgba(235,193,93,0.14)',
+        'line': 'rgba(232,203,120,0.16)', 'line-active': 'rgba(246,203,87,0.35)', 'gold': '#E7C76C', 'gold-soft': '#F2D586',
+        'ivory': '#F8F2DE', 'sage': '#B5CEA4', 'sage-dim': '#8BA679', 'accent': '#00F5C4'
+      }
+    },
+    midnight: {
+      name: 'Midnight Navy',
+      swatches: ['#0f172a', '#38BDF8', '#020617'],
+      meta: '#020617',
+      vars: {
+        'bg-top': '#0f172a', 'bg-bot': '#020617', 'card': 'rgba(15,23,42,0.8)', 'card-active': 'rgba(56,189,248,0.14)',
+        'line': 'rgba(148,163,184,0.18)', 'line-active': 'rgba(56,189,248,0.4)', 'gold': '#38BDF8', 'gold-soft': '#7DD3FC',
+        'ivory': '#F8FAFC', 'sage': '#94A3B8', 'sage-dim': '#64748B', 'accent': '#38BDF8'
+      }
+    },
+    onyx: {
+      name: 'Onyx AMOLED',
+      swatches: ['#000000', '#D4AF37', '#121212'],
+      meta: '#000000',
+      vars: {
+        'bg-top': '#000000', 'bg-bot': '#080808', 'card': 'rgba(22,22,22,0.85)', 'card-active': 'rgba(212,175,55,0.16)',
+        'line': 'rgba(212,175,55,0.22)', 'line-active': 'rgba(212,175,55,0.5)', 'gold': '#D4AF37', 'gold-soft': '#F5DF88',
+        'ivory': '#FFFFFF', 'sage': '#A0A0A0', 'sage-dim': '#707070', 'accent': '#00F5C4'
+      }
+    },
+    amethyst: {
+      name: 'Royal Amethyst',
+      swatches: ['#1f102c', '#D8B4FE', '#0c0414'],
+      meta: '#0c0414',
+      vars: {
+        'bg-top': '#1f102c', 'bg-bot': '#0c0414', 'card': 'rgba(32,15,48,0.8)', 'card-active': 'rgba(216,180,254,0.15)',
+        'line': 'rgba(192,132,252,0.2)', 'line-active': 'rgba(216,180,254,0.45)', 'gold': '#D8B4FE', 'gold-soft': '#E9D5FF',
+        'ivory': '#FAF5FF', 'sage': '#C084FC', 'sage-dim': '#9333EA', 'accent': '#C084FC'
+      }
+    },
+    teal: {
+      name: 'Andalusian Teal',
+      swatches: ['#082f2f', '#2DD4BF', '#021515'],
+      meta: '#021515',
+      vars: {
+        'bg-top': '#082f2f', 'bg-bot': '#021515', 'card': 'rgba(8,47,47,0.8)', 'card-active': 'rgba(45,212,191,0.15)',
+        'line': 'rgba(45,212,191,0.2)', 'line-active': 'rgba(45,212,191,0.45)', 'gold': '#2DD4BF', 'gold-soft': '#5EEAD4',
+        'ivory': '#F0FDFA', 'sage': '#99F6E4', 'sage-dim': '#5EEAD4', 'accent': '#2DD4BF'
+      }
+    },
+    desert: {
+      name: 'Desert Dunes',
+      swatches: ['#432818', '#F59E0B', '#1e0f07'],
+      meta: '#1e0f07',
+      vars: {
+        'bg-top': '#432818', 'bg-bot': '#1e0f07', 'card': 'rgba(67,40,24,0.82)', 'card-active': 'rgba(245,158,11,0.16)',
+        'line': 'rgba(245,158,11,0.22)', 'line-active': 'rgba(245,158,11,0.45)', 'gold': '#F59E0B', 'gold-soft': '#FBBF24',
+        'ivory': '#FFFBEB', 'sage': '#D97706', 'sage-dim': '#B45309', 'accent': '#F59E0B'
+      }
+    },
+    burgundy: {
+      name: 'Burgundy Velvet',
+      swatches: ['#38040e', '#FBBF24', '#140105'],
+      meta: '#140105',
+      vars: {
+        'bg-top': '#38040e', 'bg-bot': '#140105', 'card': 'rgba(56,4,14,0.85)', 'card-active': 'rgba(251,191,36,0.16)',
+        'line': 'rgba(251,191,36,0.22)', 'line-active': 'rgba(251,191,36,0.45)', 'gold': '#FBBF24', 'gold-soft': '#FDE68A',
+        'ivory': '#FFF1F2', 'sage': '#FDA4AF', 'sage-dim': '#F43F5E', 'accent': '#FBBF24'
+      }
+    },
+    nordic: {
+      name: 'Nordic Platinum',
+      swatches: ['#1e293b', '#E2E8F0', '#0f172a'],
+      meta: '#0f172a',
+      vars: {
+        'bg-top': '#1e293b', 'bg-bot': '#0f172a', 'card': 'rgba(30,41,59,0.8)', 'card-active': 'rgba(226,232,240,0.15)',
+        'line': 'rgba(148,163,184,0.22)', 'line-active': 'rgba(226,232,240,0.45)', 'gold': '#E2E8F0', 'gold-soft': '#F8FAFC',
+        'ivory': '#FFFFFF', 'sage': '#94A3B8', 'sage-dim': '#64748B', 'accent': '#38BDF8'
+      }
+    }
+  };
+
+  // Sound Catalog (Local Bundled High Quality Offline MP3s)
+  var SOUND_OPTIONS = [
+    { value: 'adhan-makkah.mp3', label: 'Makkah Adhan (Haram Makkah)' },
+    { value: 'adhan-madinah.mp3', label: 'Madina Adhan (Haram Madani)' },
+    { value: 'adhan-alaqsa.mp3', label: 'Al-Aqsa Adhan (Jerusalem)' },
+    { value: 'adhan-alafasy.mp3', label: 'Mishary Rashid Alafasy' },
+    { value: 'adhan-abdulbasit.mp3', label: 'Sheikh Abdul Basit' },
+    { value: 'adhan-fajr.mp3', label: 'Fajr Special (As-Salatu Khayr)' },
+    { value: 'classic-48073.mp3', label: 'Classic Alarm' },
+    { value: 'iphone-ringtone-47958.mp3', label: 'iPhone Style' },
+    { value: 'classic-phone-25660.mp3', label: 'Phone Bell' },
+    { value: 'chime', label: 'Gentle Chime' }
+  ];
+
+  var LEAD_OPTIONS = [
+    { value: '0', label: 'At prayer time' },
+    { value: '5', label: '5 min early' },
+    { value: '10', label: '10 min early' },
+    { value: '15', label: '15 min early' },
+    { value: '30', label: '30 min early' }
+  ];
+
+  var state = {
+    mode: null, lat: null, lng: null, city: '', country: '',
+    method: '4', theme: 'emerald', soundOn: true, vibrateOn: true, notifOn: true,
+    customSoundUrl: '',
+    prayerConfigs: {
+      Fajr: { enabled: true, sound: 'adhan-fajr.mp3', lead: '0' },
+      Sunrise: { enabled: false, sound: 'chime', lead: '0' },
+      Dhuhr: { enabled: true, sound: 'adhan-makkah.mp3', lead: '0' },
+      Asr: { enabled: true, sound: 'adhan-madinah.mp3', lead: '0' },
+      Maghrib: { enabled: true, sound: 'adhan-alaqsa.mp3', lead: '0' },
+      Isha: { enabled: true, sound: 'adhan-alafasy.mp3', lead: '0' }
+    },
+    firedKeys: {},
+    snoozedUntil: null
+  };
+
+  var timings = null, tomorrowTimings = null, hijri = null, tickHandle = null;
+  var currentPreviewAudio = null;
+  var currentPreviewBtn = null;
+  var activeAlarmAudio = null;
+
+  function applyTheme(themeName){
+    var themeObj = THEMES[themeName] || THEMES.emerald;
+    Object.keys(themeObj.vars).forEach(function(key){
+      document.documentElement.style.setProperty('--' + key, themeObj.vars[key]);
+    });
+    var meta = document.getElementById('themeMeta');
+    if(meta) meta.setAttribute('content', themeObj.meta);
+    state.theme = themeName;
+    renderThemeGrid();
+  }
+
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  function todayKey(){ var d = new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function dmy(d){ return pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear(); }
+  function cleanTime(t){ return t ? t.split(' ')[0] : '00:00'; }
+  function fmt12(dateObj){
+    if(!dateObj || isNaN(dateObj.getTime())) return '--:--';
+    var h = dateObj.getHours(), m = dateObj.getMinutes();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12; if(h12 === 0) h12 = 12;
+    return h12 + ':' + pad(m) + ' ' + ampm;
+  }
+
+  function loadSettings(){
+    try{
+      var raw = localStorage.getItem('salah_app_settings_v2');
+      if(raw){
+        var parsed = JSON.parse(raw);
+        Object.assign(state, parsed);
+      }
+    }catch(e){}
+
+    // Auto migrate any old online URLs to local bundled MP3s
+    ALL_PRAYERS.forEach(function(p){
+      if(!state.prayerConfigs[p]){
+        state.prayerConfigs[p] = { enabled: p !== 'Sunrise', sound: 'adhan-makkah.mp3', lead: '0' };
+      } else {
+        var s = state.prayerConfigs[p].sound || '';
+        if(s.indexOf('islamcan.com') !== -1 || s.indexOf('archive.org') !== -1){
+          if(p === 'Fajr') state.prayerConfigs[p].sound = 'adhan-fajr.mp3';
+          else if(p === 'Dhuhr') state.prayerConfigs[p].sound = 'adhan-makkah.mp3';
+          else if(p === 'Asr') state.prayerConfigs[p].sound = 'adhan-madinah.mp3';
+          else if(p === 'Maghrib') state.prayerConfigs[p].sound = 'adhan-alaqsa.mp3';
+          else if(p === 'Isha') state.prayerConfigs[p].sound = 'adhan-alafasy.mp3';
+          else state.prayerConfigs[p].sound = 'adhan-makkah.mp3';
+        }
+      }
+    });
+
+    state.theme = THEMES[state.theme] ? state.theme : 'emerald';
+    applyTheme(state.theme);
+  }
+
+  function saveSettings(){
+    try{
+      localStorage.setItem('salah_app_settings_v2', JSON.stringify({
+        mode: state.mode, lat: state.lat, lng: state.lng, city: state.city, country: state.country,
+        method: state.method, theme: state.theme, soundOn: state.soundOn, vibrateOn: state.vibrateOn,
+        notifOn: state.notifOn, customSoundUrl: state.customSoundUrl, prayerConfigs: state.prayerConfigs
+      }));
+    }catch(e){}
         <div class="tj-card-grid">
           <div class="tj-rule-card">
             <h4>2. As-Safeer (الصَّفِير - Whistle)</h4>
@@ -9730,6 +11145,241 @@ window.TAJWEED_BOOK_PAGES = [
   }
 ];
 
+  function setStatus(msg, isErr){
+    var el = document.getElementById('statusMsg');
+    if(!el) return;
+    el.textContent = msg || '';
+    el.className = 'status-msg' + (isErr ? ' err' : '');
+  }
+
+  var bannerTimeout = null;
+  function showBanner(text){
+    var b = document.getElementById('banner');
+    if(!b) return;
+    b.textContent = text; b.classList.add('show');
+    if(bannerTimeout) clearTimeout(bannerTimeout);
+    bannerTimeout = setTimeout(function(){ b.classList.remove('show'); bannerTimeout = null; }, 4000);
+  }
+
+  // =========================================================================
+  // MOBILE SYSTEM NOTIFICATIONS (ANDROID & WEB)
+  // =========================================================================
+  function initMobileNotifications(){
+    if(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications){
+      try{
+        window.Capacitor.Plugins.LocalNotifications.createChannel({
+          id: 'salah_alarms',
+          name: 'Salah Prayer Alarms',
+          description: 'Prayer time alerts and Adhan alarms',
+          importance: 5,
+          visibility: 1,
+          sound: 'classic_48073.mp3',
+          vibration: true
+        }).catch(function(){});
+        window.Capacitor.Plugins.LocalNotifications.requestPermissions();
+      }catch(e){}
+    } else if(window.Notification && Notification.permission === 'default'){
+      try{ Notification.requestPermission(); }catch(e){}
+    }
+  }
+
+  function sendMobileNotification(title, body){
+    if(!state.notifOn) return;
+
+    if(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications){
+      try{
+        window.Capacitor.Plugins.LocalNotifications.schedule({
+          notifications: [{
+            id: Math.floor(Math.random() * 1000000),
+            title: title,
+            body: body,
+            channelId: 'salah_alarms',
+            smallIcon: 'ic_launcher',
+            iconColor: '#E7C76C',
+            schedule: { at: new Date(Date.now() + 100) },
+            sound: 'classic_48073.mp3'
+          }]
+        });
+        return;
+      }catch(e){}
+    }
+
+    if('serviceWorker' in navigator && navigator.serviceWorker.ready){
+      navigator.serviceWorker.ready.then(function(reg){
+        reg.showNotification(title, {
+          body: body,
+          icon: 'icon-192.png',
+          badge: 'icon-192.png',
+          vibrate: [400, 200, 400, 200, 600],
+          tag: 'salah-prayer-alarm',
+          renotify: true,
+          requireInteraction: true
+        });
+      }).catch(function(){
+        if(window.Notification && Notification.permission === 'granted'){
+          try{ new Notification(title, { body: body, icon: 'icon-192.png' }); }catch(e){}
+        }
+      });
+    } else if(window.Notification && Notification.permission === 'granted'){
+      try{ new Notification(title, { body: body, icon: 'icon-192.png' }); }catch(e){}
+    }
+  }
+
+  // Audio Playback
+  function playWebAudioChime(){
+    try{
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      [880, 660, 440].forEach(function(freq, i){
+        var osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.type = 'sine'; osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, ctx.currentTime + i*0.28);
+        gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + i*0.28 + 0.05);
+        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + i*0.28 + 0.5);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + i*0.28); osc.stop(ctx.currentTime + i*0.28 + 0.55);
+      });
+    }catch(e){}
+  }
+
+  function stopAllAudio(){
+    if(currentPreviewAudio){
+      try{ currentPreviewAudio.pause(); currentPreviewAudio.currentTime = 0; }catch(e){}
+      currentPreviewAudio = null;
+    }
+    if(activeAlarmAudio){
+      try{ activeAlarmAudio.pause(); activeAlarmAudio.currentTime = 0; }catch(e){}
+      activeAlarmAudio = null;
+    }
+    if(currentPreviewBtn){
+      currentPreviewBtn.classList.remove('playing');
+      currentPreviewBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+      currentPreviewBtn = null;
+    }
+    var stopBtn = document.getElementById('stopPreviewGlobalBtn');
+    if(stopBtn) stopBtn.style.display = 'none';
+  }
+
+  function playSoundSource(src, onEndedCallback){
+    stopAllAudio();
+    if(!src || src === 'chime'){
+      playWebAudioChime();
+      if(onEndedCallback) setTimeout(onEndedCallback, 1500);
+      return null;
+    }
+    try{
+      var audio = new Audio(src);
+      audio.play().then(function(){
+        var stopBtn = document.getElementById('stopPreviewGlobalBtn');
+        if(stopBtn) stopBtn.style.display = 'inline-flex';
+      }).catch(function(e){
+        console.warn('Audio play failed, fallback to chime', e);
+        playWebAudioChime();
+      });
+      audio.onended = function(){
+        stopAllAudio();
+        if(onEndedCallback) onEndedCallback();
+      };
+      return audio;
+    }catch(e){
+      playWebAudioChime();
+      return null;
+    }
+  }
+
+  function triggerAlarm(prayerName, isTest){
+    if(state.vibrateOn && navigator.vibrate){
+      try{ navigator.vibrate([400, 200, 400, 200, 600]); }catch(e){}
+    }
+
+    var sound = 'adhan-makkah.mp3';
+    if(state.prayerConfigs[prayerName] && state.prayerConfigs[prayerName].sound){
+      sound = state.prayerConfigs[prayerName].sound;
+    }
+    if(state.soundOn){
+      activeAlarmAudio = playSoundSource(sound);
+    }
+
+    var notifTitle = (isTest ? 'Test Alarm: ' : '') + prayerName + ' Prayer';
+    var notifBody = ARABIC[prayerName] ? ('Time for ' + prayerName + ' • ' + ARABIC[prayerName]) : 'Time for prayer';
+    sendMobileNotification(notifTitle, notifBody);
+
+    var modal = document.getElementById('alarmModal');
+    var titleEl = document.getElementById('alarmModalTitle');
+    var subEl = document.getElementById('alarmModalSub');
+    if(modal && titleEl && subEl){
+      titleEl.textContent = notifTitle;
+      subEl.textContent = notifBody;
+      modal.classList.add('show');
+    }
+  }
+
+  function dismissAlarm(){
+    stopAllAudio();
+    var modal = document.getElementById('alarmModal');
+    if(modal) modal.classList.remove('show');
+    showBanner('Alarm dismissed');
+  }
+
+  function snoozeAlarm(mins){
+    stopAllAudio();
+    var modal = document.getElementById('alarmModal');
+    if(modal) modal.classList.remove('show');
+    state.snoozedUntil = Date.now() + (mins || 5) * 60000;
+    showBanner('Snoozed for ' + (mins || 5) + ' minutes');
+  }
+
+  // Geodesic Distance to Kaaba in kilometers (Haversine formula)
+  function calcDistanceToKaaba(lat, lng){
+    var R = 6371;
+    var lat1 = lat * Math.PI / 180;
+    var lon1 = lng * Math.PI / 180;
+    var lat2 = KAABA.lat * Math.PI / 180;
+    var lon2 = KAABA.lng * Math.PI / 180;
+    var dLat = lat2 - lat1;
+    var dLon = lon2 - lon1;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1) * Math.cos(lat2) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return Math.round(R * c);
+  }
+
+  function bearingToQibla(lat, lng){
+    var phi1 = lat*Math.PI/180, phi2 = KAABA.lat*Math.PI/180;
+    var dLambda = (KAABA.lng-lng)*Math.PI/180;
+    var y = Math.sin(dLambda)*Math.cos(phi2);
+    var x = Math.cos(phi1)*Math.sin(phi2) - Math.sin(phi1)*Math.cos(phi2)*Math.cos(dLambda);
+    var theta = Math.atan2(y,x)*180/Math.PI;
+    return (theta+360)%360;
+  }
+
+  async function loadCityFromCoords(){
+    if(!state.lat || !state.lng) return;
+    try{
+      var resp = await fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + state.lat + '&lon=' + state.lng + '&accept-language=en');
+      if(!resp.ok) return;
+      var data = await resp.json();
+      var addr = data.address || {};
+      var city = addr.city || addr.town || addr.village || addr.hamlet || addr.state || addr.region;
+      if(city) state.city = city;
+      if(addr.country) state.country = addr.country;
+    }catch(e){}
+  }
+
+  async function fetchTimings(dateObj){
+    var dateStr = dmy(dateObj);
+    var url;
+    if(state.mode === 'geo'){
+      url = 'https://api.aladhan.com/v1/timings/' + dateStr + '?latitude=' + state.lat + '&longitude=' + state.lng + '&method=' + state.method;
+    } else {
+      url = 'https://api.aladhan.com/v1/timingsByCity/' + dateStr + '?city=' + encodeURIComponent(state.city) + '&country=' + encodeURIComponent(state.country) + '&method=' + state.method;
+    }
+    var resp = await fetch(url);
+    if(!resp.ok) throw new Error('Request failed');
+    var json = await resp.json();
+    if(json.code !== 200) throw new Error('Could not find that location');
+    return json.data;
+  }
 
 
   // =========================================================================
@@ -9741,6 +11391,60 @@ window.TAJWEED_BOOK_PAGES = [
     bookmarks: []
   };
 
+  async function loadAll(){
+    setStatus('Loading prayer times…');
+    try{
+      if(state.mode === 'geo' && (!state.city || !state.country)){
+        await loadCityFromCoords();
+      }
+      var now = new Date();
+      var tomorrow = new Date(now); tomorrow.setDate(tomorrow.getDate()+1);
+      var todayData = await fetchTimings(now);
+      var tmrwData = await fetchTimings(tomorrow);
+      timings = todayData.timings;
+      tomorrowTimings = tmrwData.timings;
+      hijri = todayData.date.hijri;
+      
+      if(todayData.meta && todayData.meta.latitude && todayData.meta.longitude){
+        state.lat = todayData.meta.latitude;
+        state.lng = todayData.meta.longitude;
+      }
+
+      var locLabel = document.getElementById('locLabel');
+      if(locLabel){
+        if(state.mode === 'geo'){
+          locLabel.textContent = state.city ? state.city + (state.country ? ', ' + state.country : '') : 'Current location';
+        } else {
+          locLabel.textContent = state.city + (state.country ? ', ' + state.country : '');
+        }
+      }
+      setStatus('');
+      renderSalah();
+      renderAlarmTab();
+      renderCompass();
+      startTicking();
+      saveSettings();
+    }catch(e){
+      setStatus(e.message || 'Could not load prayer times. Check the spelling and try again.', true);
+    }
+  }
+
+  function getPrayerDate(name, useTomorrow){
+    var src = useTomorrow ? tomorrowTimings : timings;
+    if(!src || !src[name]) return new Date();
+    var base = new Date();
+    if(useTomorrow) base.setDate(base.getDate()+1);
+    return timeToDate(base, src[name]);
+  }
+
+  function nextPrayerInfo(){
+    var now = new Date();
+    for(var i=0; i<PRAYER_ORDER.length; i++){
+      var d = getPrayerDate(PRAYER_ORDER[i], false);
+      if(d > now) return { name: PRAYER_ORDER[i], time: d, isTomorrow: false };
+    }
+    return { name: 'Fajr', time: getPrayerDate('Fajr', true), isTomorrow: true };
+  }
   function loadTajweedState(){
     try {
       var saved = localStorage.getItem('salah_app_tajweed_v1');
@@ -9767,6 +11471,229 @@ window.TAJWEED_BOOK_PAGES = [
     var canvas = document.getElementById('tajweedPageCanvas');
     if(!canvas) return;
 
+  function renderSalah(){
+    if(!timings) return;
+    var nextInfo = nextPrayerInfo();
+    var now = new Date();
+    var msLeft = nextInfo.time - now;
+    var nextTimeStr = nextInfo.isTomorrow ? fmt12(getPrayerDate('Fajr', true)) : fmt12(timeToDate(now, timings[nextInfo.name]));
+
+    var html = '';
+    html += '<div class="next-card">';
+    html += '<div class="next-label">Next prayer</div>';
+    html += '<div class="next-name-row"><span class="next-name">' + nextInfo.name + '</span><span class="next-name-ar">' + (ARABIC[nextInfo.name]||'') + '</span></div>';
+    html += '<div class="countdown">' + fmtCountdown(msLeft) + '</div>';
+    html += '<div class="next-at">at ' + nextTimeStr + '</div>';
+    html += '</div>';
+
+    html += '<div class="list">';
+    ALL_PRAYERS.forEach(function(name){
+      var d = timeToDate(now, timings[name]);
+      var isActive = name === nextInfo.name && !nextInfo.isTomorrow;
+      var isSunrise = name === 'Sunrise';
+      var conf = state.prayerConfigs[name] || { enabled: true };
+      var on = !!conf.enabled;
+
+      html += '<div class="row ' + (isActive?'active':'') + ' ' + (isSunrise?'sunrise':'') + '">';
+      html += '<div class="row-left"><div class="row-icon">' + ICONS[name] + '</div>';
+      html += '<div class="row-names"><div class="row-name">' + name + '</div><div class="row-name-ar">' + ARABIC[name] + '</div></div></div>';
+      html += '<div class="row-right">';
+      if(!isSunrise){
+        html += '<button class="mute-btn ' + (on?'on':'') + '" data-prayer="' + name + '" title="' + (on?'Mute':'Unmute') + '">' + (on ? SPEAKER_ON : SPEAKER_OFF) + '</button>';
+      }
+      html += '<div class="row-time">' + fmt12(d) + '</div>';
+      html += '</div></div>';
+    });
+    html += '</div>';
+
+    var container = document.getElementById('content');
+    if(container) container.innerHTML = html;
+
+    document.querySelectorAll('.mute-btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var prayer = btn.getAttribute('data-prayer');
+        if(state.prayerConfigs[prayer]){
+          state.prayerConfigs[prayer].enabled = !state.prayerConfigs[prayer].enabled;
+          var on = state.prayerConfigs[prayer].enabled;
+          btn.classList.toggle('on', on);
+          btn.innerHTML = on ? SPEAKER_ON : SPEAKER_OFF;
+          saveSettings();
+          renderAlarmTab();
+          showBanner(prayer + (on ? ' alarm enabled' : ' muted'));
+        }
+      });
+    });
+  }
+
+  function renderAlarmTab(){
+    var list = document.getElementById('alarmPrayersList');
+    if(!list) return;
+    var now = new Date();
+    var html = '';
+
+    ALL_PRAYERS.forEach(function(name){
+      var conf = state.prayerConfigs[name] || { enabled: name !== 'Sunrise', sound: 'adhan-makkah.mp3', lead: '0' };
+      var timeStr = timings && timings[name] ? fmt12(timeToDate(now, timings[name])) : '--:--';
+      var on = !!conf.enabled;
+
+      html += '<div class="alarm-prayer-card ' + (on ? '' : 'disabled') + '" id="alarmCard_' + name + '">';
+
+      html += '<div class="alarm-card-header">';
+      html += '<div class="alarm-card-left">';
+      html += '<div class="alarm-card-icon">' + ICONS[name] + '</div>';
+      html += '<div><span class="alarm-card-title">' + name + '</span> <span style="font-family:Amiri,serif; font-size:13px; color:var(--sage);">' + ARABIC[name] + '</span><span class="alarm-card-time">' + timeStr + '</span></div>';
+      html += '</div>';
+      html += '<div class="toggle ' + (on ? 'on' : '') + '" data-toggle-prayer="' + name + '"><div class="knob"></div></div>';
+      html += '</div>';
+
+      html += '<div class="alarm-card-controls">';
+
+      html += '<div class="alarm-sound-wrap">';
+      html += '<select data-prayer-sound="' + name + '">';
+      SOUND_OPTIONS.forEach(function(s){
+        var sel = conf.sound === s.value ? 'selected' : '';
+        html += '<option value="' + s.value + '" ' + sel + '>' + s.label + '</option>';
+      });
+      if(state.customSoundUrl && !SOUND_OPTIONS.some(function(o){ return o.value === state.customSoundUrl; })){
+        var selCustom = conf.sound === state.customSoundUrl ? 'selected' : '';
+        html += '<option value="' + state.customSoundUrl + '" ' + selCustom + '>Custom Sound</option>';
+      }
+      html += '</select>';
+      html += '<button class="play-preview-btn" data-preview-prayer="' + name + '" title="Preview Sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>';
+      html += '</div>';
+
+      html += '<div class="alarm-lead-wrap">';
+      html += '<select data-prayer-lead="' + name + '">';
+      LEAD_OPTIONS.forEach(function(l){
+        var sel = conf.lead === l.value ? 'selected' : '';
+        html += '<option value="' + l.value + '" ' + sel + '>' + l.label + '</option>';
+      });
+      html += '</select>';
+      html += '</div>';
+
+      html += '</div>';
+      html += '</div>';
+    });
+
+    list.innerHTML = html;
+
+    list.querySelectorAll('[data-toggle-prayer]').forEach(function(el){
+      el.addEventListener('click', function(){
+        var prayer = el.getAttribute('data-toggle-prayer');
+        var card = document.getElementById('alarmCard_' + prayer);
+        state.prayerConfigs[prayer].enabled = !state.prayerConfigs[prayer].enabled;
+        var on = state.prayerConfigs[prayer].enabled;
+        el.classList.toggle('on', on);
+        if(card) card.classList.toggle('disabled', !on);
+        saveSettings();
+        renderSalah();
+        showBanner(prayer + (on ? ' alarm enabled' : ' alarm disabled'));
+      });
+    });
+
+    list.querySelectorAll('[data-prayer-sound]').forEach(function(sel){
+      sel.addEventListener('change', function(){
+        var prayer = sel.getAttribute('data-prayer-sound');
+        state.prayerConfigs[prayer].sound = sel.value;
+        saveSettings();
+        showBanner(prayer + ' sound updated');
+      });
+    });
+
+    list.querySelectorAll('[data-prayer-lead]').forEach(function(sel){
+      sel.addEventListener('change', function(){
+        var prayer = sel.getAttribute('data-prayer-lead');
+        state.prayerConfigs[prayer].lead = sel.value;
+        saveSettings();
+        showBanner(prayer + ' reminder time set');
+      });
+    });
+
+    list.querySelectorAll('[data-preview-prayer]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var prayer = btn.getAttribute('data-preview-prayer');
+        var sound = state.prayerConfigs[prayer].sound;
+
+        if(btn.classList.contains('playing')){
+          stopAllAudio();
+          return;
+        }
+
+        stopAllAudio();
+        btn.classList.add('playing');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+        currentPreviewBtn = btn;
+        currentPreviewAudio = playSoundSource(sound, function(){
+          btn.classList.remove('playing');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+        });
+      });
+    });
+  }
+
+  function renderThemeGrid(){
+    var container = document.getElementById('themeGrid');
+    if(!container) return;
+    var html = '';
+    Object.keys(THEMES).forEach(function(key){
+      var t = THEMES[key];
+      var isActive = state.theme === key;
+      html += '<div class="theme-card ' + (isActive ? 'active' : '') + '" data-theme-key="' + key + '">';
+      html += '<div class="theme-card-info">';
+      html += '<span class="theme-card-name">' + t.name + '</span>';
+      html += '<div class="theme-swatches">';
+      t.swatches.forEach(function(col){
+        html += '<span class="theme-dot" style="background:' + col + ';"></span>';
+      });
+      html += '</div></div>';
+      html += '<div class="theme-card-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></div>';
+      html += '</div>';
+    });
+    container.innerHTML = html;
+
+    container.querySelectorAll('.theme-card').forEach(function(card){
+      card.addEventListener('click', function(){
+        var key = card.getAttribute('data-theme-key');
+        applyTheme(key);
+        saveSettings();
+        showBanner('Theme: ' + THEMES[key].name);
+      });
+    });
+  }
+
+  function updateTick(){
+    if(!timings) return;
+    var nextInfo = nextPrayerInfo();
+    var now = new Date();
+    var msLeft = nextInfo.time - now;
+    var el = document.querySelector('.countdown');
+    if(el) el.textContent = fmtCountdown(msLeft);
+    checkAlarms(now);
+  }
+
+  function checkAlarms(now){
+    if(state.snoozedUntil && now.getTime() >= state.snoozedUntil){
+      state.snoozedUntil = null;
+      triggerAlarm('Prayer (Snoozed)', false);
+    }
+
+    ALL_PRAYERS.forEach(function(name){
+      var conf = state.prayerConfigs[name];
+      if(!conf || !conf.enabled) return;
+      var d = getPrayerDate(name, false);
+      var lead = parseInt(conf.lead || '0', 10);
+      var target = new Date(d.getTime() - lead*60000);
+      var diff = target - now;
+      var key = todayKey() + '-' + name + '-' + lead;
+
+      if(diff <= 0 && diff > -60000 && !state.firedKeys[key]){
+        state.firedKeys[key] = true;
+        var msg = lead === 0 ? (name + ' — Time to pray') : (name + ' in ' + lead + ' minutes');
+        showBanner(msg);
+        triggerAlarm(name, false);
+      }
+    });
     var pageData = window.TAJWEED_BOOK_PAGES ? window.TAJWEED_BOOK_PAGES[pageNum - 1] : null;
     if(pageData && pageData.html){
       canvas.innerHTML = pageData.html;
@@ -9813,6 +11740,137 @@ window.TAJWEED_BOOK_PAGES = [
     applyTajweedZoom();
   }
 
+  // =========================================================================
+  // LUXURY COMPASS (ALWAYS ACTIVE & GEOMETRICALLY CLIPPED)
+  // =========================================================================
+  var qiblaBearing = 145;
+  var wasAligned = false;
+  var DIAL_CX = 162, DIAL_CY = 162, DIAL_R = 144;
+
+  function polar(cx, cy, r, angleDeg){
+    var rad = angleDeg * Math.PI / 180;
+    return { x: cx + r * Math.sin(rad), y: cy - r * Math.cos(rad) };
+  }
+
+  function buildLuxuryDial(){
+    var svgNS = 'http://www.w3.org/2000/svg';
+
+    var rosetteGroup = document.getElementById('rosetteBg');
+    if(rosetteGroup && !rosetteGroup.hasChildNodes()){
+      var rFrag = document.createDocumentFragment();
+      var numPetals = 16;
+      for(var i=0; i<numPetals; i++){
+        var angle = (i * 360) / numPetals;
+        var p = polar(DIAL_CX, DIAL_CY, 48, angle);
+        var circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', p.x);
+        circle.setAttribute('cy', p.y);
+        circle.setAttribute('r', '48');
+        circle.setAttribute('class', 'rosette-line');
+        rFrag.appendChild(circle);
+      }
+      [24, 48, 72, 96].forEach(function(rad){
+        var c = document.createElementNS(svgNS, 'circle');
+        c.setAttribute('cx', DIAL_CX); c.setAttribute('cy', DIAL_CY);
+        c.setAttribute('r', rad);
+        c.setAttribute('class', 'rosette-line');
+        rFrag.appendChild(c);
+      });
+      rosetteGroup.appendChild(rFrag);
+    }
+
+    var ticksGroup = document.getElementById('dialTicks');
+    if(ticksGroup && !ticksGroup.hasChildNodes()){
+      var tFrag = document.createDocumentFragment();
+
+      var DEG_NUMBERS = [
+        { deg: 0, text: '0' },
+        { deg: 45, text: '45' },
+        { deg: 90, text: '90' },
+        { deg: 135, text: '135' },
+        { deg: 180, text: '180' },
+        { deg: 225, text: '225' },
+        { deg: 270, text: '270' },
+        { deg: 315, text: '315' }
+      ];
+
+      var CARDINALS = [
+        { deg: 0, label: 'N' },
+        { deg: 90, label: 'E' },
+        { deg: 180, label: 'S' },
+        { deg: 270, label: 'W' }
+      ];
+
+      for(var deg=0; deg<360; deg+=3){
+        var isCardinal = deg % 90 === 0;
+        var isMajor = deg % 45 === 0 && !isCardinal;
+        var isMed = deg % 15 === 0 && !isMajor && !isCardinal;
+
+        var outerR = DIAL_R - 3;
+        var innerR = outerR - (isCardinal ? 14 : isMajor ? 10 : isMed ? 7 : 4);
+        var p1 = polar(DIAL_CX, DIAL_CY, outerR, deg);
+        var p2 = polar(DIAL_CX, DIAL_CY, innerR, deg);
+
+        var line = document.createElementNS(svgNS, 'line');
+        line.setAttribute('x1', p1.x); line.setAttribute('y1', p1.y);
+        line.setAttribute('x2', p2.x); line.setAttribute('y2', p2.y);
+        line.setAttribute('class', isCardinal || isMajor ? 'tick-major' : isMed ? 'tick-med' : 'tick-fine');
+        tFrag.appendChild(line);
+      }
+
+      DEG_NUMBERS.forEach(function(item){
+        var p = polar(DIAL_CX, DIAL_CY, DIAL_R - 22, item.deg);
+        var txt = document.createElementNS(svgNS, 'text');
+        txt.setAttribute('x', p.x);
+        txt.setAttribute('y', p.y + 4);
+        txt.setAttribute('text-anchor', 'middle');
+        txt.setAttribute('class', 'dial-number');
+        txt.textContent = item.text;
+        tFrag.appendChild(txt);
+      });
+
+      CARDINALS.forEach(function(item){
+        var p = polar(DIAL_CX, DIAL_CY, DIAL_R - 38, item.deg);
+        var txt = document.createElementNS(svgNS, 'text');
+        txt.setAttribute('x', p.x);
+        txt.setAttribute('y', p.y + 5);
+        txt.setAttribute('text-anchor', 'middle');
+        txt.setAttribute('class', 'dial-cardinal');
+        txt.textContent = item.label;
+        tFrag.appendChild(txt);
+      });
+
+      ticksGroup.appendChild(tFrag);
+    }
+  }
+
+  function positionKaabaOnDial(angleDeg){
+    var kaabaG = document.getElementById('kaabaMarkerOnDial');
+    if(kaabaG){
+      kaabaG.setAttribute('transform', 'rotate(' + angleDeg + ' 162 162)');
+    }
+  }
+
+  function renderCompass(){
+    if(state.lat == null || state.lng == null){
+      var degEl = document.getElementById('qiblaDegLarge');
+      var distEl = document.getElementById('kaabaDistance');
+      if(degEl) degEl.textContent = '—°';
+      if(distEl) distEl.textContent = 'Set location';
+      return;
+    }
+
+    var lat = parseFloat(state.lat);
+    var lng = parseFloat(state.lng);
+    qiblaBearing = bearingToQibla(lat, lng);
+    var distanceKm = calcDistanceToKaaba(lat, lng);
+
+    var degEl = document.getElementById('qiblaDegLarge');
+    var distEl = document.getElementById('kaabaDistance');
+    if(degEl) degEl.textContent = Math.round(qiblaBearing) + '°';
+    if(distEl) distEl.textContent = distanceKm.toLocaleString() + ' km';
+
+    positionKaabaOnDial(qiblaBearing);
   function toggleTajweedBookmark(pageNum){
     var idx = tajweedState.bookmarks.indexOf(pageNum);
     if(idx > -1){
@@ -9888,6 +11946,153 @@ window.TAJWEED_BOOK_PAGES = [
     if(drawer) drawer.style.display = 'none';
   };
 
+  function updateCompassVisual(heading){
+    if(qiblaBearing == null) return;
+
+    var dial = document.getElementById('dialRing');
+    if(dial){
+      dial.setAttribute('transform', 'rotate(' + (-heading) + ' 162 162)');
+    }
+
+    var northArrow = document.getElementById('northArrowGroup');
+    if(northArrow){
+      northArrow.setAttribute('transform', 'rotate(' + (-heading) + ' 162 162)');
+    }
+
+    var kaabaArrow = document.getElementById('kaabaArrowGroup');
+    if(kaabaArrow){
+      kaabaArrow.setAttribute('transform', 'rotate(' + (qiblaBearing - heading - 180) + ' 162 162)');
+    }
+
+    var diff = Math.abs(qiblaBearing - heading);
+    diff = Math.min(diff, 360 - diff);
+    var aligned = diff <= 6;
+
+    var statusLine = document.getElementById('compassStatusLine');
+    var infoPanel = document.getElementById('qiblaInfoPanel');
+    if(statusLine){
+      if(aligned){
+        statusLine.textContent = '✓ Facing the Holy Kaaba';
+        statusLine.classList.add('aligned');
+      } else {
+        statusLine.textContent = 'Rotate phone to align with the Kaaba';
+        statusLine.classList.remove('aligned');
+      }
+    }
+    if(infoPanel) infoPanel.classList.toggle('aligned', aligned);
+
+    if(aligned && !wasAligned){
+      if(state.vibrateOn && navigator.vibrate){ try{ navigator.vibrate([80, 40, 80]); }catch(e){} }
+    }
+    wasAligned = aligned;
+  }
+
+  // =========================================================================
+  // AUTOMATIC ALWAYS-ON COMPASS LISTENERS
+  // =========================================================================
+  var compassListening = false;
+  function startAlwaysOnCompass(){
+    if(compassListening) return;
+
+    var usingAbsolute = false;
+    function onAbsolute(e){
+      usingAbsolute = true;
+      var heading = (360 - e.alpha) % 360;
+      heading = (heading + getScreenAngle() + 360) % 360;
+      updateCompassVisual(heading);
+    }
+    function onWebkit(e){
+      if(typeof e.webkitCompassHeading !== 'number') return;
+      usingAbsolute = true;
+      var heading = (e.webkitCompassHeading + getScreenAngle() + 360) % 360;
+      updateCompassVisual(heading);
+    }
+    function onRelative(e){
+      if(usingAbsolute) return;
+      if(e.absolute === true){ onAbsolute(e); return; }
+      if(e.alpha == null) return;
+      var heading = (360 - e.alpha) % 360;
+      heading = (heading + getScreenAngle() + 360) % 360;
+      updateCompassVisual(heading);
+    }
+
+    function attach(){
+      window.addEventListener('deviceorientationabsolute', onAbsolute, true);
+      window.addEventListener('deviceorientation', onWebkit, true);
+      window.addEventListener('deviceorientation', onRelative, true);
+      compassListening = true;
+    }
+
+    if(typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'){
+      function oneTimeTapPermission(){
+        DeviceOrientationEvent.requestPermission().then(function(perm){
+          if(perm === 'granted') attach();
+        }).catch(function(){});
+        window.removeEventListener('click', oneTimeTapPermission);
+        window.removeEventListener('touchstart', oneTimeTapPermission);
+      }
+      window.addEventListener('click', oneTimeTapPermission, { once: true });
+      window.addEventListener('touchstart', oneTimeTapPermission, { once: true });
+    } else {
+      attach();
+    }
+  }
+
+  function switchTab(tabId){
+    document.querySelectorAll('.nav-btn').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-tab') === tabId);
+    });
+    document.querySelectorAll('.tab-panel').forEach(function(p){
+      p.classList.remove('show');
+    });
+    var target = document.getElementById('tab-' + tabId);
+    if(target) target.classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if(tabId === 'compass'){
+      renderCompass();
+      startAlwaysOnCompass();
+    }
+  }
+
+  document.querySelectorAll('.nav-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      switchTab(btn.getAttribute('data-tab'));
+    });
+  });
+
+  document.getElementById('headerSettings').addEventListener('click', function(){ switchTab('settings'); });
+  document.getElementById('headerLocRow').addEventListener('click', function(){ switchTab('settings'); });
+
+  // Master Alarm Tab Switches
+  document.getElementById('soundToggle').addEventListener('click', function(){
+    state.soundOn = !state.soundOn;
+    this.classList.toggle('on', state.soundOn);
+    saveSettings();
+    showBanner('Sound alarms ' + (state.soundOn ? 'enabled' : 'muted'));
+  });
+
+  document.getElementById('vibrateToggle').addEventListener('click', function(){
+    state.vibrateOn = !state.vibrateOn;
+    this.classList.toggle('on', state.vibrateOn);
+    saveSettings();
+    if(state.vibrateOn && navigator.vibrate){ try{ navigator.vibrate(100); }catch(e){} }
+    showBanner('Vibration ' + (state.vibrateOn ? 'enabled' : 'disabled'));
+  });
+
+  document.getElementById('notifToggle').addEventListener('click', function(){
+    var el = this;
+    if(!state.notifOn){
+      initMobileNotifications();
+      state.notifOn = true;
+      el.classList.add('on');
+      saveSettings();
+      showBanner('Mobile notifications enabled');
+    } else {
+      state.notifOn = false;
+      el.classList.remove('on');
+      saveSettings();
+      showBanner('Notifications disabled');
   window.openTajweedReader = function(){
     loadTajweedState();
     switchTab('tajweed');
@@ -9946,6 +12151,93 @@ window.TAJWEED_BOOK_PAGES = [
         renderTajweedDrawerBookmarks();
       });
     }
+
+  document.getElementById('testAlarmBtn').addEventListener('click', function(){ triggerAlarm('Fajr', true); });
+  document.getElementById('stopPreviewGlobalBtn').addEventListener('click', function(){ stopAllAudio(); });
+  document.getElementById('alarmDismissBtn').addEventListener('click', function(){ dismissAlarm(); });
+  document.getElementById('alarmSnoozeBtn').addEventListener('click', function(){ snoozeAlarm(5); });
+
+  // Adhan Preset buttons (Instant Local Audio Playback)
+  document.querySelectorAll('.adhan-item-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var soundFile = btn.getAttribute('data-sound');
+      var soundName = btn.getAttribute('data-name');
+      ALL_PRAYERS.forEach(function(p){
+        if(state.prayerConfigs[p]) state.prayerConfigs[p].sound = soundFile;
+      });
+      saveSettings();
+      renderAlarmTab();
+      stopAllAudio();
+      currentPreviewAudio = playSoundSource(soundFile);
+      var adhanStatus = document.getElementById('adhanStatus');
+      if(adhanStatus){
+        adhanStatus.textContent = 'Applied ' + soundName + ' Adhan to all prayer alarms.';
+        adhanStatus.className = 'status-msg';
+      }
+      showBanner(soundName + ' Adhan selected & playing');
+    });
+  });
+
+  document.getElementById('saveCustomUrlBtn').addEventListener('click', function(){
+    var url = document.getElementById('customUrl').value.trim();
+    var adhanStatus = document.getElementById('adhanStatus');
+    if(!url){
+      if(adhanStatus){ adhanStatus.textContent = 'Please enter a valid audio URL.'; adhanStatus.className = 'status-msg err'; }
+      return;
+    }
+    state.customSoundUrl = url;
+    ALL_PRAYERS.forEach(function(p){
+      if(state.prayerConfigs[p]) state.prayerConfigs[p].sound = url;
+    });
+    saveSettings();
+    renderAlarmTab();
+    stopAllAudio();
+    currentPreviewAudio = playSoundSource(url);
+    if(adhanStatus){
+      adhanStatus.textContent = 'Custom audio saved and applied to all alarms.';
+      adhanStatus.className = 'status-msg';
+    }
+    showBanner('Custom audio saved');
+  });
+
+  document.getElementById('geoBtn').addEventListener('click', function(){
+    if(!navigator.geolocation){ setStatus('Geolocation not supported in this browser.', true); return; }
+    setStatus('Requesting GPS location…');
+    navigator.geolocation.getCurrentPosition(function(pos){
+      state.mode = 'geo';
+      state.lat = pos.coords.latitude.toFixed(4);
+      state.lng = pos.coords.longitude.toFixed(4);
+      state.city = '';
+      state.country = '';
+      state.method = document.getElementById('method').value;
+      loadAll();
+      showBanner('GPS location updated');
+    }, function(){
+      setStatus('Could not get your location. Enter city manually.', true);
+    }, { timeout: 10000 });
+  });
+
+  document.getElementById('applyCity').addEventListener('click', function(){
+    var city = document.getElementById('city').value.trim();
+    var country = document.getElementById('country').value.trim();
+    if(!city || !country){ setStatus('Please enter both City and Country.', true); return; }
+    state.mode = 'city'; state.city = city; state.country = country;
+    state.method = document.getElementById('method').value;
+    loadAll();
+    showBanner('Location saved');
+  });
+
+  document.getElementById('method').addEventListener('change', function(){
+    state.method = this.value;
+    saveSettings();
+    if(state.city || state.lat) loadAll();
+    showBanner('Calculation method updated');
+  });
+
+  (function init(){
+    buildLuxuryDial();
+    loadSettings();
+    initMobileNotifications();
 
     // Page Slider
     var slider = document.getElementById('tajweedPageSlider');
@@ -10022,6 +12314,7 @@ window.TAJWEED_BOOK_PAGES = [
 
     renderThemeGrid();
     renderAlarmTab();
+
     applyLanguage(state.lang || 'en');
     startAlwaysOnCompass();
     updateCompassVisual(0);
@@ -10055,6 +12348,11 @@ window.TAJWEED_BOOK_PAGES = [
         if(!timings) loadAll(false);
       }, { timeout: 10000, enableHighAccuracy: true, maximumAge: 60000 });
     } else {
+      state.city = 'Dammam';
+      state.country = 'Saudi Arabia';
+      state.lat = 26.4207;
+      state.lng = 50.0888;
+      loadAll();
       if(!timings) loadAll(false);
     }
 

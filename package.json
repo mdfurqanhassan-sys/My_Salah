@@ -4,6 +4,7 @@
   "description": "Daily prayer times, qibla direction, and salah reminders",
   "private": true,
   "scripts": {
+    "prepare:web": "copy index.html www\\index.html",
     "prepare:web": "copy index.html www\\index.html && copy *.jpg www\\ && copy *.mp3 www\\",
     "cap:sync": "npm run prepare:web && npx cap sync",
     "cap:open": "npx cap open android",
