@@ -1,17 +1,17 @@
 {
-  "name": "My Prayers",
-  "short_name": "My Prayers",
-  "description": "Daily prayer times, qibla direction, and silent-mode reminders for every salah.",
+  "name": "My Salah",
+  "short_name": "My Salah",
+  "description": "Daily prayer times, Qibla compass, Tasbih counter, nearby Masjids, and customizable Adhan alarms.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0B2018",
-  "theme_color": "#07120f",
+  "background_color": "#080f0a",
+  "theme_color": "#0d171c",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "icon-192.png?v=2", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-192.png?v=2", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-512.png?v=2", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png?v=2", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

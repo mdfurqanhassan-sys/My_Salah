@@ -1,4 +1,4 @@
-var CACHE_NAME = 'salah-shell-v3';
+var CACHE_NAME = 'salah-shell-v4';
 var SHELL_FILES = [
   './',
   './index.html',

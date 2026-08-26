@@ -15,8 +15,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="My Salah">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png?v=2">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=2">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=2">
+<link rel="shortcut icon" href="favicon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/jameel-noori-nastaleeq">
@@ -1378,8 +1380,21 @@
     box-sizing: border-box;
   }
   .quran-reciter-select:focus{ border-color: var(--green); }
+  .quran-reciter-select optgroup{
+    background: #0d1a12;
+    color: var(--green);
+    font-weight: 700;
+    font-size: 11px;
+    padding: 6px 4px;
+  }
+  .quran-reciter-select option{
+    background: #080f0a;
+    color: var(--text-primary);
+    font-weight: normal;
+    padding: 4px 6px;
+  }
   .quran-player-card{
-    background: linear-gradient(135deg, rgba(0,230,118,0.12), rgba(0,0,0,0.5));
+    background: linear-gradient(135deg, rgba(74,222,128,0.12), rgba(0,0,0,0.6));
     border: 1px solid var(--border-active);
     border-radius: 16px;
     padding: 14px 16px;
@@ -2589,6 +2604,59 @@
     font-size: 13px;
     color: var(--text-primary);
   }
+  /* =========================================================================
+     FULL SCREEN TAJWEED GUIDE
+     ========================================================================= */
+  #tab-tajweed.show {
+    display: flex !important;
+    flex-direction: column !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    z-index: 1200 !important;
+    background: var(--bg) !important;
+    margin: 0 !important;
+    padding: max(12px, env(safe-area-inset-top, 12px)) 0 max(12px, env(safe-area-inset-bottom, 12px)) 0 !important;
+    overflow: hidden !important;
+  }
+  #tab-tajweed .sub-panel-header {
+    padding: 10px 16px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  #tab-tajweed .tajweed-viewport {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding: 16px 16px 90px 16px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+  }
+  #tab-tajweed .tajweed-page-canvas {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  #tab-tajweed .tajweed-bottom-bar {
+    position: fixed;
+    bottom: max(12px, env(safe-area-inset-bottom, 12px));
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(720px, calc(100vw - 28px));
+    z-index: 1300;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  }
+
   .tajweed-bottom-bar {
     position: fixed;
     bottom: 56px;
@@ -2626,6 +2694,155 @@
     font-size: 12px;
     text-align: center;
     outline: none;
+  }
+
+  /* =========================================================================
+     FULL SCREEN ARABIC QAIDA WITH TAJWEED SOUND
+     ========================================================================= */
+  #tab-qaida.show {
+    display: flex !important;
+    flex-direction: column !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    z-index: 1200 !important;
+    background: var(--bg) !important;
+    margin: 0 !important;
+    padding: max(12px, env(safe-area-inset-top, 12px)) 0 max(12px, env(safe-area-inset-bottom, 12px)) 0 !important;
+    overflow: hidden !important;
+  }
+  #tab-qaida .sub-panel-header {
+    padding: 10px 16px;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .qaida-pills-bar {
+    display: flex;
+    gap: 8px;
+    padding: 10px 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  .qaida-pill {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .qaida-pill.active {
+    background: var(--green);
+    color: #061a0d;
+    border-color: var(--green);
+    font-weight: 700;
+    box-shadow: 0 2px 10px var(--green-glow);
+  }
+  .qaida-lesson-header {
+    padding: 12px 16px 8px;
+    flex-shrink: 0;
+  }
+  .qaida-lesson-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .qaida-lesson-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .qaida-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px 90px 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .qaida-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+    gap: 12px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .qaida-card {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 98px;
+  }
+  .qaida-card:hover, .qaida-card:active {
+    transform: translateY(-2px);
+    border-color: var(--green);
+    box-shadow: 0 6px 18px var(--green-glow-strong);
+  }
+  .qaida-card.playing {
+    border-color: var(--green) !important;
+    background: var(--green-glow) !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--green-glow-strong) !important;
+  }
+  .qaida-arabic {
+    font-family: 'Amiri', 'Cairo', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .qaida-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+  .qaida-rule-tag {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-tertiary);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-top: 4px;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .qaida-audio-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 13px;
+    height: 13px;
+    opacity: 0.45;
+    color: var(--green);
   }
 
   /* Azure Sky Theme overrides for Tajweed */
@@ -3220,6 +3437,13 @@
         <div class="more-card-title" id="lblMoreQuranLog">Daily Quran Log • ورد القرآن</div>
         <div class="more-card-desc" id="lblMoreQuranLogDesc">Log daily Surah & Ruku reading</div>
       </div>
+      <div class="more-card" data-more-target="qaida" onclick="if(window.openQaidaReader) openQaidaReader();">
+        <div class="more-card-icon" style="background:rgba(74,222,128,0.16); color:var(--green);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/><path d="M6 8h2"/><path d="M6 12h2"/></svg>
+        </div>
+        <div class="more-card-title" id="lblMoreQaida">Arabic Qaida • القاعدة النورانية</div>
+        <div class="more-card-desc" id="lblMoreQaidaDesc">Learn Tajweed with interactive voice & sound</div>
+      </div>
       <div class="more-card" data-more-target="tajweed" onclick="if(window.openTajweedReader) openTajweedReader();">
         <div class="more-card-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><polyline points="10 2 10 10 13 7 16 10 16 2"/></svg>
@@ -3369,6 +3593,37 @@
         <input type="number" min="1" max="49" value="1" class="tajweed-page-input" id="tajweedPageDirectInput" />
         <button class="btn sm outline" id="tajweedJumpGoBtn" style="padding:4px 8px; font-size:11px;">Go</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ARABIC QAIDA WITH TAJWEED SOUND
+       ============================================================ -->
+  <div class="tab-panel" id="tab-qaida">
+    <div class="sub-panel-header">
+      <button class="back-btn" data-back="more">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="sub-panel-title" id="qaidaSubPanelTitle">Arabic Qaida with Tajweed Sound • القاعدة النورانية</div>
+      <div style="display:flex; gap:6px;">
+        <button class="header-btn" id="qaidaSpeedBtn" title="Toggle Audio Speed (1.0x / 0.75x)">
+          <span id="qaidaSpeedLabel" style="font-size:11px; font-weight:700;">1.0x</span>
+        </button>
+        <button class="header-btn" id="qaidaAutoPlayBtn" title="Auto Play Lesson">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;" id="qaidaAutoPlayIcon"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Lesson Selector Pills -->
+    <div class="qaida-pills-bar" id="qaidaPillsBar"></div>
+
+    <!-- Active Lesson Overview -->
+    <div class="qaida-lesson-header" id="qaidaLessonHeader"></div>
+
+    <!-- Main Qaida Interactive Grid -->
+    <div class="qaida-content">
+      <div class="qaida-grid" id="qaidaGrid"></div>
     </div>
   </div>
 
@@ -4182,6 +4437,104 @@ if('serviceWorker' in navigator){
   "language": "ar/en",
   "categories": [
     {
+      "id": "salah_recitations",
+      "title_en": "Salah Recitations & Duas",
+      "title_ar": "أذكار الصلاة والقنوت",
+      "items": [
+        {
+          "id": "sr_1",
+          "arabic": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلَا إِلَهَ غَيْرُكَ",
+          "transliteration": "Subhanaka Allahumma wa bihamdika, wa tabaraka ismuka, wa ta'ala jadduka, wa la ilaha ghayruk.",
+          "translation": "Glory be to You, O Allah, and all praises are due unto You, and blessed is Your name and high is Your majesty and none is worthy of worship but You.",
+          "repeat": 1,
+          "reference": "Sana (Start of Prayer • ثناء)",
+          "translation_ur": "اے اللہ! تو پاک ہے اپنی تعریفوں کے ساتھ، اور تیرا نام برکت والا ہے، اور تیری شان بڑی بلند ہے، اور تیرے سوا کوئی معبود نہیں۔"
+        },
+        {
+          "id": "sr_ruku",
+          "arabic": "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
+          "transliteration": "Subhana Rabbiyal-'Azeem",
+          "translation": "Glory be to my Lord, the Most Great (Recited in Ruku).",
+          "repeat": 3,
+          "reference": "Tasbeeh of Ruku (رکوع کی تسبیح) • Sahih Muslim 772",
+          "translation_ur": "میرا رب بڑی عظمت والا ہے اور وہ پاک ہے۔ (رکوع میں ۳ مرتبہ پڑھیں)"
+        },
+        {
+          "id": "sr_qawmah",
+          "arabic": "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ ، رَبَّنَا وَلَكَ الْحَمْدُ حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ",
+          "transliteration": "Sami'allahu liman hamidah. Rabbana wa lakal-hamd, hamdan katheeran tayyiban mubarakan feeh.",
+          "translation": "Allah hears the one who praises Him. Our Lord, to You belongs all praise, abundant, good, and blessed praise (When rising and standing from Ruku).",
+          "repeat": 1,
+          "reference": "Qawmah (رکوع سے کھڑے ہو کر) • Sahih al-Bukhari 795, 796",
+          "translation_ur": "اللہ نے اس کی سن لی جس نے اس کی تعریف کی۔ اے ہمارے رب! تمام تعریفیں تیرے ہی لیے ہیں، بہت زیادہ، پاکیزہ اور برکت والی تعریفیں۔"
+        },
+        {
+          "id": "sr_sajdah",
+          "arabic": "سُبْحَانَ رَبِّيَ الأَعْلَى",
+          "transliteration": "Subhana Rabbiyal-A'la",
+          "translation": "Glory be to my Lord, the Most High (Recited in Sajdah).",
+          "repeat": 3,
+          "reference": "Tasbeeh of Sujood (سجدہ کی تسبیح) • Sahih Muslim 772",
+          "translation_ur": "میرا رب سب سے بلند اور پاک ہے۔ (سجدہ میں ۳ مرتبہ پڑھیں)"
+        },
+        {
+          "id": "sr_jalsa",
+          "arabic": "اللَّهُمَّ اغْفِرْ لِي ، وَارْحَمْنِي ، وَاهْدِنِي ، وَعَافِنِي ، وَارْزُقْنِي (رَبِّ اغْفِرْ لِي)",
+          "transliteration": "Allahummaghfir li, warhamni, wahdini, wa 'afini, warzuqni (Rabbighfir li).",
+          "translation": "O Allah, forgive me, have mercy on me, guide me, grant me well-being, and grant me sustenance (Recited in Jalsa between the two Sajdahs).",
+          "repeat": 1,
+          "reference": "Jalsa Between Sajdahs (دو سجدوں کے درمیان) • Sunan Abi Dawud 850, 874",
+          "translation_ur": "اے اللہ! مجھے بخش دے، مجھ پر رحم فرما، مجھے ہدایت دے، مجھے عافیت عطا فرما اور مجھے رزق عطا فرما (یا: اے میرے رب مجھے بخش دے)۔"
+        },
+        {
+          "id": "sr_2",
+          "arabic": "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ، السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ، السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+          "transliteration": "At-tahiyyatu lillahi was-salawatu wat-tayyibat, as-salamu 'alayka ayyuhan-Nabiyyu wa rahmatullahi wa barakatuh, as-salamu 'alayna wa 'ala 'ibadillahis-salihin. Ash-hadu an la ilaha illallahu wa ash-hadu anna Muhammadan 'abduhu wa rasuluh.",
+          "translation": "All greetings of humility are for Allah, and all prayers and goodness. Peace be upon you, O Prophet, and the mercy of Allah and His blessings. Peace be upon us and upon the righteous slaves of Allah. I bear witness that there is none worthy of worship but Allah, and I bear witness that Muhammad is His slave and His Messenger.",
+          "repeat": 1,
+          "reference": "Tashahhud (Attahiyat • تشہد / التحیات)",
+          "translation_ur": "تمام زبانی، بدنی اور مالی عبادتیں اللہ ہی کے لیے ہیں۔ اے نبی! آپ پر سلام ہو اور اللہ کی رحمت اور اس کی برکتیں نازل ہوں۔ ہم پر اور اللہ کے نیک بندوں پر سلام ہو۔ میں گواہی دیتا ہوں کہ اللہ کے سوا کوئی معبود نہیں اور میں گواہی دیتا ہوں کہ محمد ﷺ اللہ کے بندے اور اس کے رسول ہیں۔"
+        },
+        {
+          "id": "sr_3",
+          "arabic": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+          "transliteration": "Allahumma salli 'ala Muhammadin wa 'ala ali Muhammadin, kama sallayta 'ala Ibrahima wa 'ala ali Ibrahima, innaka Hamidun Majid. Allahumma barik 'ala Muhammadin wa 'ala ali Muhammadin, kama barakta 'ala Ibrahima wa 'ala ali Ibrahima, innaka Hamidun Majid.",
+          "translation": "O Allah, send prayers upon Muhammad and upon the family of Muhammad, as You sent prayers upon Ibrahim and upon the family of Ibrahim; You are indeed Worthy of Praise, Full of Glory. O Allah, send blessings upon Muhammad and upon the family of Muhammad, as You sent blessings upon Ibrahim and upon the family of Ibrahim; You are indeed Worthy of Praise, Full of Glory.",
+          "repeat": 1,
+          "reference": "Durood Ibrahim (Salawat • درود ابراہیمی)",
+          "translation_ur": "اے اللہ! رحمت نازل فرما محمد ﷺ پر اور ان کی آل پر، جس طرح تو نے رحمت نازل فرمائی ابراہیم علیہ السلام پر اور ان کی آل پر، بیشک تو تعریف کے لائق اور بزرگی والا ہے۔ اے اللہ! برکت نازل فرما محمد ﷺ پر اور ان کی آل پر، جس طرح تو نے برکت نازل فرمائی ابراہیم علیہ السلام پر اور ان کی آل پر، بیشک تو تعریف کے لائق اور بزرگی والا ہے۔"
+        },
+        {
+          "id": "sr_4",
+          "arabic": "اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِي ظُلْمًا كَثِيرًا، وَلَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ، فَاغْفِرْ لِي مَغْفِرَةً مِنْ عِنْدِكَ، وَارْحَمْنِي إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ",
+          "transliteration": "Allahumma inni zalamtu nafsi zulman kathiran, wa la yaghfirudh-dhunuba illa Anta, faghfir li maghfiratan min 'indika warhamni, innaka Antal-Ghafurur-Rahim.",
+          "translation": "O Allah, I have wronged myself greatly, and none forgives sins but You. So forgive me with a forgiveness from You, and have mercy on me. Indeed, You are the Forgiving, the Merciful.",
+          "repeat": 1,
+          "reference": "Dua after Durood (درود شریف کے بعد کی دعا)",
+          "translation_ur": "اے اللہ! میں نے اپنی جان پر بہت ظلم کیا، اور تیرے سوا کوئی گناہوں کو معاف نہیں کر سکتا۔ پس تو اپنی خاص بخشش سے مجھے بخش دے اور مجھ پر رحم فرما، بیشک تو ہی بخشنے والا، نہایت رحم کرنے والا ہے۔"
+        },
+        {
+          "id": "sr_5",
+          "arabic": "اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ، وَنَشْكُرُكَ وَلَا نَكْفُرُكَ، وَنَخْلَعُ وَنَتْرُكُ مَنْ يَفْجُرُكَ. اللَّهُمَّ إِيَّاكَ نَعْبُدُ وَلَكَ نُصَلِّي وَنَسْجُدُ وَإِلَيْكَ نَسْعَى وَنَحْفِدُ، نَرْجُو رَحْمَتَكَ وَنَخْشَى عَذَابَكَ، إِنَّ عَذَابَكَ بِالْكُفَّارِ مُلْحِقٌ",
+          "transliteration": "Allahumma inna nasta'inuka wa nastaghfiruka wa nu'minu bika wa natawakkalu 'alayka wa nuthni 'alaykal-khayr, wa nashkuruka wa la nakfuruka, wa nakhla'u wa natruku man yafjuruk. Allahumma iyyaka na'budu wa laka nusalli wa nasjudu wa ilayka nas'a wa nahfidu, narju rahmataka wa nakhsha 'adhabaka, inna 'adhabaka bil-kuffari mulhiq.",
+          "translation": "O Allah! We seek Your help and seek Your forgiveness, and we believe in You and rely on You, and we praise You for all goodness, and we thank You and are not ungrateful to You, and we forsake and turn away from the one who disobeys You. O Allah! You alone do we worship, and to You we pray and prostrate, and towards You we strive and hasten. We hope for Your mercy and fear Your punishment. Indeed, Your punishment will overtake the disbelievers.",
+          "repeat": 1,
+          "reference": "Dua Qunoot (Hanafi - Witr • دعائے قنوت حنفی)",
+          "translation_ur": "اے اللہ! ہم تجھ ہی سے مدد چاہتے ہیں اور تجھ ہی سے بخشش مانگتے ہیں، اور تجھ پر ایمان لاتے ہیں اور تجھ پر بھروسہ کرتے ہیں، اور تیری بہترین تعریف کرتے ہیں، اور تیرا شکر ادا کرتے ہیں اور تیری ناشکری نہیں کرتے، اور ہم الگ کرتے ہیں اور چھوڑتے ہیں اس شخص کو جو تیری نافرمانی کرے۔ اے اللہ! ہم تیری ہی عبادت کرتے ہیں اور تیرے ہی لیے نماز پڑھتے ہیں اور سجدہ کرتے ہیں، اور تیری ہی طرف دوڑتے اور حاضر ہوتے ہیں، ہم تیری رحمت کے امیدوار ہیں اور تیرے عذاب سے ڈرتے ہیں، بیشک تیرا عذاب کافروں کو پہنچنے والا ہے۔"
+        },
+        {
+          "id": "sr_6",
+          "arabic": "اللَّهُمَّ اهْدِنِي فِيمَنْ هَدَيْتَ، وَعَافِنِي فِيمَنْ عَافَيْتَ، وَتَوَلَّنِي فِيمَنْ تَوَلَّيْتَ، وَبَارِكْ لِي فِيمَا أَعْطَيْتَ، وَقِنِي شَرَّ مَا قَضَيْتَ، فَإِنَّكَ تَقْضِي وَلَا يُقْضَى عَلَيْكَ، إِنَّهُ لَا يَذِلُّ مَنْ وَالَيْتَ، وَلَا يَعِزُّ مَنْ عَادَيْتَ، تَبَارَكْتَ رَبَّنَا وَتَعَالَيْتَ",
+          "transliteration": "Allahummahdini fiman hadayt, wa 'afini fiman 'afayt, wa tawallani fiman tawallayt, wa barik li fima a'tayt, wa qini sharra ma qadayt, fa innaka taqdi wa la yuqda 'alayk, innahu la yadhillu man walayt, wa la ya'izzu man 'adayt, tabarakta Rabbana wa ta'alayt.",
+          "translation": "O Allah, guide me with those whom You have guided, and grant me well-being with those whom You have granted well-being, and turn to me in friendship with those to whom You have turned in friendship, and bless me in what You have bestowed, and save me from the evil of what You have decreed. For indeed You decree, and none can influence You; and he is not humiliated whom You have befriended, nor is he honored who is Your enemy. Blessed are You, O Lord, and Exalted.",
+          "repeat": 1,
+          "reference": "Dua Qunoot (Shafi'i - Fajr / Witr • دعائے قنوت شافعی)",
+          "translation_ur": "اے اللہ! مجھے ہدایت دے ان لوگوں کے ساتھ جنہیں تو نے ہدایت دی، اور مجھے عافیت دے ان کے ساتھ جنہیں تو نے عافیت دی، اور میرا کارساز بن ان کے ساتھ جن کا تو کارساز بنا، اور مجھے برکت عطا فرما اس میں جو تو نے دیا، اور مجھے اس شر سے بچا جو تو نے مقدر فرمایا، کیونکہ تو ہی فیصلہ فرماتا ہے اور تیرے خلاف کوئی فیصلہ نہیں کیا جا سکتا۔ بیشک وہ ذلیل نہیں ہو سکتا جس کا تو دوست ہو، اور وہ عزت نہیں پا سکتا جس سے تو دشمنی رکھے۔ اے ہمارے رب! تو بابرکت اور بلند و بالا ہے۔"
+        }
+      ],
+      "title_ur": "نماز کے اذکار و دعائیں"
+    },
+    {
       "id": "after_prayer",
       "title_en": "Dhikr After Prayer",
       "title_ar": "أذكار بعد الصلاة",
@@ -4198,7 +4551,8 @@ if('serviceWorker' in navigator){
           "translation": "Allah is Most Great",
           "repeat": 1,
           "reference": "Sahih Muslim 583a",
-          "note": "Recited immediately after finishing prayer as noted by Ibn 'Abbas."
+          "note": "Recited immediately after finishing prayer as noted by Ibn 'Abbas.",
+          "translation_ur": "اللہ سب سے بڑا ہے۔"
         },
         {
           "id": "ap_2",
@@ -4206,7 +4560,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Astaghfirullah",
           "translation": "I seek forgiveness from Allah",
           "repeat": 3,
-          "reference": "Sahih Muslim 591"
+          "reference": "Sahih Muslim 591",
+          "translation_ur": "میں اللہ سے بخشش طلب کرتا ہوں۔"
         },
         {
           "id": "ap_3",
@@ -4214,7 +4569,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma Antas-Salam wa minkas-salam, tabarakta dhal-jalali wal-ikram",
           "translation": "O Allah, You are As-Salam (Peace) and from You is peace. Blessed are You, O Owner of Majesty and Honor.",
           "repeat": 1,
-          "reference": "Sahih Muslim 592a"
+          "reference": "Sahih Muslim 592a",
+          "translation_ur": "اے اللہ! تو ہی سراپا سلامتی ہے اور تیری ہی طرف سے سلامتی ہے۔ اے بزرگی اور عزت والے! تو بڑی برکت والا ہے۔"
         },
         {
           "id": "ap_4",
@@ -4222,7 +4578,8 @@ if('serviceWorker' in navigator){
           "transliteration": "La ilaha illallahu wahdahu la sharika lahu, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. Allahumma la mani'a lima a'tayta wa la mu'tiya lima mana'ta wa la yanfa'u dhal-jaddi minkal-jadd",
           "translation": "None has the right to be worshipped except Allah alone, with no partner or associate. His is the dominion and to Him belong all praise, and He is Able to do all things. O Allah, none can withhold what You give, and none can give what You withhold, nor can the wealth/status of the owner thereof avail him against You.",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 844; Sahih Muslim 593a"
+          "reference": "Sahih al-Bukhari 844; Sahih Muslim 593a",
+          "translation_ur": "اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اسی کی بادشاہی ہے اور اسی کے لیے تمام تعریفیں ہیں اور وہ ہر چیز پر قادر ہے۔ اے اللہ! جو تو دے اسے کوئی روکنے والا نہیں، اور جو تو روک لے اسے کوئی دینے والا نہیں، اور تیرے سامنے کسی دولت مند کی دولت کام نہیں آ سکتی۔"
         },
         {
           "id": "ap_5",
@@ -4230,7 +4587,8 @@ if('serviceWorker' in navigator){
           "transliteration": "La ilaha illallahu wahdahu la sharika lahu, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. La hawla wa la quwwata illa billah, la ilaha illallahu wa la na'budu illa iyyah, lahun-ni'matu wa lahul-fadlu wa lahuth-thana'ul-hasan, la ilaha illallahu mukhlisina lahud-dina wa law karihal-kafirun",
           "translation": "None has the right to be worshipped except Allah alone, without partner. To Him belongs all sovereignty and praise, and He is Able to do all things. There is no power or strength except with Allah. None has the right to be worshipped except Allah, and we worship none but Him. To Him belong all blessings, grace, and good praise.",
           "repeat": 1,
-          "reference": "Sahih Muslim 594a"
+          "reference": "Sahih Muslim 594a",
+          "translation_ur": "اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اسی کی بادشاہی ہے اور اسی کے لیے تمام تعریفیں ہیں اور وہ ہر چیز پر قادر ہے۔ گناہوں سے بچنے کی طاقت اور نیکی کرنے کی قوت صرف اللہ ہی کی توفیق سے ہے۔ اللہ کے سوا کوئی معبود نہیں اور ہم صرف اسی کی عبادت کرتے ہیں، اسی کی نعمت ہے، اسی کا فضل ہے اور اسی کے لیے بہترین تعریف ہے۔ اللہ کے سوا کوئی معبود نہیں، ہم اس کے لیے دین کو خالص کرنے والے ہیں چاہے کافروں کو برا لگے۔"
         },
         {
           "id": "ap_6",
@@ -4239,9 +4597,11 @@ if('serviceWorker' in navigator){
           "translation": "Glory be to Allah, Praise be to Allah, Allah is Most Great.",
           "repeat": 33,
           "reference": "Sahih al-Bukhari 6329, 843; Sahih Muslim 597a",
-          "note": "Can be recited 10 times each OR 33 times each. If 33 times each, complete the 100th with: La ilaha illallahu wahdahu la sharika lahu..."
+          "note": "Can be recited 10 times each OR 33 times each. If 33 times each, complete the 100th with: La ilaha illallahu wahdahu la sharika lahu...",
+          "translation_ur": "اللہ پاک ہے (۱۰ یا ۳۳ مرتبہ)، تمام تعریفیں اللہ کے لیے ہیں (۱۰ یا ۳۳ مرتبہ)، اللہ سب سے بڑا ہے (۱۰، ۳۳ یا ۳۴ مرتبہ)۔"
         }
-      ]
+      ],
+      "title_ur": "نماز کے بعد کے اذکار"
     },
     {
       "id": "morning_adhkaar",
@@ -4254,7 +4614,8 @@ if('serviceWorker' in navigator){
           "transliteration": "SubhanAllahi wa bihamdihi, 'adada khalqihi, wa rida nafsihi, wa zinata 'arshihi, wa midada kalimatihi",
           "translation": "Glory is to Allah and praise is to Him, by the number of His creation and His pleasure, and by the weight of His Throne, and the ink of His words.",
           "repeat": 3,
-          "reference": "Sahih Muslim 2726a"
+          "reference": "Sahih Muslim 2726a",
+          "translation_ur": "اللہ اپنی حمد کے ساتھ پاک ہے، اس کی مخلوق کی تعداد کے برابر، اس کی ذات کی رضا کے مطابق، اس کے عرش کے وزن اور اس کے کلمات کی سیاہی کے برابر۔"
         },
         {
           "id": "m_2",
@@ -4262,7 +4623,8 @@ if('serviceWorker' in navigator){
           "transliteration": "La ilaha illallahu wahdahu la sharika lahu, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir",
           "translation": "None has the right to be worshipped except Allah alone, who has no partner. His is the dominion and His is the praise, and He is Able to do all things.",
           "repeat": 100,
-          "reference": "Sahih al-Bukhari 6403; Sahih Muslim 2693"
+          "reference": "Sahih al-Bukhari 6403; Sahih Muslim 2693",
+          "translation_ur": "اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اسی کی بادشاہی ہے اور اسی کے لیے تمام تعریفیں ہیں اور وہ ہر چیز پر قادر ہے۔"
         },
         {
           "id": "m_3",
@@ -4270,7 +4632,8 @@ if('serviceWorker' in navigator){
           "transliteration": "SubhanAllahi wa bihamdihi",
           "translation": "Glory be to Allah and His is the praise.",
           "repeat": 100,
-          "reference": "Sahih al-Bukhari 6405"
+          "reference": "Sahih al-Bukhari 6405",
+          "translation_ur": "اللہ اپنی حمد کے ساتھ پاک ہے۔"
         },
         {
           "id": "m_4",
@@ -4278,7 +4641,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma Anta Rabbi la ilaha illa Anta, khalaqtani wa ana 'abduka, wa ana 'ala 'ahdika wa wa'dika mastata'tu, abu'u laka bini'matika, wa abu'u bidhanbi faghfir li fainnahu la yaghfirudh-dhunuba illa Anta, a'udhu bika min sharri ma sana'tu",
           "translation": "Sayyidul Istighfar: O Allah, You are my Lord, there is no god but You. You created me and I am Your servant, and I abide by Your covenant and promise as best I can. I acknowledge Your favor upon me, and I acknowledge my sin. Forgive me, for none forgives sins except You. I seek refuge in You from the evil of what I have done.",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 6323"
+          "reference": "Sahih al-Bukhari 6323",
+          "translation_ur": "سید الاستغفار: اے اللہ! تو میرا رب ہے، تیرے سوا کوئی معبود نہیں۔ تو نے مجھے پیدا کیا اور میں تیرا بندہ ہوں اور میں اپنی طاقت کے مطابق تیرے عہد اور وعدے پر قائم ہوں۔ میں اپنے کیے ہوئے اعمال کے شر سے تیری پناہ مانگتا ہوں، میں اپنے اوپر تیری نعمت کا اعتراف کرتا ہوں اور اپنے گناہ کا اقرار کرتا ہوں، پس مجھے بخش دے کیونکہ تیرے سوا کوئی گناہوں کو معاف نہیں کر سکتا۔"
         },
         {
           "id": "m_5",
@@ -4286,7 +4650,8 @@ if('serviceWorker' in navigator){
           "transliteration": "A'udhu bikalimatil-lahit-tammati min sharri ma khalaq",
           "translation": "I seek refuge in the Perfect Words of Allah from the evil of what He has created.",
           "repeat": 3,
-          "reference": "Sahih Muslim 2708b, 2709a"
+          "reference": "Sahih Muslim 2708b, 2709a",
+          "translation_ur": "میں اللہ کے مکمل کلمات کی پناہ مانگتا ہوں اس کی پیدا کردہ تمام چیزوں کے شر سے۔"
         },
         {
           "id": "m_6",
@@ -4294,9 +4659,11 @@ if('serviceWorker' in navigator){
           "transliteration": "Asbahna wa asbahal-mulku lillah walhamdu lillah, la ilaha illallahu wahdahu la sharika lahu, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. Rabbi as'aluka khayra ma fi hadhal-yawmi wa khayra ma ba'daha, wa a'udhu bika min sharri ma fi hadhal-yawmi wa sharri ma ba'daha, Rabbi a'udhu bika minal-kasali wa su'il-kibar, Rabbi a'udhu bika min 'adhabin fin-nari wa 'adhabin fil-qabr",
           "translation": "We have reached the morning and at this time the entire kingdom belongs to Allah. Praise is to Allah. None has the right to be worshipped except Allah alone...",
           "repeat": 1,
-          "reference": "Hisn al-Muslim 77"
+          "reference": "Hisn al-Muslim 77",
+          "translation_ur": "ہم نے صبح کی اور تمام بادشاہی نے اللہ کے لیے صبح کی، تمام تعریفیں اللہ ہی کے لیے ہیں، اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں۔"
         }
-      ]
+      ],
+      "title_ur": "صبح کے اذکار"
     },
     {
       "id": "evening_adhkaar",
@@ -4309,9 +4676,11 @@ if('serviceWorker' in navigator){
           "transliteration": "Amsayna wa amsal-mulku lillah walhamdu lillah, la ilaha illallahu wahdahu la sharika lahu, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. Rabbi as'aluka khayra ma fi hadhihil-laylati wa khayra ma ba'daha, wa a'udhu bika min sharri ma fi hadhihil-laylati wa sharri ma ba'daha...",
           "translation": "We have reached the evening and at this time the entire kingdom belongs to Allah...",
           "repeat": 1,
-          "reference": "Sahih Muslim 2723b"
+          "reference": "Sahih Muslim 2723b",
+          "translation_ur": "ہم نے شام کی اور تمام بادشاہی نے اللہ کے لیے شام کی، تمام تعریفیں اللہ ہی کے لیے ہیں، اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے اس کا کوئی شریک نہیں۔"
         }
-      ]
+      ],
+      "title_ur": "شام کے اذکار"
     },
     {
       "id": "before_sleeping",
@@ -4324,7 +4693,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Ayat-ul-Kursi (Surah Al-Baqarah 2:255)",
           "translation": "Allah! There is no god but He, the Ever Living, the One Who sustains and protects all that exists...",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 3275"
+          "reference": "Sahih al-Bukhari 3275",
+          "translation_ur": "آیت الکرسی: اللہ! اس کے سوا کوئی معبود نہیں، وہ ہمیشہ زندہ رہنے والا اور سب کو سنبھالنے والا ہے۔ نہ اسے اونگھ آتی ہے نہ نیند۔"
         },
         {
           "id": "s_2",
@@ -4332,7 +4702,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Surah Al-Baqarah (2:285-286)",
           "translation": "The Messenger believes in what has been sent down to him from his Lord, and so do the believers...",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 4008"
+          "reference": "Sahih al-Bukhari 4008",
+          "translation_ur": "رسول اس پر ایمان لائے جو ان کے رب کی طرف سے نازل کیا گیا اور مومنین بھی۔ سب اللہ، اس کے فرشتوں، اس کی کتابوں اور اس کے رسولوں پر ایمان لائے۔"
         },
         {
           "id": "s_3",
@@ -4340,7 +4711,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Surah Al-Ikhlas, Surah Al-Falaq, Surah An-Naas",
           "translation": "Recite each surah into hands, blow, and wipe over the body.",
           "repeat": 3,
-          "reference": "Sahih al-Bukhari 5017"
+          "reference": "Sahih al-Bukhari 5017",
+          "translation_ur": "سورۃ الاخلاص، سورۃ الفلق، سورۃ الناس پڑھ کر ہاتھوں پر دم کریں اور پورے جسم پر پھیر لیں۔"
         },
         {
           "id": "s_4",
@@ -4348,7 +4720,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma bismika amutu wa ahya",
           "translation": "In Your name, O Allah, I die and I live.",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 6314"
+          "reference": "Sahih al-Bukhari 6314",
+          "translation_ur": "اے اللہ! تیرے نام کے ساتھ میں مرتا ہوں اور زندہ ہوتا ہوں۔"
         },
         {
           "id": "s_5",
@@ -4356,7 +4729,8 @@ if('serviceWorker' in navigator){
           "transliteration": "SubhanAllah (33x), Alhamdulillah (33x), Allahu Akbar (34x)",
           "translation": "Glory be to Allah 33 times, Praise be to Allah 33 times, Allah is Most Great 34 times.",
           "repeat": 1,
-          "reference": "Sahih Muslim 2728a, b"
+          "reference": "Sahih Muslim 2728a, b",
+          "translation_ur": "سبحان اللہ (۳۳ بار)، الحمد للہ (۳۳ بار)، اور اللہ اکبر (۳۴ بار)۔"
         },
         {
           "id": "s_6",
@@ -4364,7 +4738,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Bismika Rabbi wada'tu janbi wa bika arfa'uh, in amsakta nafsi farhamha, wa in arsaltaha fahfazha bima tahfazu bihi 'ibadakas-salihin",
           "translation": "In Your name, my Lord, I lie down, and in Your name I rise. If You take my soul, have mercy on it, and if You send it back, protect it as You protect Your righteous servants.",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 6320"
+          "reference": "Sahih al-Bukhari 6320",
+          "translation_ur": "اے میرے رب! تیرے نام کے ساتھ میں نے اپنا پہلو رکھا اور تیرے ہی نام کے ساتھ میں اسے اٹھاؤں گا۔ اگر تو میری روح کو روک لے تو اس پر رحم فرما، اور اگر تو اسے چھوڑ دے تو اس کی حفاظت فرما جس طرح تو اپنے نیک بندوں کی حفاظت فرماتا ہے۔"
         },
         {
           "id": "s_7",
@@ -4372,7 +4747,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma khalaqta nafsi wa Anta tawaffaha, laka mamatuha wa mahyaha, in ahyaytaha fahfazha wa in amattaha faghfir laha. Allahumma inni as'alukal-'afiyah",
           "translation": "O Allah, You created my soul and You take it back. To You belong its death and its life...",
           "repeat": 1,
-          "reference": "Sahih Muslim 2712"
+          "reference": "Sahih Muslim 2712",
+          "translation_ur": "اے اللہ! تو نے ہی میری جان کو پیدا کیا اور تو ہی اسے موت دے گا۔ اس کا جینا اور مرنا تیرے ہی ہاتھ میں ہے۔ اگر تو اسے زندہ رکھے تو اس کی حفاظت فرما اور اگر تو اسے موت دے تو اسے بخش دے۔ اے اللہ! میں تجھ سے عافیت کا سوال کرتا ہوں۔"
         },
         {
           "id": "s_8",
@@ -4380,7 +4756,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma Rabbas-samawati wa Rabbal-ardi wa Rabbal-'arshil-'azim, Rabbana wa Rabba kulli shay'in, Faliqal-habbi wan-nawa, wa Munzilat-Tawrati wal-Injili wal-Furqan...",
           "translation": "O Allah, Lord of the heavens and Lord of the earth and Lord of the Tremendous Throne...",
           "repeat": 1,
-          "reference": "Sahih Muslim 2713a"
+          "reference": "Sahih Muslim 2713a",
+          "translation_ur": "اے اللہ! ساتوں آسمانوں کے رب اور زمین کے رب اور عرش عظیم کے رب، ہمارے رب اور ہر چیز کے رب! دانے اور گٹھلی کو پھاڑنے والے، تورات، انجیل اور قرآن مجید کو نازل فرمانے والے! میں تیری پناہ مانگتا ہوں ہر اس چیز کے شر سے جس کی پیشانی تیرے قبضے میں ہے۔"
         },
         {
           "id": "s_9",
@@ -4388,7 +4765,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Alhamdu lillahilladhi at'amana wa saqana wa kafana wa awana, fakam mimman la kafiya lahu wa la mu'wiya",
           "translation": "Praise be to Allah Who fed us, gave us drink, satisfied us, and gave us shelter, for how many are there who have no one to satisfy them or shelter them.",
           "repeat": 1,
-          "reference": "Sahih Muslim 2715"
+          "reference": "Sahih Muslim 2715",
+          "translation_ur": "تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں کھلایا، پلایا، ہماری کفایت کی اور ہمیں ٹھکانہ دیا۔ کتنے ہی لوگ ہیں جن کا نہ کوئی کفایت کرنے والا ہے اور نہ کوئی ٹھکانہ دینے والا۔"
         },
         {
           "id": "s_10",
@@ -4397,9 +4775,11 @@ if('serviceWorker' in navigator){
           "translation": "O Allah, I surrender my face to You, entrust my affair to You, and lean my back against You...",
           "repeat": 1,
           "reference": "Sahih al-Bukhari 6311",
-          "note": "Recommended to make these the last words spoken before sleep."
+          "note": "Recommended to make these the last words spoken before sleep.",
+          "translation_ur": "اے اللہ! میں نے اپنا چہرہ تیرے تابع کر دیا، اپنا معاملہ تیرے سپرد کر دیا، اپنی پیٹھ کو تیرے سہارے لگا دیا، تیری رغبت اور تیرے خوف کے ساتھ۔ تیرے سوا کوئی جائے پناہ اور نجات کا ٹھکانہ نہیں مگر تیری ہی طرف۔ میں تیری نازل کردہ کتاب اور تیرے بھیجے ہوئے نبی پر ایمان لایا۔"
         }
-      ]
+      ],
+      "title_ur": "سونے کے اذکار"
     },
     {
       "id": "waking_up",
@@ -4412,7 +4792,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Alhamdu lillahilladhi ahyana ba'da ma amatana wa ilaihin-nushur",
           "translation": "Praise be to Allah Who gave us life after causing us to die, and unto Him is the resurrection.",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 7394"
+          "reference": "Sahih al-Bukhari 7394",
+          "translation_ur": "تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں مارنے کے بعد زندہ کیا اور اسی کی طرف اٹھ کر جانا ہے۔"
         },
         {
           "id": "w_2",
@@ -4420,7 +4801,8 @@ if('serviceWorker' in navigator){
           "transliteration": "La ilaha illallahu wahdahu la sharika lahu, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. Alhamdu lillah, wa SubhanAllah, wa La ilaha illallah, wallahu akbar, wa la hawla wa la quwwata illa billah. Allahummaghfir li",
           "translation": "If waking up at night: None has the right to be worshipped except Allah alone...",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 1154"
+          "reference": "Sahih al-Bukhari 1154",
+          "translation_ur": "اللہ کے سوا کوئی معبود نہیں، وہ اکیلا ہے، اس کا کوئی شریک نہیں، اسی کی بادشاہی اور اسی کی تعریف ہے اور وہ ہر چیز پر قادر ہے۔ اللہ پاک ہے، تمام تعریفیں اللہ ہی کے لیے ہیں، اللہ کے سوا کوئی معبود نہیں، اللہ سب سے بڑا ہے اور گناہوں سے بچنے اور نیکی کرنے کی طاقت صرف اللہ کی توفیق سے ہے۔"
         },
         {
           "id": "w_3",
@@ -4428,9 +4810,11 @@ if('serviceWorker' in navigator){
           "transliteration": "Surah Ale-'Imran (3:190-200)",
           "translation": "Verily! In the creation of the heavens and the earth, and in the alternation of night and day, there are indeed signs for men of understanding...",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 992"
+          "reference": "Sahih al-Bukhari 992",
+          "translation_ur": "بیشک آسمانوں اور زمین کی پیدائش اور رات اور دن کے آنے جانے میں عقل والوں کے لیے نشانیاں ہیں۔"
         }
-      ]
+      ],
+      "title_ur": "نیند سے بیدار ہونے کے اذکار"
     },
     {
       "id": "eating",
@@ -4443,7 +4827,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Bismillah",
           "translation": "In the name of Allah (before starting to eat).",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 5376"
+          "reference": "Sahih al-Bukhari 5376",
+          "translation_ur": "اللہ کے نام کے ساتھ (کھانے کے آغاز میں)۔"
         },
         {
           "id": "ea_2",
@@ -4451,7 +4836,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Alhamdulillah",
           "translation": "Praise be to Allah (while eating and drinking).",
           "repeat": 1,
-          "reference": "Sahih Muslim 2734a"
+          "reference": "Sahih Muslim 2734a",
+          "translation_ur": "تمام تعریفیں اللہ ہی کے لیے ہیں (کھانے اور پینے کے دوران اور بعد)۔"
         },
         {
           "id": "ea_3",
@@ -4459,7 +4845,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Alhamdu lillahilladhi kafana wa arwana, ghayra makfiyyin wa la makfur",
           "translation": "Praise be to Allah Who has satisfied our needs and quenched our thirst...",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 5459"
+          "reference": "Sahih al-Bukhari 5459",
+          "translation_ur": "تمام تعریفیں اللہ کے لیے ہیں، کثرت سے پاکیزہ اور برکت والی تعریفیں، جس کے احسان کا نہ بدلہ دیا جا سکتا ہے، نہ اسے چھوڑا جا سکتا ہے اور نہ ہی اس سے بے نیازی ممکن ہے، اے ہمارے رب!"
         },
         {
           "id": "ea_4",
@@ -4467,7 +4854,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma barik lana fihi wa at'imna khayran minh",
           "translation": "O Allah, bless it for us and feed us with better than it.",
           "repeat": 1,
-          "reference": "Sunan Abi Dawud 3730"
+          "reference": "Sunan Abi Dawud 3730",
+          "translation_ur": "اے اللہ! ہمارے لیے اس میں برکت عطا فرما اور ہمیں اس سے بہتر کھلائیے۔"
         },
         {
           "id": "ea_5",
@@ -4475,9 +4863,11 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma barik lana fihi wa zidna minh",
           "translation": "O Allah, bless it for us and give us more of it (after drinking milk).",
           "repeat": 1,
-          "reference": "Sunan Abi Dawud 3730"
+          "reference": "Sunan Abi Dawud 3730",
+          "translation_ur": "اے اللہ! ہمارے لیے اس میں برکت عطا فرما اور ہمیں اس میں مزید اضافہ عطا فرما (دودھ پینے کے بعد)۔"
         }
-      ]
+      ],
+      "title_ur": "کھانے پینے کے اذکار"
     },
     {
       "id": "toilet",
@@ -4490,9 +4880,11 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma inni a'udhu bika minal-khubuthi wal-khaba'ith",
           "translation": "O Allah, I seek refuge in You from all evil and evil-doers / male and female devils.",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 6322"
+          "reference": "Sahih al-Bukhari 6322",
+          "translation_ur": "اے اللہ! میں خبیث جنوں (نر و مادہ) کی ناپاکی اور شر سے تیری پناہ مانگتا ہوں۔"
         }
-      ]
+      ],
+      "title_ur": "بیت الخلاء (ٹوائلٹ) کے اذکار"
     },
     {
       "id": "azaan",
@@ -4505,7 +4897,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Repeat after the Mu'azzin (except during 'Hayya 'alas-Salah' and 'Hayya 'alal-Falah', say: 'La hawla wa la quwwata illa billah')",
           "translation": "Repeat the words as said by the Mu'azzin, except during the two call-to-success phrases where you say 'There is no power nor strength except with Allah'.",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 613; Sahih Muslim 385"
+          "reference": "Sahih al-Bukhari 613; Sahih Muslim 385",
+          "translation_ur": "موذن کے کلمات کا جواب دیں، سوائے حی علی الصلاۃ اور حی علی الفلاح کے، جس کے جواب میں 'لا حول ولا قوة إلا بالله' کہیں۔"
         },
         {
           "id": "az_2",
@@ -4513,7 +4906,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma salli 'ala Muhammadin wa 'ala ali Muhammad...",
           "translation": "Recite Durood Sharif upon the Prophet ﷺ after the Azaan finishes.",
           "repeat": 1,
-          "reference": "Sahih Muslim 384"
+          "reference": "Sahih Muslim 384",
+          "translation_ur": "اذان کے بعد نبی کریم ﷺ پر درود شریف (درود ابراہیمی) پڑھیں۔"
         },
         {
           "id": "az_3",
@@ -4521,9 +4915,11 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma Rabba hadhihid-da'watit-tammati was-salatil-qa'imati, ati Muhammadanil-wasilata wal-fadilata, wab'athhu maqamam-mahmudanil-ladhi wa'adtah",
           "translation": "O Allah, Lord of this perfect call and established prayer, grant Muhammad the intercession and favor, and raise him to the praised station which You have promised him.",
           "repeat": 1,
-          "reference": "Sahih al-Bukhari 614"
+          "reference": "Sahih al-Bukhari 614",
+          "translation_ur": "اے اللہ! اس کامل دعوت اور قائم ہونے والی نماز کے رب! ہمارے آقا محمد ﷺ کو وسیلہ اور فضیلت عطا فرما اور انہیں اس مقام محمود پر فائز فرما جس کا تو نے ان سے وعدہ فرمایا ہے۔"
         }
-      ]
+      ],
+      "title_ur": "اذان کے اذکار و دعائیں"
     },
     {
       "id": "going_to_masjid",
@@ -4536,7 +4932,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Bismillahi, tawakkaltu 'alallahi, wa la hawla wa la quwwata illa billah",
           "translation": "In the name of Allah, I place my trust in Allah; there is no power and no strength except with Allah (When leaving home).",
           "repeat": 1,
-          "reference": "Sunan Abi Dawud 5095"
+          "reference": "Sunan Abi Dawud 5095",
+          "translation_ur": "اللہ کے نام کے ساتھ، میں نے اللہ پر بھروسہ کیا، گناہوں سے بچنے اور نیکی کرنے کی کوئی طاقت نہیں مگر اللہ ہی کی مدد سے۔"
         },
         {
           "id": "gm_2",
@@ -4544,7 +4941,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahummaj-'al fi qalbi nura, wa fi lisani nura, wa fi sam'i nura, wa fi basari nura...",
           "translation": "O Allah, place light in my heart, light on my tongue, light in my hearing, light in my sight...",
           "repeat": 1,
-          "reference": "Sahih Muslim 763"
+          "reference": "Sahih Muslim 763",
+          "translation_ur": "اے اللہ! میرے دل میں نور پیدا فرما، میری زبان میں نور، میرے کانوں میں نور، میری آنکھوں میں نور، میرے اوپر نور، میرے نیچے نور، میرے دائیں نور، میرے بائیں نور، میرے آگے نور اور میرے پیچھے نور پیدا فرما، اور میرے لیے نور کو عظیم بنا دے۔"
         },
         {
           "id": "gm_3",
@@ -4552,9 +4950,11 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahummaf-tah li abwaba rahmatik",
           "translation": "O Allah, open for me the doors of Your mercy (When entering the masjid with right foot).",
           "repeat": 1,
-          "reference": "Sahih Muslim 713"
+          "reference": "Sahih Muslim 713",
+          "translation_ur": "اے اللہ! میرے لیے اپنی رحمت کے دروازے کھول دے (مسجد میں داخل ہوتے وقت)۔"
         }
-      ]
+      ],
+      "title_ur": "مسجد جانے اور داخل ہونے کے اذکار"
     },
     {
       "id": "leaving_masjid_returning",
@@ -4567,7 +4967,8 @@ if('serviceWorker' in navigator){
           "transliteration": "Allahumma inni as'aluka min fadlik",
           "translation": "O Allah, I ask You from Your bounty (When leaving the masjid with left foot).",
           "repeat": 1,
-          "reference": "Sahih Muslim 713"
+          "reference": "Sahih Muslim 713",
+          "translation_ur": "اے اللہ! میں تجھ سے تیرے فضل کا سوال کرتا ہوں (مسجد سے نکلتے وقت)۔"
         },
         {
           "id": "lm_2",
@@ -4575,9 +4976,11 @@ if('serviceWorker' in navigator){
           "transliteration": "Bismillah, As-salamu 'alaykum",
           "translation": "Mention the name of Allah (Bismillah) and greet your family with As-salamu 'alaykum when entering home.",
           "repeat": 1,
-          "reference": "Sunan Abi Dawud 5096; Sahih Muslim 2018"
+          "reference": "Sunan Abi Dawud 5096; Sahih Muslim 2018",
+          "translation_ur": "اللہ کے نام کے ساتھ، اور گھر میں داخل ہوتے وقت اپنے اہل خانہ کو سلام کریں۔"
         }
-      ]
+      ],
+      "title_ur": "مسجد سے نکلنے اور گھر واپسی کے اذکار"
     }
   ]
 };
@@ -4782,7 +5185,7 @@ if('serviceWorker' in navigator){
   var quranAudio = new Audio();
 
   // Track which sub-panel the More tab came from
-  var moreSubPanels = ['alarm','calendar','masjids','settings','themes','about','adhkar','quran','khutbah','tajweed','quranlog'];
+  var moreSubPanels = ['alarm','calendar','masjids','settings','themes','about','adhkar','quran','khutbah','tajweed','quranlog','qaida'];
   var currentMoreSub = null;
 
   // 114 Surahs Directory
@@ -4903,12 +5306,205 @@ if('serviceWorker' in navigator){
     { n: 114, a: "الناس", e: "An-Nas", m: "Mankind", v: 6, t: "Meccan" }
   ];
 
+  var HINDI_SURAH_FILES = {
+    1: "001-Al-Fatiha.mp3", 2: "002-Al-Baqarah2.mp3", 3: "003-Al-imran.mp3", 4: "004-An-Nisa.mp3",
+    5: "005-Al-Maidah.mp3", 6: "006-Enam.mp3", 7: "007-Al-Araf.mp3", 8: "008-Al-Anfal.mp3",
+    9: "009.At-Taubah.mp3", 10: "010-Yunus.mp3", 11: "011-Hud.mp3", 12: "012-Yusuf.mp3",
+    13: "013-Ar-Rad.mp3", 14: "014-ibrahim.mp3", 15: "015-Al-Hijr.mp3", 16: "016-An-Nahl.mp3",
+    17: "017-Al-Isra.mp3", 18: "018-Al-Kahf.mp3", 19: "019.Maryam.mp3", 20: "020.Ta-Ha.mp3",
+    21: "021-Al-Anbiya.mp3", 22: "022-Al-Hajj.mp3", 23: "023-Al-Mu-minun.mp3", 24: "024-An-Nur.mp3",
+    25: "025-Al-Furqan.mp3", 26: "026-Ash-Shu-ara.mp3", 27: "027-An-Naml.mp3", 28: "028-Al-Qasas.mp3",
+    29: "029-Al-Ankabut.mp3", 30: "030-Ar-Rum.mp3", 31: "031-Luqman.mp3", 32: "032-As-Sajdah.mp3",
+    33: "033-Al-Ahzab.mp3", 34: "034-Saba..mp3", 35: "035-Fatir.mp3", 36: "036-Ya-Sin.mp3",
+    37: "037-As-Saffat.mp3", 38: "038-Sad.mp3", 39: "039-Az-Zumar.mp3", 40: "040-Mumin-Ghafir.mp3",
+    41: "041-Fussilat.mp3", 42: "042-Ash-Shura.mp3", 43: "043-Az-Zukhruf.mp3", 44: "044-Ad-Dukhan.mp3",
+    45: "045-Al-Jathiyah.mp3", 46: "046-Al-Ahqaf.mp3", 47: "047-Muhammad.mp3", 48: "048-Al-Fath.mp3",
+    49: "049-Al-Hujurat.mp3", 50: "050-Qaf.mp3", 51: "051-Adh-Dhariyat.mp3", 52: "052-At-Tur.mp3",
+    53: "053-An-Najm.mp3", 54: "054-Al-Qamar.mp3", 55: "055-Ar-Rahman.mp3", 56: "056-Al-Waqi-ah.mp3",
+    57: "057-Al-Hadid.mp3", 58: "058-Al-Mujadilah.mp3", 59: "059-Al-Hashr.mp3", 60: "060-Al-Mumtahanah.mp3",
+    61: "061-As-Saff.mp3", 62: "062-Al-Jumu-ah.mp3", 63: "063-Al-Munafiqun.mp3", 64: "064-At-Taghabun.mp3",
+    65: "065-At-Talaq.mp3", 66: "066-At-Tahrim.mp3", 67: "067-Al-Mulk.mp3", 68: "068-Al-Qalam.mp3",
+    69: "069-Al-Haqqah.mp3", 70: "070-Al-Maarij.mp3", 71: "071-Nuh.mp3", 72: "072-Al-Jinn.mp3",
+    73: "073-Al-Muzzammil.mp3", 74: "074-Al-Muddaththir.mp3", 75: "075-Al-Qiyamah.mp3", 76: "076-Al-Insan.mp3",
+    77: "077-Al-Mursalat.mp3", 78: "078-Al-Naba.mp3", 79: "079-Al-Naaze.mp3", 80: "080-Abasa.mp3",
+    81: "081-Al-Takweer.mp3", 82: "082-Al-Infitaar.mp3", 83: "083-Al-Mutaffifeen.mp3", 84: "084-Al-Inshiqaaq.mp3",
+    85: "085-Al-Burooj.mp3", 86: "086-Al-Taareq.mp3", 87: "087-Al-A-alaa.mp3", 88: "088-Al-Ghaasheyah.mp3",
+    89: "089-Al-Fajr.mp3", 90: "090-Al-Balad.mp3", 91: "091-Al-Shams.mp3", 92: "092-Al-Layl.mp3",
+    93: "093-Al-Duhaa.mp3", 94: "094-Al-insirah.mp3", 95: "095-Al-Teen.mp3", 96: "096-Al-Alaq.mp3",
+    97: "097-Al-Qadr.mp3", 98: "098-Al-Bayyinah.mp3", 99: "099-Al-Zilzalaha.mp3", 100: "100-Al-Aadeyat.mp3",
+    101: "101-Al-Qaare-ah.mp3", 102: "102-Al-Takasur.mp3", 103: "103-Al-Asr.mp3", 104: "104-Al-Humazah.mp3",
+    105: "105-Al-Feel.mp3", 106: "106-Al-Quraishinsirah.mp3", 107: "107-Al-Maa-oon.mp3", 108: "108-Al-Kausar.mp3",
+    109: "109-Al-Kaaferoon.mp3", 110: "110-Al-Nasr.mp3", 111: "111-Al-Masad.mp3", 112: "112-Al-Ikhlaas.mp3",
+    113: "113-Al-Falaq.mp3", 114: "114-Al-Naas.mp3"
+  };
+
   var QURAN_RECITERS = [
-    { id: 'ar.alafasy', name_en: 'Mishary Rashid Alafasy', name_ar: 'مشاري راشد العفاسي' },
-    { id: 'ar.abdulbasitmurattal', name_en: 'Abdul Basit (Murattal)', name_ar: 'عبد الباسط عبد الصمد (مرتل)' },
-    { id: 'ar.saadalghamdi', name_en: 'Saad Al-Ghamdi', name_ar: 'سعد الغامدي' },
-    { id: 'ar.mahermuaiqly', name_en: 'Maher Al-Muaiqly', name_ar: 'ماهر المعيقلي' },
-    { id: 'ar.minshawi', name_en: 'Mohamed Siddiq El-Minshawi', name_ar: 'محمد صديق المنشاوي' }
+    // --- 1. Top 10 Authentic Arabic Reciters (أفضل ١٠ قراء العالم الإسلامي) ---
+    {
+      id: 'ar.alafasy',
+      name_en: '1. Mishary Rashid Alafasy (مشاري راشد العفاسي)',
+      name_ar: '١. مشاري راشد العفاسي',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/' + n + '.mp3'; }
+    },
+    {
+      id: 'ar.sudais',
+      name_en: '2. Abdur-Rahman As-Sudais • Imam of Haram (عبد الرحمن السديس)',
+      name_ar: '٢. عبد الرحمن السديس (إمام الحرم المكي)',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/qdc/abdurrahmaan_as_sudais/murattal/' + n + '.mp3'; }
+    },
+    {
+      id: 'ar.shuraim',
+      name_en: '3. Sa\'ud Ash-Shuraim (سعود الشريم)',
+      name_ar: '٣. سعود الشريم (إمام الحرم المكي السابق)',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/qdc/saud_ash-shuraym/murattal/' + pad3(n) + '.mp3'; }
+    },
+    {
+      id: 'ar.maher',
+      name_en: '4. Maher Al-Muaiqly • Imam of Haram (ماهر المعيقلي)',
+      name_ar: '٤. ماهر المعيقلي (إمام الحرم المكي)',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/quran/maher_256/' + pad3(n) + '.mp3'; }
+    },
+    {
+      id: 'ar.ghamdi',
+      name_en: '5. Saad Al-Ghamdi (سعد الغامدي)',
+      name_ar: '٥. سعد الغامدي',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/quran/sa3d_al-ghaamidi/complete/' + pad3(n) + '.mp3'; }
+    },
+    {
+      id: 'ar.abdulbasitmurattal',
+      name_en: '6. Abdul Basit Abdus-Samad • Murattal (عبد الباسط - مرتل)',
+      name_ar: '٦. عبد الباسط عبد الصمد (مرتل)',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/qdc/abdul_baset/murattal/' + n + '.mp3'; }
+    },
+    {
+      id: 'ar.abdulbasitmujawwad',
+      name_en: '7. Abdul Basit Abdus-Samad • Mujawwad (عبد الباسط - مجود)',
+      name_ar: '٧. عبد الباسط عبد الصمد (مجود)',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/qdc/abdul_baset/mujawwad/' + n + '.mp3'; }
+    },
+    {
+      id: 'ar.minshawi',
+      name_en: '8. Mohamed Siddiq El-Minshawi • Murattal (محمد صديق المنشاوي)',
+      name_ar: '٨. محمد صديق المنشاوي (مرتل)',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/qdc/siddiq_minshawi/murattal/' + n + '.mp3'; }
+    },
+    {
+      id: 'ar.husary',
+      name_en: '9. Mahmoud Khalil Al-Husary • Murattal (محمود خليل الحصري)',
+      name_ar: '٩. محمود خليل الحصري (مرتل)',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/qdc/khalil_al_husary/murattal/' + n + '.mp3'; }
+    },
+    {
+      id: 'ar.dosari',
+      name_en: '10. Yasser Al-Dosari • Imam of Haram (ياسر الدوسري)',
+      name_ar: '١٠. ياسر الدوسري (إمام الحرم المكي)',
+      category: 'arabic',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/quran/yasser_ad-dussary/' + pad3(n) + '.mp3'; }
+    },
+
+    // --- 2. Urdu Translation Audio (تلاوت عربی بمعہ اردو ترجمہ) ---
+    {
+      id: 'ur.sudais_jalandhri_full',
+      name_en: 'Urdu: Sudais & Shuraim + Fateh M. Jalandhri (Arabic + Urdu Audio)',
+      name_ar: 'أردو: السديس والشريم مع ترجمة فتح محمد جالندھری (تلاوة عربية وترجمة)',
+      category: 'urdu',
+      type: 'surah',
+      urlFn: function(n){
+        return 'https://archive.org/download/SheikhSudaisAndShuraimUrduTranslation/' + pad3(n) + '%20www.quranaudio.info.mp3';
+      }
+    },
+    {
+      id: 'ur.qasmi_translation_full',
+      name_en: 'Urdu: Qari Waheed Zafar Qasmi + Urdu Translation (Arabic + Urdu Audio)',
+      name_ar: 'أردو: قاري وحيد ظفر قاسمي مع الترجمة الأردية (تلاوة وترجمة)',
+      category: 'urdu',
+      type: 'surah',
+      urlFn: function(n){
+        return 'https://archive.org/download/Holy-Quran-Urdu-Translation/Qari-Wahid-Zafar-Qasmi/' + pad3(n) + '.mp3';
+      }
+    },
+    {
+      id: 'ur.maarifulquran',
+      name_en: 'Urdu: Ma\'ariful Quran (by Mufti Muhammad Shafi — معارف القرآن)',
+      name_ar: 'أردو: معارف القرآن (مفتي محمد شفيع عثماني)',
+      category: 'urdu',
+      type: 'ayah',
+      ayahUrlFn: function(s, a){ return 'https://everyayah.com/data/translations/urdu_shamshad_ali_khan_46kbps/' + pad3(s) + pad3(a) + '.mp3'; }
+    },
+
+    // --- 3. Hindi Translation Audio (तिलावत हिन्दी अनुवाद सहित) ---
+    {
+      id: 'hi.nazar_wordbyword',
+      name_en: 'Hindi: Hafiz Nazar Ahmed (Word-by-Word Translation — शब्दार्थ अनुवाद)',
+      name_ar: 'هندي: ترجمة حافظ نذر أحمد (لفظي وكلمة بكلمة)',
+      category: 'hindi',
+      type: 'ayah',
+      ayahUrlFn: function(s, a){ return 'https://everyayah.com/data/translations/urdu_shamshad_ali_khan_46kbps/' + pad3(s) + pad3(a) + '.mp3'; }
+    },
+    {
+      id: 'hi.translation_full',
+      name_en: 'Hindi: Full Surah Recitation + Hindi Translation (हिन्दी अनुवाद)',
+      name_ar: 'هندي: تلاوة مع الترجمة الهندية المعتمدة (كامل السورة)',
+      category: 'hindi',
+      type: 'surah',
+      urlFn: function(n){
+        var f = HINDI_SURAH_FILES[n] || (pad3(n) + '.mp3');
+        return 'https://archive.org/download/hindi-meal/' + encodeURIComponent(f);
+      }
+    },
+
+    // --- 4. English Translation Audio (Recitation & English Translation) ---
+    {
+      id: 'en.walk_only',
+      name_en: 'English ONLY: Saheeh International / Ibrahim Walk (No Arabic Recitation)',
+      name_ar: 'إنجليزي فقط: صحيح إنترناشيونال / إبراهيم ووك (ترجمة إنجليزية فقط)',
+      category: 'english',
+      type: 'surah',
+      urlFn: function(n){ return 'https://download.quranicaudio.com/quran/ibrahim_walk/' + pad3(n) + '.mp3'; }
+    },
+    {
+      id: 'en.alafasy_walk',
+      name_en: 'English + Arabic: Mishary Alafasy + Saheeh Int. (Ibrahim Walk)',
+      name_ar: 'إنجليزي وعربي: مشاري العفاسي مع صحيح إنترناشيونال',
+      category: 'english',
+      type: 'surah',
+      urlFn: function(n){ return 'https://cdn.islamic.network/quran/audio-surah/128/en.misharyrashidalafasyenglishtranslationsaheehibrahimwalk/' + n + '.mp3'; }
+    },
+    {
+      id: 'en.ayyub_muhsin',
+      name_en: 'English + Arabic: Muhammad Ayyub + Muhsin Khan & Hilali',
+      name_ar: 'إنجليزي وعربي: محمد أيوب مع ترجمة د. محسن خان وتقي الدين الهلالي',
+      category: 'english',
+      type: 'surah',
+      urlFn: function(n){ return 'https://cdn.islamic.network/quran/audio-surah/128/en.muhammadayyubenglishtranslationmuhsinkhanmikaalwaters/' + n + '.mp3'; }
+    },
+    {
+      id: 'en.sudais_pickthall',
+      name_en: 'English + Arabic: Sudais & Shuraim + Marmaduke Pickthall (Aslam Athar)',
+      name_ar: 'إنجليزي وعربي: السديس والشريم مع ترجمة مارمادوك بيكثال',
+      category: 'english',
+      type: 'surah',
+      urlFn: function(n){ return 'https://cdn.islamic.network/quran/audio-surah/128/en.sudaisandshuraymenglishtranslationpickthallaslamathar/' + n + '.mp3'; }
+    }
   ];
 
   var I18N = {
@@ -5001,6 +5597,7 @@ if('serviceWorker' in navigator){
   }
 
   function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  function pad3(n){ if(n < 10) return '00'+n; if(n < 100) return '0'+n; return ''+n; }
   function todayKey(){ var d = new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
   function dmy(d){ return pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear(); }
   function cleanTime(t){ return t ? t.split(' ')[0] : '00:00'; }
@@ -5042,6 +5639,11 @@ if('serviceWorker' in navigator){
     else if(state.quranTranslation === 'hi') state.quranTranslation = 'hi.hindi';
     else if(state.quranTranslation === 'en') state.quranTranslation = 'en.sahih';
     else if(!QURAN_TRANSLATIONS[state.quranTranslation]) state.quranTranslation = 'ur.jalandhry';
+
+    // Normalize Quran reciter setting
+    if(!QURAN_RECITERS.some(function(r){ return r.id === state.quranReciter; })){
+      state.quranReciter = 'ar.alafasy';
+    }
 
     // Handle old theme names
     if(!THEMES[state.theme]) state.theme = 'mosquegold';
@@ -5428,40 +6030,38 @@ if('serviceWorker' in navigator){
         await ln.requestPermissions();
       }
 
-      // Cancel existing scheduled notifications to avoid duplicates
+      // Cancel only existing prayer alarm notifications (IDs < 8000) so Quran reminders aren't wiped
       var pending = await ln.getPending();
       if(pending && pending.notifications && pending.notifications.length > 0){
-        await ln.cancel({ notifications: pending.notifications });
+        var prayerPending = pending.notifications.filter(function(n){ return n.id < 8000; });
+        if(prayerPending.length > 0){
+          await ln.cancel({ notifications: prayerPending });
+        }
       }
 
       var now = new Date();
       var notificationsToSchedule = [];
 
-      var tmrwSrc = tomorrowTimings;
-      if(!tmrwSrc){
-        var tmrwDate = new Date(now.getTime() + 86400000);
-        tmrwSrc = calculateOfflineTimings(tmrwDate, state.lat, state.lng, state.method, state.school);
-      }
+      // Schedule all enabled prayers for the next 14 days
+      for(var dayOffset = 0; dayOffset <= 13; dayOffset++){
+        var targetDay = new Date(now);
+        targetDay.setDate(targetDay.getDate() + dayOffset);
 
-      var daysToCheck = [
-        { offset: 0, src: timings },
-        { offset: 1, src: tmrwSrc }
-      ];
+        var dayTimings = (dayOffset === 0 && timings) ? timings : calculateOfflineTimings(targetDay, state.lat, state.lng, state.method, state.school);
+        if(!dayTimings) continue;
 
-      ALL_PRAYERS.forEach(function(prayerName, pIdx){
-        var conf = state.prayerConfigs[prayerName];
-        if(!conf || !conf.enabled) return;
+        ALL_PRAYERS.forEach(function(prayerName, pIdx){
+          var conf = state.prayerConfigs[prayerName];
+          if(!conf || !conf.enabled) return;
 
-        var soundKey = conf.sound || (prayerName === 'Fajr' ? 'adhan-fajr.mp3' : 'adhan-makkah.mp3');
-        var soundInfo = NOTIFICATION_SOUND_MAP[soundKey] || NOTIFICATION_SOUND_MAP['adhan-makkah.mp3'];
-        var leadMins = parseInt(conf.lead || '0', 10);
+          var soundKey = conf.sound || (prayerName === 'Fajr' ? 'adhan-fajr.mp3' : 'adhan-makkah.mp3');
+          var soundInfo = NOTIFICATION_SOUND_MAP[soundKey] || NOTIFICATION_SOUND_MAP['adhan-makkah.mp3'];
+          var leadMins = parseInt(conf.lead || '0', 10);
 
-        daysToCheck.forEach(function(dObj){
-          var prayerTimeStr = dObj.src && dObj.src[prayerName];
+          var prayerTimeStr = dayTimings[prayerName];
           if(!prayerTimeStr) return;
 
-          var pDate = new Date(now);
-          pDate.setDate(pDate.getDate() + dObj.offset);
+          var pDate = new Date(targetDay);
           var parts = cleanTime(prayerTimeStr).split(':');
           pDate.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
 
@@ -5469,7 +6069,7 @@ if('serviceWorker' in navigator){
 
           // Only schedule future alarms (at least 5 seconds ahead)
           if(targetDate.getTime() > now.getTime() + 5000){
-            var notifId = (dObj.offset + 1) * 1000 + (pIdx + 1) * 10 + leadMins;
+            var notifId = (dayOffset + 1) * 100 + (pIdx + 1) * 10 + leadMins;
             var isAr = state.lang === 'ar';
             var pDisplayName = isAr ? (ARABIC[prayerName] || prayerName) : prayerName;
             var notifTitle = leadMins === 0 
@@ -5486,7 +6086,7 @@ if('serviceWorker' in navigator){
               channelId: soundInfo.channel,
               sound: soundInfo.raw,
               smallIcon: 'ic_launcher',
-              iconColor: '#1db954',
+              iconColor: '#4ade80',
               schedule: {
                 at: targetDate,
                 allowWhileIdle: true
@@ -5499,11 +6099,11 @@ if('serviceWorker' in navigator){
             });
           }
         });
-      });
+      }
 
       if(notificationsToSchedule.length > 0){
         await ln.schedule({ notifications: notificationsToSchedule });
-        console.log('Successfully scheduled ' + notificationsToSchedule.length + ' upcoming prayer alarms in Android OS');
+        console.log('Successfully scheduled ' + notificationsToSchedule.length + ' upcoming prayer alarms across 14 days in Android OS');
       }
     }catch(e){
       console.warn('scheduleAllPrayerAlarms error:', e);
@@ -7352,6 +7952,9 @@ if('serviceWorker' in navigator){
       loadTajweedState();
       renderTajweedPage(tajweedState.currentPage || 1);
     }
+    if(tabId === 'qaida'){
+      if(window.renderQaidaPanel) renderQaidaPanel();
+    }
     if(tabId === 'quranlog'){
       renderQuranLogPanel();
     }
@@ -7552,15 +8155,32 @@ function _legacySwitchToSubPanel(panelId){
     var select = document.getElementById('quranReciterSelect');
     if(!container) return;
 
-    // Populate Reciter dropdown
-    if(select && select.options.length === 0){
-      QURAN_RECITERS.forEach(function(r){
-        var opt = document.createElement('option');
-        opt.value = r.id;
-        opt.textContent = (state.lang === 'ar' ? r.name_ar : r.name_en);
-        if(r.id === state.quranReciter) opt.selected = true;
-        select.appendChild(opt);
+    // Populate Reciter & Translation Audio dropdown with clear categories
+    if(select){
+      select.innerHTML = '';
+      var isArLang = state.lang === 'ar';
+      var groups = [
+        { key: 'arabic', label: isArLang ? 'تلاوة عربية فقط' : 'Arabic Recitations' },
+        { key: 'urdu', label: isArLang ? 'تلاوة مع الترجمة الأردية' : 'Urdu Translation Audio • اردو ترجمہ' },
+        { key: 'hindi', label: isArLang ? 'تلاوة مع الترجمة الهندية' : 'Hindi Translation Audio • हिन्दी अनुवाद' },
+        { key: 'english', label: isArLang ? 'تلاوة مع الترجمة الإنجليزية' : 'English Translation Audio' }
+      ];
+
+      groups.forEach(function(g){
+        var items = QURAN_RECITERS.filter(function(r){ return r.category === g.key; });
+        if(items.length === 0) return;
+        var optGroup = document.createElement('optgroup');
+        optGroup.label = g.label;
+        items.forEach(function(r){
+          var opt = document.createElement('option');
+          opt.value = r.id;
+          opt.textContent = (isArLang ? r.name_ar : r.name_en);
+          if(r.id === state.quranReciter) opt.selected = true;
+          optGroup.appendChild(opt);
+        });
+        select.appendChild(optGroup);
       });
+
       select.onchange = function(){
         state.quranReciter = this.value;
         saveSettings();
@@ -7650,7 +8270,7 @@ function _legacySwitchToSubPanel(panelId){
     }
   };
 
-  function playSurahAudio(surahNum){
+  function playSurahAudio(surahNum, targetAyah){
     stopAllAudio();
     var s = SURAHS_LIST.find(function(item){ return item.n === surahNum; });
     if(!s) return;
@@ -7659,10 +8279,22 @@ function _legacySwitchToSubPanel(panelId){
     state.isQuranPlaying = true;
 
     var reciter = state.quranReciter || 'ar.alafasy';
-    var audioUrl = 'https://cdn.islamic.network/quran/audio-surah/128/' + reciter + '/' + surahNum + '.mp3';
+    var rObj = QURAN_RECITERS.find(function(r){ return r.id === reciter; });
+    var audioUrl = '';
+
+    if(rObj && rObj.type === 'ayah'){
+      var ayah = targetAyah || 1;
+      state.currentPlayingAyah = ayah;
+      state.currentPlayingSurahTotalAyahs = s.v;
+      audioUrl = rObj.ayahUrlFn(surahNum, ayah);
+    } else if(rObj && rObj.urlFn){
+      audioUrl = rObj.urlFn(surahNum);
+    } else {
+      audioUrl = 'https://download.quranicaudio.com/qdc/mishari_al_afasy/murattal/' + surahNum + '.mp3';
+    }
 
     quranAudio.src = audioUrl;
-    quranAudio.play().catch(function(){});
+    quranAudio.play().catch(function(e){ console.warn('Quran audio play error:', e); });
 
     updateQuranPlayerUI();
     window.renderQuran();
@@ -7684,7 +8316,8 @@ function _legacySwitchToSubPanel(panelId){
 
     var nameEl = document.getElementById('playerSurahName');
     if(nameEl && s){
-      nameEl.innerHTML = (isAr ? 'سُورَةُ ' + s.a : s.e + ' • ' + s.a);
+      var ayahSuffix = (r && r.type === 'ayah' && state.currentPlayingAyah) ? (' • Ayah ' + state.currentPlayingAyah + '/' + s.v) : '';
+      nameEl.innerHTML = (isAr ? ('سُورَةُ ' + s.a) : (s.e + ' • ' + s.a)) + '<span style="font-size:11px;opacity:0.75;margin-left:6px;">' + ayahSuffix + '</span>';
     }
     var recEl = document.getElementById('playerReciterName');
     if(recEl && r){
@@ -7716,7 +8349,15 @@ function _legacySwitchToSubPanel(panelId){
   });
 
   quranAudio.addEventListener('ended', function(){
-    if(state.currentPlayingSurah && state.currentPlayingSurah < 114){
+    var reciter = state.quranReciter || 'ar.alafasy';
+    var rObj = QURAN_RECITERS.find(function(r){ return r.id === reciter; });
+    if(rObj && rObj.type === 'ayah' && state.currentPlayingAyah && state.currentPlayingAyah < state.currentPlayingSurahTotalAyahs){
+      state.currentPlayingAyah++;
+      var s = SURAHS_LIST.find(function(item){ return item.n === state.currentPlayingSurah; });
+      quranAudio.src = rObj.ayahUrlFn(state.currentPlayingSurah, state.currentPlayingAyah);
+      quranAudio.play().catch(function(){});
+      updateQuranPlayerUI();
+    } else if(state.currentPlayingSurah && state.currentPlayingSurah < 114){
       playSurahAudio(state.currentPlayingSurah + 1);
     } else {
       state.isQuranPlaying = false;
@@ -8051,20 +8692,150 @@ function _legacySwitchToSubPanel(panelId){
     var container = document.getElementById('adhkarContainer');
     if(!container) return;
     var html = '';
-    ADHKAR_DATA.categories.forEach(function(cat){
-      html += '<h3 style="color:var(--green); margin:20px 0 10px; font-size:16px;">' + cat.title_en + ' <span style="font-size:14px; opacity:0.8; margin-left:6px;">' + cat.title_ar + '</span></h3>';
-      cat.items.forEach(function(item){
-        html += '<div class="card" style="margin-bottom:10px;">';
-        html += '<div style="font-family:Amiri,serif; font-size:22px; font-weight:700; text-align:right; margin-bottom:12px; line-height:1.6;">' + item.arabic + '</div>';
-        html += '<div style="font-size:14px; color:var(--text-primary); margin-bottom:6px; font-weight:500;">' + item.transliteration + '</div>';
-        html += '<div style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">' + item.translation + '</div>';
-        html += '<div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:10px; margin-top:10px;">';
-        html += '<span style="font-size:12px; font-weight:600; color:var(--green);">Repeat: ' + item.repeat + 'x</span>';
-        html += '<span style="font-size:10px; color:var(--text-tertiary); max-width:60%; text-align:right;">' + (item.reference || '') + '</span>';
+    var isAr = state.lang === 'ar';
+    
+    ADHKAR_DATA.categories.forEach(function(cat, catIdx){
+      var titleText = isAr ? cat.title_ar : (cat.title_ur ? cat.title_en + ' / ' + cat.title_ur : cat.title_en);
+      html += '<h3 style="color:var(--green); margin:20px 0 10px; font-size:16px;">' + titleText + ' <span style="font-size:14px; opacity:0.8; margin-left:6px;">' + cat.title_ar + '</span></h3>';
+      
+      cat.items.forEach(function(item, itemIdx){
+        html += '<div class="card" style="margin-bottom:12px; position:relative;" id="adhkarCard_' + catIdx + '_' + itemIdx + '">';
+        
+        // Header with Repeat and Play Button
+        html += '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">';
+        html += '<span style="font-size:12px; font-weight:600; color:var(--green); background:var(--green-glow); padding:4px 10px; border-radius:12px;">Repeat: ' + item.repeat + 'x</span>';
+        html += '<button class="header-btn" title="Play Adhkar" style="color:var(--green);" onclick="window.playAdhkarItem(' + catIdx + ', ' + itemIdx + ')">';
+        html += '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:18px;height:18px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+        html += '</button></div>';
+
+        // Arabic text
+        html += '<div style="font-family:Amiri,serif; font-size:24px; font-weight:700; text-align:right; margin-bottom:12px; line-height:1.7;">' + item.arabic + '</div>';
+        
+        // Transliteration
+        html += '<div style="font-size:14px; color:var(--text-primary); margin-bottom:8px; font-weight:500;">' + item.transliteration + '</div>';
+        
+        // English Translation
+        html += '<div style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">' + item.translation + '</div>';
+        
+        // Urdu Translation
+        if (item.translation_ur) {
+          html += '<div style="font-family:Jameel Noori Nastaleeq, Noto Nastaliq Urdu, Amiri, serif; font-size:18px; color:var(--text-secondary); margin-bottom:12px; text-align:right; line-height:1.8;" dir="rtl">' + item.translation_ur + '</div>';
+        }
+
+        // Footer (Reference)
+        html += '<div style="border-top:1px solid var(--border); padding-top:10px; margin-top:8px;">';
+        html += '<span style="font-size:11px; color:var(--text-tertiary); display:block; text-align:right;">' + (item.reference || '') + '</span>';
         html += '</div></div>';
       });
     });
     container.innerHTML = html;
+  };
+
+  // Audio Player for Adhkar (Multi-chunk sequential player for long & short Duas at 1.25x speed)
+  var adhkarAudioQueue = [];
+  var currentAdhkarCardEl = null;
+
+  function playNextAdhkarChunk() {
+    if(!adhkarAudioQueue || adhkarAudioQueue.length === 0) {
+      if(currentAdhkarCardEl) currentAdhkarCardEl.classList.remove('playing');
+      return;
+    }
+    var chunk = adhkarAudioQueue.shift();
+    var gUrl = 'https://translate.googleapis.com/translate_tts?client=gtx&ie=UTF-8&tl=ar&q=' + encodeURIComponent(chunk);
+    
+    qaidaAudioPlayer.pause();
+    qaidaAudioPlayer.currentTime = 0;
+    qaidaAudioPlayer.src = gUrl;
+    qaidaAudioPlayer.playbackRate = 0.95;
+    qaidaAudioPlayer.preservesPitch = false;
+    if(qaidaAudioPlayer.mozPreservesPitch !== undefined) qaidaAudioPlayer.mozPreservesPitch = false;
+    if(qaidaAudioPlayer.webkitPreservesPitch !== undefined) qaidaAudioPlayer.webkitPreservesPitch = false;
+
+    qaidaAudioPlayer.onended = function() {
+      playNextAdhkarChunk();
+    };
+
+    var playPromise = qaidaAudioPlayer.play();
+    if(playPromise !== undefined) {
+      playPromise.catch(function(e){
+        console.warn('Adhkar chunk play err:', e);
+        if(currentAdhkarCardEl) currentAdhkarCardEl.classList.remove('playing');
+      });
+    }
+  }
+
+  window.playAdhkarItem = function(catIdx, itemIdx) {
+    var cat = ADHKAR_DATA.categories[catIdx];
+    if(!cat) return;
+    var item = cat.items[itemIdx];
+    if(!item) return;
+
+    var cardEl = document.getElementById('adhkarCard_' + catIdx + '_' + itemIdx);
+    
+    // If clicking currently playing card, toggle stop
+    if(cardEl && cardEl.classList.contains('playing')) {
+      adhkarAudioQueue = [];
+      qaidaAudioPlayer.pause();
+      qaidaAudioPlayer.onended = null;
+      cardEl.classList.remove('playing');
+      if('speechSynthesis' in window) window.speechSynthesis.cancel();
+      return;
+    }
+
+    document.querySelectorAll('#adhkarContainer .card').forEach(function(c){ c.classList.remove('playing'); });
+    if(cardEl) {
+      cardEl.classList.add('playing');
+      currentAdhkarCardEl = cardEl;
+    }
+
+    try {
+      if('speechSynthesis' in window) window.speechSynthesis.cancel();
+      qaidaAudioPlayer.pause();
+      qaidaAudioPlayer.onended = null;
+
+      // Clean text to recite (remove annotations like 33x, parentheses if any)
+      var cleanArabic = item.arabic.replace(/\([0-9x\/]+\)/g, '').replace(/[\n\r]+/g, ' ').trim();
+      
+      // Split text into <= 120 character chunks at punctuation or space
+      var chunks = [];
+      if(cleanArabic.length <= 120) {
+        chunks = [cleanArabic];
+      } else {
+        var rawParts = cleanArabic.split(/(?<=[،.؛])/);
+        var cur = '';
+        for(var i = 0; i < rawParts.length; i++) {
+          var p = rawParts[i].trim();
+          if(!p) continue;
+          if((cur + ' ' + p).trim().length <= 120) {
+            cur = (cur ? cur + ' ' + p : p).trim();
+          } else {
+            if(cur) chunks.push(cur);
+            if(p.length <= 120) {
+              cur = p;
+            } else {
+              var words = p.split(' ');
+              cur = '';
+              for(var w = 0; w < words.length; w++) {
+                if((cur + ' ' + words[w]).trim().length <= 120) {
+                  cur = (cur ? cur + ' ' + words[w] : words[w]).trim();
+                } else {
+                  if(cur) chunks.push(cur);
+                  cur = words[w];
+                }
+              }
+            }
+          }
+        }
+        if(cur) chunks.push(cur);
+      }
+
+      adhkarAudioQueue = chunks;
+      playNextAdhkarChunk();
+
+    } catch(e) {
+      console.warn('Adhkar audio block err:', e);
+      if(cardEl) cardEl.classList.remove('playing');
+    }
   };
 
   // Main nav buttons
@@ -10058,6 +10829,443 @@ window.TAJWEED_BOOK_PAGES = [
   }
 
 
+  // =========================================================================
+  // ARABIC QAIDA WITH TAJWEED SOUND
+  // =========================================================================
+  var QAIDA_LESSONS = [
+    {
+      id: 'l1',
+      title_en: 'Lesson 1: The Arabic Alphabet (المفردات)',
+      title_ar: 'الدرس الأول: الحروف المفردة (حروف الهجاء)',
+      desc_en: '29 Individual Arabic letters with their Makharij (points of articulation) and Tajweed attributes.',
+      desc_ar: 'تسعة وعشرون حرفاً هجائياً مع مخارجها وصفاتها التجويدية الصحيحة.',
+      items: [
+        { ar: 'ا', name: 'Alif', name_ar: 'أَلِف', sound: 'أَلِف', rule: 'Empty • جوفي', desc: 'From the emptiness of mouth & throat' },
+        { ar: 'ب', name: 'Baa', name_ar: 'بَاء', sound: 'بَاء', rule: 'Lips • شفوي', desc: 'From inner wet parts of lips (Light)' },
+        { ar: 'ت', name: 'Taa', name_ar: 'تَاء', sound: 'تَاء', rule: 'Hams • همس', desc: 'Tongue tip touching roots of upper teeth' },
+        { ar: 'ث', name: 'Thaa', name_ar: 'ثَاء', sound: 'ثَاء', rule: 'Soft • لثوي', desc: 'Tongue tip touching edges of upper teeth' },
+        { ar: 'ج', name: 'Jeem', name_ar: 'جِيم', sound: 'جِيم', rule: 'Qalqalah • قلقلة', desc: 'Middle of tongue touching hard palate' },
+        { ar: 'ح', name: 'Haa', name_ar: 'حَاء', sound: 'حَاء', rule: 'Throat • حلقي', desc: 'Middle of throat (Halqi), clear breath' },
+        { ar: 'خ', name: 'Khaa', name_ar: 'خَاء', sound: 'خَاء', rule: 'Heavy • استعلاء', desc: 'Top of throat, full heavy mouth' },
+        { ar: 'د', name: 'Daal', name_ar: 'دَال', sound: 'دَال', rule: 'Qalqalah • قلقلة', desc: 'Tongue tip against roots of upper incisors' },
+        { ar: 'ذ', name: 'Dhaal', name_ar: 'ذَال', sound: 'ذَال', rule: 'Soft • لثوي', desc: 'Tongue tip against edges of upper incisors' },
+        { ar: 'ر', name: 'Raa', name_ar: 'رَاء', sound: 'رَاء', rule: 'Tafkheem/Tarqeeq', desc: 'Edge of tongue with slight vibration' },
+        { ar: 'ز', name: 'Zay', name_ar: 'زَاي', sound: 'زَاي', rule: 'Whistle • صفير', desc: 'Tongue tip near lower teeth edge' },
+        { ar: 'س', name: 'Seen', name_ar: 'سِين', sound: 'سِين', rule: 'Whistle • صفير', desc: 'Tongue tip with sharp breath (Hams)' },
+        { ar: 'ش', name: 'Sheen', name_ar: 'شِين', sound: 'شِين', rule: 'Tafash-shee • تفشي', desc: 'Middle tongue with spreading breath' },
+        { ar: 'ص', name: 'Saad', name_ar: 'صَاد', sound: 'صَاد', rule: 'Heavy • استعلاء وإطباق', desc: 'Elevated back of tongue + whistle' },
+        { ar: 'ض', name: 'Daad', name_ar: 'ضَاد', sound: 'ضَاد', rule: 'Heavy • استطالة', desc: 'Side of tongue against upper molars' },
+        { ar: 'ط', name: 'Taa', name_ar: 'طَاء', sound: 'طَاء', rule: 'Heavy & Qalqalah', desc: 'Strongest heavy letter in Arabic' },
+        { ar: 'ظ', name: 'Zhaa', name_ar: 'ظَاء', sound: 'ظَاء', rule: 'Heavy • استعلاء', desc: 'Tongue tip & teeth edges with elevated back' },
+        { ar: 'ع', name: 'Ain', name_ar: 'عَيْن', sound: 'عَيْن', rule: 'Throat • حلقي', desc: 'Deep middle throat sound' },
+        { ar: 'غ', name: 'Ghain', name_ar: 'غَيْن', sound: 'غَيْن', rule: 'Heavy • استعلاء', desc: 'Top throat, full heavy sound' },
+        { ar: 'ف', name: 'Faa', name_ar: 'فَاء', sound: 'فَاء', rule: 'Lips • شفوي', desc: 'Upper teeth touching wet part of lower lip' },
+        { ar: 'ق', name: 'Qaaf', name_ar: 'قَاف', sound: 'قَاف', rule: 'Heavy & Qalqalah', desc: 'Extreme back of tongue near uvula' },
+        { ar: 'ك', name: 'Kaaf', name_ar: 'كَاف', sound: 'كَاف', rule: 'Hams • همس', desc: 'Back of tongue in front of Qaaf' },
+        { ar: 'ل', name: 'Laam', name_ar: 'لَام', sound: 'لَام', rule: 'Light • ترقيق', desc: 'Front edges of tongue to gums' },
+        { ar: 'م', name: 'Meem', name_ar: 'مِيم', sound: 'مِيم', rule: 'Ghunnah • غنة', desc: 'Two lips touching with nasal resonance' },
+        { ar: 'ن', name: 'Noon', name_ar: 'نُون', sound: 'نُون', rule: 'Ghunnah • غنة', desc: 'Tongue tip to gums with nasal resonance' },
+        { ar: 'و', name: 'Waaw', name_ar: 'وَاو', sound: 'وَاو', rule: 'Lips • شفوي', desc: 'Rounding of lips without complete closure' },
+        { ar: 'هـ', name: 'Haa', name_ar: 'هَاء', sound: 'هَاء', rule: 'Throat • حلقي', desc: 'Deepest part of throat (Halqi)' },
+        { ar: 'ء', name: 'Hamzah', name_ar: 'هَمْزَة', sound: 'هَمْزَة', rule: 'Throat • حلقي', desc: 'Deepest throat, distinct sharp stop' },
+        { ar: 'ي', name: 'Yaa', name_ar: 'يَاء', sound: 'يَاء', rule: 'Leen / Madd', desc: 'Middle of tongue raised toward palate' }
+      ]
+    },
+    {
+      id: 'l2',
+      title_en: 'Lesson 2: Compound Letters (المركبات)',
+      title_ar: 'الدرس الثاني: الحروف المركبة',
+      desc_en: 'Recognizing letters when joined in beginning, middle, and end of words.',
+      desc_ar: 'التعرف على أشكال الحروف المركبة في أول الكلمة ووسطها وآخرها.',
+      items: [
+        { ar: 'لا', name: 'Laam-Alif', sound: 'لَام أَلِف', rule: 'Joined • مركب' },
+        { ar: 'با', name: 'Baa-Alif', sound: 'بَاء أَلِف', rule: 'Joined • مركب' },
+        { ar: 'تا', name: 'Taa-Alif', sound: 'تَاء أَلِف', rule: 'Joined • مركب' },
+        { ar: 'ثا', name: 'Thaa-Alif', sound: 'ثَاء أَلِف', rule: 'Joined • مركب' },
+        { ar: 'بل', name: 'Baa-Laam', sound: 'بَاء لَام', rule: 'Joined • مركب' },
+        { ar: 'تل', name: 'Taa-Laam', sound: 'تَاء لَام', rule: 'Joined • مركب' },
+        { ar: 'ثل', name: 'Thaa-Laam', sound: 'ثَاء لَام', rule: 'Joined • مركب' },
+        { ar: 'نم', name: 'Noon-Meem', sound: 'نُون مِيم', rule: 'Joined • مركب' },
+        { ar: 'يم', name: 'Yaa-Meem', sound: 'يَاء مِيم', rule: 'Joined • مركب' },
+        { ar: 'تم', name: 'Taa-Meem', sound: 'تَاء مِيم', rule: 'Joined • مركب' },
+        { ar: 'ثم', name: 'Thaa-Meem', sound: 'ثَاء مِيم', rule: 'Joined • مركب' },
+        { ar: 'يح', name: 'Yaa-Haa', sound: 'يَاء حَاء', rule: 'Joined • مركب' },
+        { ar: 'تج', name: 'Taa-Jeem', sound: 'تَاء جِيم', rule: 'Joined • مركب' },
+        { ar: 'ثخ', name: 'Thaa-Khaa', sound: 'ثَاء خَاء', rule: 'Joined • مركب' },
+        { ar: 'بج', name: 'Baa-Jeem', sound: 'بَاء جِيم', rule: 'Joined • مركب' },
+        { ar: 'كـتـب', name: 'Kaaf-Taa-Baa', sound: 'كَاف تَاء بَاء', rule: 'Joined Word' },
+        { ar: 'عـلـم', name: 'Ain-Laam-Meem', sound: 'عَيْن لَام مِيم', rule: 'Joined Word' },
+        { ar: 'نـعـم', name: 'Noon-Ain-Meem', sound: 'نُون عَيْن مِيم', rule: 'Joined Word' }
+      ]
+    },
+    {
+      id: 'l3',
+      title_en: 'Lesson 3: Harakat - Short Vowels (الحركات)',
+      title_ar: 'الدرس الثالث: الحركات (الفتحة والكسرة والضمة)',
+      desc_en: 'Fatha (ـَ = A), Kasra (ـِ = I), and Damma (ـُ = U). Pronounce swiftly without stretching (1 count).',
+      desc_ar: 'الحركات الثلاث تُقرأ بسرعة بدون مد (حركة واحدة فقط).',
+      items: [
+        { ar: 'أَ', name: 'A (Fatha)', sound: 'أَ', rule: '1 Count • حركة واحدة' },
+        { ar: 'إِ', name: 'I (Kasra)', sound: 'إِ', rule: '1 Count • حركة واحدة' },
+        { ar: 'أُ', name: 'U (Damma)', sound: 'أُ', rule: '1 Count • حركة واحدة' },
+        { ar: 'بَ', name: 'Ba', sound: 'بَ', rule: 'Fatha' },
+        { ar: 'بِ', name: 'Bi', sound: 'بِ', rule: 'Kasra' },
+        { ar: 'بُ', name: 'Bu', sound: 'بُ', rule: 'Damma' },
+        { ar: 'تَ', name: 'Ta', sound: 'تَ', rule: 'Fatha' },
+        { ar: 'تِ', name: 'Ti', sound: 'تِ', rule: 'Kasra' },
+        { ar: 'تُ', name: 'Tu', sound: 'تُ', rule: 'Damma' },
+        { ar: 'جَ', name: 'Ja', sound: 'جَ', rule: 'Fatha' },
+        { ar: 'جِ', name: 'Ji', sound: 'جِ', rule: 'Kasra' },
+        { ar: 'جُ', name: 'Ju', sound: 'جُ', rule: 'Damma' },
+        { ar: 'خَ', name: 'Kha (Heavy)', sound: 'خَ', rule: 'Heavy • استعلاء' },
+        { ar: 'خِ', name: 'Khi', sound: 'خِ', rule: 'Heavy • استعلاء' },
+        { ar: 'خُ', name: 'Khu (Heavy)', sound: 'خُ', rule: 'Heavy • استعلاء' },
+        { ar: 'دَرَسَ', name: 'Da-ra-sa', sound: 'دَرَسَ', rule: 'Word Practice' },
+        { ar: 'كَتَبَ', name: 'Ka-ta-ba', sound: 'كَتَبَ', rule: 'Word Practice' },
+        { ar: 'سَمِعَ', name: 'Sa-mi-\'a', sound: 'سَمِعَ', rule: 'Word Practice' },
+        { ar: 'عَلِمَ', name: '‘A-li-ma', sound: 'عَلِمَ', rule: 'Word Practice' },
+        { ar: 'حَسُنَ', name: 'Ha-su-na', sound: 'حَسُنَ', rule: 'Word Practice' }
+      ]
+    },
+    {
+      id: 'l4',
+      title_en: 'Lesson 4: Tanween - Double Vowels (التنوين)',
+      title_ar: 'الدرس الرابع: التنوين (فتحتان، كسرتان، ضمتان)',
+      desc_en: 'Two Fathas (ـً), Two Kasras (ـٍ), and Two Dammas (ـٌ) produce a hidden Noon Saakin sound (-an, -in, -un).',
+      desc_ar: 'التنوين نون ساكنة زائدة تلحق آخر الأسماء لفظاً لا خطاً.',
+      items: [
+        { ar: 'بً', name: 'Ban', sound: 'بَنْ', rule: 'Double Fatha' },
+        { ar: 'بٍ', name: 'Bin', sound: 'بِنْ', rule: 'Double Kasra' },
+        { ar: 'بٌ', name: 'Bun', sound: 'بُنْ', rule: 'Double Damma' },
+        { ar: 'تً', name: 'Tan', sound: 'تَنْ', rule: 'Double Fatha' },
+        { ar: 'تٍ', name: 'Tin', sound: 'تِنْ', rule: 'Double Kasra' },
+        { ar: 'تٌ', name: 'Tun', sound: 'تُنْ', rule: 'Double Damma' },
+        { ar: 'رَسُولٌ', name: 'Rasoolun', sound: 'رَسُولٌ', rule: 'Double Damma' },
+        { ar: 'كِتَابٌ', name: 'Kitaabun', sound: 'كِتَابٌ', rule: 'Double Damma' },
+        { ar: 'عَذَابٌ', name: '‘Adhaabun', sound: 'عَذَابٌ', rule: 'Double Damma' },
+        { ar: 'حَكِيمًا', name: 'Hakeeman', sound: 'حَكِيمًا', rule: 'Double Fatha' },
+        { ar: 'عَلِيمٍ', name: '‘Aleemin', sound: 'عَلِيمٍ', rule: 'Double Kasra' },
+        { ar: 'غَفُورٌ', name: 'Ghafoorun', sound: 'غَفُورٌ', rule: 'Double Damma' }
+      ]
+    },
+    {
+      id: 'l5',
+      title_en: 'Lesson 5: Letters of Madd & Leen (حروف المد واللين)',
+      title_ar: 'الدرس الخامس: حروف المد الطبيعي واللين',
+      desc_en: 'Alif preceded by Fatha, Yaa Saakin preceded by Kasra, and Waw Saakin preceded by Damma. Hold for 2 counts.',
+      desc_ar: 'المد الطبيعي يُمَد بمقدار حركتين (ألف ساكنة بعد فتح، واو ساكنة بعد ضم، ياء ساكنة بعد كسر).',
+      items: [
+        { ar: 'بَا', name: 'Baa (2 counts)', sound: 'بَا', rule: 'Alif Madd • مد طبيعي' },
+        { ar: 'بُو', name: 'Boo (2 counts)', sound: 'بُو', rule: 'Waw Madd • مد طبيعي' },
+        { ar: 'بِي', name: 'Bee (2 counts)', sound: 'بِي', rule: 'Yaa Madd • مد طبيعي' },
+        { ar: 'قَالَ', name: 'Qaala', sound: 'قَالَ', rule: 'Alif Madd' },
+        { ar: 'يَقُولُ', name: 'Yaqoolu', sound: 'يَقُولُ', rule: 'Waw Madd' },
+        { ar: 'قِيلَ', name: 'Qeela', sound: 'قِيلَ', rule: 'Yaa Madd' },
+        { ar: 'خَوْفٍ', name: 'Khawf (Leen)', sound: 'خَوْفٍ', rule: 'Waw Leen • لين' },
+        { ar: 'بَيْتٍ', name: 'Bayt (Leen)', sound: 'بَيْتٍ', rule: 'Yaa Leen • لين' },
+        { ar: 'قُرَيْشٍ', name: 'Quraysh (Leen)', sound: 'قُرَيْشٍ', rule: 'Yaa Leen • لين' }
+      ]
+    },
+    {
+      id: 'l6',
+      title_en: 'Lesson 6: Sukoon & Qalqalah (السكون والقلقلة)',
+      title_ar: 'الدرس السادس: السكون وحروف القلقلة (قطب جد)',
+      desc_en: 'Sukoon (ـْ) indicates absence of vowel. Qalqalah letters (ق، ط، ب، ج، د) produce an echoing bounce when Saakin.',
+      desc_ar: 'حروف القلقلة خمسة (ق، ط، ب، ج، د) إذا سكنت تقلقل باضطراب المخرج.',
+      items: [
+        { ar: 'أَبْ', name: 'Ab (Qalqalah)', sound: 'أَبْ', rule: 'Qalqalah • قلقلة' },
+        { ar: 'أَتْ', name: 'At (Hams)', sound: 'أَتْ', rule: 'Hams • همس' },
+        { ar: 'أَجْ', name: 'Aj (Qalqalah)', sound: 'أَجْ', rule: 'Qalqalah • قلقلة' },
+        { ar: 'أَدْ', name: 'Ad (Qalqalah)', sound: 'أَدْ', rule: 'Qalqalah • قلقلة' },
+        { ar: 'أَطْ', name: 'At (Qalqalah)', sound: 'أَطْ', rule: 'Qalqalah • قلقلة' },
+        { ar: 'أَقْ', name: 'Aq (Qalqalah)', sound: 'أَقْ', rule: 'Qalqalah • قلقلة' },
+        { ar: 'يَجْعَلْ', name: 'Yaj‘al', sound: 'يَجْعَلْ', rule: 'Qalqalah on Jeem' },
+        { ar: 'يَدْخُلُونَ', name: 'Yadkhuloon', sound: 'يَدْخُلُونَ', rule: 'Qalqalah on Daal' },
+        { ar: 'الْفَلَقِ', name: 'Al-Falaq', sound: 'الْفَلَقِ', rule: 'Qalqalah on Qaaf' },
+        { ar: 'مَسَدٍ', name: 'Masad', sound: 'مَسَدٍ', rule: 'Qalqalah on Daal' }
+      ]
+    },
+    {
+      id: 'l7',
+      title_en: 'Lesson 7: Tashdeed & Ghunnah (التشديد والغنة)',
+      title_ar: 'الدرس السابع: الشدة وحكم النون والميم المشددتين',
+      desc_en: 'Shaddah (ـّ) doubles the letter. Noon and Meem with Shaddah must be pronounced with 2 counts of Ghunnah (nasal sound).',
+      desc_ar: 'النون والميم المشددتان يجب فيهما الغنة بمقدار حركتين.',
+      items: [
+        { ar: 'إِنَّ', name: 'Inna (Ghunnah)', sound: 'إِنَّ', rule: 'Ghunnah 2 Counts • غنة' },
+        { ar: 'أَنَّ', name: 'Anna (Ghunnah)', sound: 'أَنَّ', rule: 'Ghunnah 2 Counts • غنة' },
+        { ar: 'ثُمَّ', name: 'Thumma (Ghunnah)', sound: 'ثُمَّ', rule: 'Ghunnah 2 Counts • غنة' },
+        { ar: 'عَمَّ', name: '‘Amma (Ghunnah)', sound: 'عَمَّ', rule: 'Ghunnah 2 Counts • غنة' },
+        { ar: 'مِمَّا', name: 'Mimmaa (Ghunnah)', sound: 'مِمَّا', rule: 'Ghunnah 2 Counts • غنة' },
+        { ar: 'جَنَّاتٍ', name: 'Jannaatin (Ghunnah)', sound: 'جَنَّاتٍ', rule: 'Ghunnah 2 Counts • غنة' },
+        { ar: 'رَبَّ', name: 'Rabba', sound: 'رَبَّ', rule: 'Shaddah' },
+        { ar: 'حَقَّ', name: 'Haqqa', sound: 'حَقَّ', rule: 'Shaddah' },
+        { ar: 'الصَّلَاة', name: 'As-Salaah', sound: 'الصَّلَاة', rule: 'Shamsiyyah' }
+      ]
+    },
+    {
+      id: 'l8',
+      title_en: 'Lesson 8: Quranic Tajweed Practice (تطبيقات قرآنية)',
+      title_ar: 'الدرس الثامن: كلمات وآيات قرآنية للتطبيق',
+      desc_en: 'Putting all Tajweed rules together with authentic Sheikh Mahmoud Khalil Al-Husary recitation.',
+      desc_ar: 'تطبيق أحكام التجويد مجتمعة بصوت الشيخ محمود خليل الحصري (المعلم).',
+      items: [
+        { ar: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', name: 'Bismillah', sound: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', rule: 'Basmalah', audioUrl: 'https://everyayah.com/data/Husary_Muallim_128kbps/001001.mp3' },
+        { ar: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', name: 'Al-Hamdu Lillah', sound: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', rule: 'Al-Fatihah (v2)', audioUrl: 'https://everyayah.com/data/Husary_Muallim_128kbps/001002.mp3' },
+        { ar: 'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ', name: 'Iyyaka Na‘budu', sound: 'إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ', rule: 'Al-Fatihah (v5)', audioUrl: 'https://everyayah.com/data/Husary_Muallim_128kbps/001005.mp3' },
+        { ar: 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', name: 'Ihdina As-Siraat', sound: 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', rule: 'Al-Fatihah (v6)', audioUrl: 'https://everyayah.com/data/Husary_Muallim_128kbps/001006.mp3' },
+        { ar: 'قُلْ هُوَ اللَّهُ أَحَدٌ', name: 'Qul Huwa Allahu Ahad', sound: 'قُلْ هُوَ اللَّهُ أَحَدٌ', rule: 'Al-Ikhlas (v1)', audioUrl: 'https://everyayah.com/data/Husary_Muallim_128kbps/112001.mp3' },
+        { ar: 'اللَّهُ الصَّمَدُ', name: 'Allahu As-Samad', sound: 'اللَّهُ الصَّمَدُ', rule: 'Al-Ikhlas (v2)', audioUrl: 'https://everyayah.com/data/Husary_Muallim_128kbps/112002.mp3' },
+        { ar: 'لَمْ يَلِدْ وَلَمْ يُولَدْ', name: 'Lam Yalid Wa Lam Yoolad', sound: 'لَمْ يَلِدْ وَلَمْ يُولَدْ', rule: 'Al-Ikhlas (v3)', audioUrl: 'https://everyayah.com/data/Husary_Muallim_128kbps/112003.mp3' },
+        { ar: 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ', name: 'Wa Lam Yakun Lahu Kufuwan Ahad', sound: 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ', rule: 'Al-Ikhlas (v4)', audioUrl: 'https://everyayah.com/data/Husary_Muallim_128kbps/112004.mp3' }
+      ]
+    }
+  ];
+
+  var qaidaState = {
+    currentLessonIndex: 0,
+    rate: 0.85,
+    isAutoPlaying: false,
+    autoPlayTimer: null
+  };
+
+  var qaidaAudioPlayer = new Audio();
+  var audioCtxInstance = null;
+
+  function getAudioCtx(){
+    if(!audioCtxInstance){
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      if(AudioContext){
+        audioCtxInstance = new AudioContext();
+      }
+    }
+    if(audioCtxInstance && audioCtxInstance.state === 'suspended'){
+      audioCtxInstance.resume();
+    }
+    return audioCtxInstance;
+  }
+
+  function playTajweedAcousticVoice(text){
+    try {
+      var ctx = getAudioCtx();
+      if(!ctx) return;
+      var now = ctx.currentTime;
+      
+      var osc1 = ctx.createOscillator();
+      var osc2 = ctx.createOscillator();
+      var gainNode = ctx.createGain();
+      
+      osc1.type = 'sawtooth';
+      osc2.type = 'triangle';
+      
+      osc1.frequency.setValueAtTime(140, now);
+      osc1.frequency.exponentialRampToValueAtTime(125, now + 0.38);
+      
+      osc2.frequency.setValueAtTime(142, now);
+      osc2.frequency.exponentialRampToValueAtTime(127, now + 0.38);
+      
+      var filter1 = ctx.createBiquadFilter();
+      filter1.type = 'bandpass';
+      filter1.frequency.setValueAtTime(620, now);
+      filter1.Q.setValueAtTime(4.0, now);
+
+      var filter2 = ctx.createBiquadFilter();
+      filter2.type = 'bandpass';
+      filter2.frequency.setValueAtTime(1450, now);
+      filter2.Q.setValueAtTime(5.0, now);
+
+      gainNode.gain.setValueAtTime(0.001, now);
+      gainNode.gain.linearRampToValueAtTime(0.22, now + 0.05);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
+
+      osc1.connect(filter1);
+      osc2.connect(filter2);
+      filter1.connect(gainNode);
+      filter2.connect(gainNode);
+      gainNode.connect(ctx.destination);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + 0.45);
+      osc2.stop(now + 0.45);
+    } catch(e){}
+  }
+
+  function playQaidaItem(item, cardEl) {
+    if(cardEl){
+      document.querySelectorAll('.qaida-card').forEach(function(c){ c.classList.remove('playing'); });
+      cardEl.classList.add('playing');
+      setTimeout(function(){ cardEl.classList.remove('playing'); }, 1400);
+    }
+
+    if(item.audioUrl){
+      // 1. Direct Qari Audio File (Lesson 8)
+      try {
+        qaidaAudioPlayer.pause();
+        qaidaAudioPlayer.currentTime = 0;
+        qaidaAudioPlayer.src = item.audioUrl;
+        qaidaAudioPlayer.playbackRate = 1.0;
+        qaidaAudioPlayer.play().catch(function(e){ console.warn('Qaida audio err:', e); });
+      } catch(e){}
+      return;
+    }
+
+    // 2. Direct Pronunciation Playback
+    try {
+      var textToSpeak = encodeURIComponent(item.sound || item.ar);
+      var gUrl = 'https://translate.googleapis.com/translate_tts?client=gtx&ie=UTF-8&tl=ar&q=' + textToSpeak;
+      
+      qaidaAudioPlayer.pause();
+      qaidaAudioPlayer.currentTime = 0;
+      qaidaAudioPlayer.src = gUrl;
+      qaidaAudioPlayer.playbackRate = (qaidaState.rate || 0.92);
+      qaidaAudioPlayer.preservesPitch = false;
+      if(qaidaAudioPlayer.mozPreservesPitch !== undefined) qaidaAudioPlayer.mozPreservesPitch = false;
+      if(qaidaAudioPlayer.webkitPreservesPitch !== undefined) qaidaAudioPlayer.webkitPreservesPitch = false;
+      
+      var playPromise = qaidaAudioPlayer.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(function(e){
+          console.warn('HTML5 audio play err:', e);
+          if ('speechSynthesis' in window) {
+            try {
+              window.speechSynthesis.cancel();
+              var u = new SpeechSynthesisUtterance(item.sound || item.ar);
+              u.lang = 'ar-SA';
+              u.rate = 0.8;
+              u.pitch = 0.8;
+              window.speechSynthesis.speak(u);
+            } catch(se){}
+          }
+        });
+      }
+    } catch(e) {
+      console.warn('Qaida audio block err:', e);
+    }
+  }
+
+  function renderQaidaPills() {
+    var bar = document.getElementById('qaidaPillsBar');
+    if(!bar) return;
+    var isAr = state.lang === 'ar';
+    var html = '';
+    QAIDA_LESSONS.forEach(function(les, idx){
+      var isActive = idx === qaidaState.currentLessonIndex;
+      var title = isAr ? ('الدرس ' + (idx + 1)) : ('Lesson ' + (idx + 1));
+      html += '<button class="qaida-pill ' + (isActive ? 'active' : '') + '" onclick="selectQaidaLesson(' + idx + ')">';
+      html += title;
+      html += '</button>';
+    });
+    bar.innerHTML = html;
+  }
+
+  function renderQaidaLesson() {
+    var les = QAIDA_LESSONS[qaidaState.currentLessonIndex] || QAIDA_LESSONS[0];
+    var isAr = state.lang === 'ar';
+    var hdr = document.getElementById('qaidaLessonHeader');
+    if(hdr){
+      hdr.innerHTML = '<div class="qaida-lesson-title">' + (isAr ? les.title_ar : les.title_en) + '</div>' +
+                      '<div class="qaida-lesson-desc">' + (isAr ? les.desc_ar : les.desc_en) + '</div>';
+    }
+
+    var grid = document.getElementById('qaidaGrid');
+    if(!grid) return;
+    var html = '';
+    les.items.forEach(function(item, idx){
+      html += '<div class="qaida-card" id="qcard_' + idx + '" onclick="window.handleQaidaClick(' + idx + ')">';
+      html += '<svg class="qaida-audio-badge" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
+      html += '<div class="qaida-arabic">' + item.ar + '</div>';
+      html += '<div class="qaida-name">' + (isAr ? (item.name_ar || item.name) : item.name) + '</div>';
+      if(item.rule){
+        html += '<div class="qaida-rule-tag">' + item.rule + '</div>';
+      }
+      html += '</div>';
+    });
+    grid.innerHTML = html;
+  }
+
+  window.selectQaidaLesson = function(idx){
+    qaidaState.currentLessonIndex = idx;
+    stopQaidaAutoPlay();
+    renderQaidaPills();
+    renderQaidaLesson();
+  };
+
+  window.handleQaidaClick = function(idx){
+    var les = QAIDA_LESSONS[qaidaState.currentLessonIndex];
+    if(!les || !les.items[idx]) return;
+    var cardEl = document.getElementById('qcard_' + idx);
+    playQaidaItem(les.items[idx], cardEl);
+  };
+
+  function toggleQaidaSpeed(){
+    if(qaidaState.rate >= 0.95){
+      qaidaState.rate = 0.7;
+    } else {
+      qaidaState.rate = 1.0;
+    }
+    var lbl = document.getElementById('qaidaSpeedLabel');
+    if(lbl) lbl.textContent = (qaidaState.rate === 1.0 ? '1.0x' : '0.7x');
+  }
+
+  function toggleQaidaAutoPlay(){
+    if(qaidaState.isAutoPlaying){
+      stopQaidaAutoPlay();
+    } else {
+      startQaidaAutoPlay();
+    }
+  }
+
+  function startQaidaAutoPlay(){
+    qaidaState.isAutoPlaying = true;
+    var btnIcon = document.getElementById('qaidaAutoPlayIcon');
+    if(btnIcon) btnIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    var les = QAIDA_LESSONS[qaidaState.currentLessonIndex];
+    if(!les || !les.items.length) return;
+
+    var curIdx = 0;
+    function playStep(){
+      if(!qaidaState.isAutoPlaying || curIdx >= les.items.length){
+        stopQaidaAutoPlay();
+        return;
+      }
+      window.handleQaidaClick(curIdx);
+      curIdx++;
+      var delay = (qaidaState.rate === 1.0 ? 1600 : 2200);
+      qaidaState.autoPlayTimer = setTimeout(playStep, delay);
+    }
+    playStep();
+  }
+
+  function stopQaidaAutoPlay(){
+    qaidaState.isAutoPlaying = false;
+    if(qaidaState.autoPlayTimer) clearTimeout(qaidaState.autoPlayTimer);
+    var btnIcon = document.getElementById('qaidaAutoPlayIcon');
+    if(btnIcon) btnIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+    document.querySelectorAll('.qaida-card').forEach(function(c){ c.classList.remove('playing'); });
+  }
+
+  window.renderQaidaPanel = function(){
+    renderQaidaPills();
+    renderQaidaLesson();
+  };
+
+  window.openQaidaReader = function(){
+    switchToSubPanel('qaida');
+  };
+
+  function initQaidaControls(){
+    var spdBtn = document.getElementById('qaidaSpeedBtn');
+    if(spdBtn) spdBtn.addEventListener('click', toggleQaidaSpeed);
+
+    var playBtn = document.getElementById('qaidaAutoPlayBtn');
+    if(playBtn) playBtn.addEventListener('click', toggleQaidaAutoPlay);
+
+    if('speechSynthesis' in window){
+      window.speechSynthesis.getVoices();
+    }
+  }
+
   (function init(){
     buildLuxuryDial();
     loadSettings();
@@ -10068,6 +11276,7 @@ window.TAJWEED_BOOK_PAGES = [
     initKhutbahTranslator();
     initQuranReaderControls();
     initTajweedReaderControls();
+    initQaidaControls();
     initTafseerModal();
 
     document.getElementById('soundToggle').classList.toggle('on', state.soundOn);
