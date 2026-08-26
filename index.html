@@ -36,33 +36,33 @@
     --bg: #080f0a;
     --bg-card: rgba(14,28,18,0.92);
     --bg-card-elevated: #0d1a12;
-    --green: #00e676;
-    --green-soft: #69f0ae;
-    --green-deep: #00c853;
-    --green-glow: rgba(0,230,118,0.15);
-    --green-glow-strong: rgba(0,230,118,0.25);
-    --text-primary: #e8f5e9;
-    --text-secondary: rgba(200,255,220,0.65);
-    --text-tertiary: rgba(150,220,170,0.4);
-    --border: rgba(0,230,118,0.12);
-    --border-active: rgba(0,230,118,0.45);
+    --green: #4ade80;
+    --green-soft: #86efac;
+    --green-deep: #22c55e;
+    --green-glow: rgba(74,222,128,0.18);
+    --green-glow-strong: rgba(74,222,128,0.3);
+    --text-primary: #f0fdf4;
+    --text-secondary: rgba(220,252,231,0.75);
+    --text-tertiary: rgba(187,247,208,0.5);
+    --border: rgba(74,222,128,0.18);
+    --border-active: rgba(74,222,128,0.55);
     --danger: #ff5252;
     /* Legacy variable mappings for theme system & calendar */
     --bg-top: #080f0a;
     --bg-bot: #040804;
     --card: rgba(14,28,18,0.92);
-    --card-active: rgba(0,230,118,0.14);
-    --line: rgba(0,230,118,0.12);
-    --line-active: rgba(0,230,118,0.45);
-    --gold: #00e676;
-    --gold-soft: #69f0ae;
-    --gold-deep: #00c853;
-    --cyan-glow: #00e676;
-    --cyan-dim: #00c853;
-    --ivory: #e8f5e9;
-    --sage: rgba(200,255,220,0.65);
-    --sage-dim: rgba(150,220,170,0.4);
-    --accent: #00e676;
+    --card-active: rgba(74,222,128,0.14);
+    --line: rgba(74,222,128,0.18);
+    --line-active: rgba(74,222,128,0.55);
+    --gold: #4ade80;
+    --gold-soft: #86efac;
+    --gold-deep: #22c55e;
+    --cyan-glow: #4ade80;
+    --cyan-dim: #22c55e;
+    --ivory: #f0fdf4;
+    --sage: rgba(220,252,231,0.75);
+    --sage-dim: rgba(187,247,208,0.5);
+    --accent: #4ade80;
   }
   *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; margin:0; padding:0; }
   html,body{ margin:0; padding:0; height:100%; }
@@ -77,7 +77,10 @@
   .app{
     max-width: 480px;
     margin: 0 auto;
-    padding: 12px 14px 90px;
+    padding-top: max(22px, calc(env(safe-area-inset-top, 0px) + 16px));
+    padding-left: max(14px, calc(env(safe-area-inset-left, 0px) + 14px));
+    padding-right: max(14px, calc(env(safe-area-inset-right, 0px) + 14px));
+    padding-bottom: max(90px, calc(env(safe-area-inset-bottom, 0px) + 90px));
     min-height: 100vh;
     position: relative;
   }
@@ -1483,7 +1486,11 @@
   }
   .quran-reader-modal.show{ display: flex; animation: fadeSlideIn .25s ease; }
   .reader-header{
-    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    padding-top: max(14px, calc(env(safe-area-inset-top, 0px) + 14px));
+    padding-bottom: 12px;
+    padding-left: max(16px, calc(env(safe-area-inset-left, 0px) + 16px));
+    padding-right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
+    border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
     background: var(--bg-card);
     flex-shrink: 0;
@@ -1627,7 +1634,11 @@
   }
   .tafseer-modal.show{ display: flex; animation: fadeSlideIn .25s ease; }
   .tafseer-header{
-    padding: 12px 16px; border-bottom: 1px solid var(--border);
+    padding-top: max(14px, calc(env(safe-area-inset-top, 0px) + 14px));
+    padding-bottom: 12px;
+    padding-left: max(16px, calc(env(safe-area-inset-left, 0px) + 16px));
+    padding-right: max(16px, calc(env(safe-area-inset-right, 0px) + 16px));
+    border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
     background: var(--bg-card); flex-shrink: 0;
   }
@@ -2898,6 +2909,62 @@
     .prayer-section-header { margin-bottom: 4px !important; }
     .hijri-date-row { padding: 5px 8px !important; margin-bottom: 5px !important; }
     .quran-daily-tracker-card { padding: 10px 12px !important; margin-bottom: 6px !important; }
+  }
+
+
+  /* Compact Daily Quran Card */
+  .quran-daily-tracker-card.compact {
+    padding: 10px 14px !important;
+    margin-bottom: 10px !important;
+    border-radius: 14px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-active) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+  }
+  .quran-daily-tracker-card.compact .quran-tracker-header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
+  }
+  .quran-daily-tracker-card.compact .quran-tracker-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    flex-shrink: 0 !important;
+  }
+  .quran-daily-tracker-card.compact .quran-tracker-title-box {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+  .quran-daily-tracker-card.compact .quran-tracker-title {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 2px !important;
+    white-space: normal !important;
+    line-height: 1.25 !important;
+  }
+  .quran-daily-tracker-card.compact .quran-tracker-sub {
+    font-size: 11px !important;
+    color: var(--text-secondary) !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+  }
+  .quran-daily-tracker-card.compact .btn,
+  .quran-daily-tracker-card.compact .quran-log-btn {
+    width: auto !important;
+    max-width: max-content !important;
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    padding: 7px 12px !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    border-radius: 9px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
   }
 
 </style>
@@ -4562,13 +4629,13 @@ if('serviceWorker' in navigator){
       }
     },
     masjidgreen: {
-      name: 'Masjid Green',
-      swatches: ['#04140a', '#7cb342', '#082613'],
-      meta: '#7cb342',
+      name: 'Light Green (الأخضر الفاتح)',
+      swatches: ['#08170d', '#4ade80', '#102a19'],
+      meta: '#4ade80',
       vars: {
-        'bg-top': '#04140a', 'bg-bot': '#04140a', 'card': 'rgba(8,38,19,0.75)', 'card-active': 'rgba(124,179,66,0.14)',
-        'line': 'rgba(124,179,66,0.2)', 'line-active': 'rgba(124,179,66,0.5)', 'gold': '#7cb342', 'gold-soft': '#9ccc65',
-        'ivory': '#f4f4f5', 'sage': '#a1a1aa', 'sage-dim': '#71717a', 'accent': '#7cb342'
+        'bg-top': '#08170d', 'bg-bot': '#040d07', 'card': 'rgba(12,38,20,0.85)', 'card-active': 'rgba(74,222,128,0.18)',
+        'line': 'rgba(74,222,128,0.25)', 'line-active': '#4ade80', 'gold': '#4ade80', 'gold-soft': '#86efac',
+        'ivory': '#f0fdf4', 'sage': '#bbf7d0', 'sage-dim': 'rgba(187,247,208,0.6)', 'accent': '#4ade80'
       }
     },
     masjidgold: {
@@ -5327,19 +5394,17 @@ if('serviceWorker' in navigator){
           }
         }
         
-    // Check if app was opened via random daily Quran notification
-    if(window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LocalNotifications){
-      window.Capacitor.Plugins.LocalNotifications.addListener('localNotificationActionPerformed', function(notificationAction){
-        if(notificationAction && notificationAction.notification && (notificationAction.notification.id >= 8000 || notificationAction.notification.id === 9999)){
-          if(window.openQuranDailyLogModal) window.openQuranDailyLogModal();
-        }
-      });
-    }
-
         // Listen for notification tap
         ln.addListener('localNotificationActionPerformed', function(action){
-          if(action && action.notification && (action.notification.id === 9999 || (action.notification.extra && action.notification.extra.action === 'open_quran_log'))){
+          if(!action || !action.notification) return;
+          var notifId = action.notification.id || 0;
+          var actName = (action.notification.extra && action.notification.extra.action) ? action.notification.extra.action : '';
+
+          if(actName === 'open_quran_log' || notifId === 9999 || (notifId >= 8000 && notifId < 9000)){
             if(window.openQuranDailyLogModal) window.openQuranDailyLogModal();
+          } else if(actName === 'open_surah_mulk_sajdah' || (notifId >= 9000 && notifId < 9100)){
+            if(window.switchToSubPanel) window.switchToSubPanel('quran');
+            if(window.openQuranReader) window.openQuranReader(67); // Open Surah Al-Mulk
           }
         });
       }catch(e){
@@ -5929,6 +5994,7 @@ if('serviceWorker' in navigator){
 
 
 
+
   // =========================================================================
   // DAILY QURAN TRACKER (PARAH, SURAH, AYAT & RUKU) & PERSISTENT LOG SYSTEM
   // =========================================================================
@@ -6020,94 +6086,30 @@ if('serviceWorker' in navigator){
     return { days: logs.length, rukus: totalRukus, streak: getQuranStreak() };
   }
 
+  // Small, compact Daily Quran Reminder card in Prayers screen
   function renderQuranTrackerCardHTML(){
     var isAr = state.lang === 'ar';
     var todayLog = getTodayQuranLog();
-    var streak = getQuranStreak();
-    var streakText = isAr ? ('سلسلة: ' + streak + ' يوم 🔥') : (streak + ' Day Streak 🔥');
 
+    // If today's Quran reading has already been logged, hide the card from the Prayers screen
     if(todayLog){
-      var pObj = PARAH_LIST[(todayLog.parahNum || 1) - 1] || PARAH_LIST[0];
-      var pName = isAr ? pObj.a : pObj.e;
-      var sObj = (todayLog.surahNum && SURAHS_LIST[todayLog.surahNum - 1]) ? SURAHS_LIST[todayLog.surahNum - 1] : null;
-      var sText = sObj ? (isAr ? (' • سورة ' + sObj.a) : (' • Surah ' + sObj.e)) : '';
-      var ayatText = todayLog.ayat ? (isAr ? (' (آيات ' + todayLog.ayat + ')') : (' (Ayat ' + todayLog.ayat + ')')) : '';
-      var details = isAr 
-        ? ('تم تسجيل: ' + pName + sText + ayatText + ' • ' + todayLog.rukus + ' ركوع')
-        : ('Logged: ' + pName + sText + ayatText + ' • ' + todayLog.rukus + ' Ruku(s)');
-      
-      return '<div class="quran-daily-tracker-card completed" id="quranDailyTrackerCard">'
-        + '<div class="quran-tracker-header">'
-        + '<div class="quran-tracker-icon completed">'
-        + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
-        + '</div>'
-        + '<div class="quran-tracker-title-box">'
-        + '<div class="quran-tracker-title">' + (isAr ? 'تم تسجيل ورد القرآن اليوم ✓' : 'Daily Quran Logged ✓') + ' <span style="font-size:11px; font-weight:600; color:var(--green); margin-left:6px;">' + streakText + '</span></div>'
-        + '<div class="quran-tracker-sub">' + details + '</div>'
-        + '</div>'
-        + '<div style="display:flex; gap:6px;">'
-        + '<button type="button" class="btn outline sm" style="padding:5px 12px; font-size:12px; cursor:pointer;" onclick="window.openQuranDailyLogModal()">' + (isAr ? 'تعديل' : 'Edit') + '</button>'
-        + '<button type="button" class="btn primary sm" style="padding:5px 12px; font-size:12px; cursor:pointer;" onclick="window.switchToSubPanel(\'quranlog\')">' + (isAr ? 'السجل' : 'History') + '</button>'
-        + '</div>'
-        + '</div>'
-        + '</div>';
+      return '';
     }
 
-    // Not yet logged — Big Prominent Persistent Card
-    var parahOptions = '';
-    PARAH_LIST.forEach(function(p){
-      parahOptions += '<option value="' + p.n + '">' + (isAr ? (p.n + '. ' + p.a) : p.e) + '</option>';
-    });
-
-    var surahOptions = '<option value="0">' + (isAr ? '-- اختياري: اختر السورة --' : '-- Optional: Select Surah --') + '</option>';
-    SURAHS_LIST.forEach(function(s){
-      surahOptions += '<option value="' + s.n + '">' + s.n + '. ' + s.e + ' (' + s.a + ')</option>';
-    });
-
-    return '<div class="quran-daily-tracker-card" id="quranDailyTrackerCard">'
+    // Small, slim Reminder Card (Before Logging)
+    return '<div class="quran-daily-tracker-card compact" id="quranDailyTrackerCard">'
       + '<div class="quran-tracker-header">'
       + '<div class="quran-tracker-icon">'
-      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v6m-3-3h6"/></svg>'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px; height:18px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v6m-3-3h6"/></svg>'
       + '</div>'
       + '<div class="quran-tracker-title-box">'
-      + '<div class="quran-tracker-title">' + (isAr ? 'تتبع تلاوة القرآن اليومية 📖' : 'Daily Quran Tracker (Parah, Surah & Ruku) 📖') + '</div>'
-      + '<div class="quran-tracker-sub">' + (isAr ? 'كم ركوع وآية قرأت اليوم؟ سجل وردك لإلغاء الإشعار' : 'Record Surah, Ayah range & Ruku count read today') + '</div>'
+      + '<div class="quran-tracker-title">' + (isAr ? 'تذكير ورد القرآن اليومي 📖' : 'Daily Quran Reminder 📖') + '</div>'
+      + '<div class="quran-tracker-sub">' + (isAr ? 'الورد اليومي • سجل الجزء والسورة والركوع' : 'Daily Recitation • Tap to log Parah & Rukus') + '</div>'
       + '</div>'
-      + '<div class="quran-tracker-badge-required">' + (isAr ? 'تنبيه يومي' : 'Daily Alert') + '</div>'
-      + '</div>'
-      + '<div class="quran-tracker-form">'
-      + '<div class="quran-tracker-field">'
-      + '<label>' + (isAr ? 'الجزء (Parah):' : 'Parah / Juz:') + '</label>'
-      + '<select id="quranLogParahSelect" class="quran-tracker-select">' + parahOptions + '</select>'
-      + '</div>'
-      + '<div class="quran-tracker-field">'
-      + '<label>' + (isAr ? 'السورة:' : 'Surah:') + '</label>'
-      + '<select id="quranLogSurahSelect" class="quran-tracker-select">' + surahOptions + '</select>'
-      + '</div>'
-      + '<div class="quran-tracker-field">'
-      + '<label>' + (isAr ? 'رقم الآية / الآيات المقروءة:' : 'Ayah Number / Ayat Read:') + '</label>'
-      + '<input type="text" id="quranLogAyatInput" class="quran-tracker-select" placeholder="e.g. 1-25 or 50 (آية ١ إلى ٢٥)" />'
-      + '</div>'
-      + '<div class="quran-tracker-field">'
-      + '<label>' + (isAr ? 'عدد الركوعات المقروءة اليوم (Rukus Read):' : 'Number of Ruku\'s Read Today:') + '</label>'
-      + '<div class="quran-ruku-stepper-wrap">'
-      + '<button type="button" class="ruku-step-btn" onclick="adjustRukuCount(-1)">-</button>'
-      + '<input type="number" id="quranLogRukuInput" class="ruku-num-input" value="1" min="1" max="100" />'
-      + '<button type="button" class="ruku-step-btn" onclick="adjustRukuCount(1)">+</button>'
-      + '<div class="ruku-quick-pills">'
-      + '<button type="button" class="ruku-pill" onclick="setRukuCount(1)">1 Ruku</button>'
-      + '<button type="button" class="ruku-pill" onclick="setRukuCount(2)">2</button>'
-      + '<button type="button" class="ruku-pill" onclick="setRukuCount(5)">5</button>'
-      + '<button type="button" class="ruku-pill" onclick="setRukuCount(10)">10</button>'
-      + '<button type="button" class="ruku-pill" onclick="setRukuCount(20)">20</button>'
-      + '</div>'
-      + '</div>'
-      + '</div>'
-      + '<button type="button" class="btn primary quran-log-submit-btn" id="btnSaveQuranDailyLog" onclick="window.saveQuranDailyLog()">'
-      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg> '
-      + (isAr ? 'حفظ الورد اليومي وإلغاء الإشعار' : 'Save Today\'s Reading & Dismiss Notification')
+      + '<button type="button" class="btn primary sm quran-log-btn" onclick="window.openQuranDailyLogModal()">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:13px;height:13px;display:inline-block;vertical-align:-1px;margin-right:3px;"><polyline points="20 6 9 17 4 12"/></svg>'
+      + (isAr ? 'تسجيل الورد' : 'Log Reading')
       + '</button>'
-      + '<div id="quranTrackerMsg" class="status-msg" style="display:none; margin-top:8px;"></div>'
       + '</div>'
       + '</div>';
   }
@@ -6548,6 +6550,11 @@ if('serviceWorker' in navigator){
     renderSalah();
   };
 
+  /**
+   * Schedule Native Android Notifications:
+   * 1. Daytime / App Start Daily Quran Logging Reminders (IDs 8000-8013)
+   * 2. After Maghrib Surah Al-Mulk & Surah As-Sajdah (Alif Laam Meem Sajdah) Reminders in Urdu & English (IDs 9000-9013)
+   */
   async function updateDailyQuranTrackerNotification(){
     if(!window.Capacitor || !window.Capacitor.Plugins || !window.Capacitor.Plugins.LocalNotifications){
       return;
@@ -6564,49 +6571,96 @@ if('serviceWorker' in navigator){
       var now = new Date();
       var notifsToSchedule = [];
 
+      // If today is already logged, cancel today's log reminder (ID 8000 & 9999)
       if(isTodayQuranLogged()){
-        await ln.cancel({ notifications: [{ id: 8000 }, { id: 9999 }] });
+        await ln.cancel({ notifications: [{ id: 8000 }, { id: 9999 }] }).catch(function(){});
       }
 
+      // Schedule for upcoming 14 days
       for(var dayOffset = 0; dayOffset <= 13; dayOffset++){
-        var notifId = 8000 + dayOffset;
-        if(dayOffset === 0 && isTodayQuranLogged()) continue;
+        var logNotifId = 8000 + dayOffset;
+        var mulkNotifId = 9000 + dayOffset;
 
         var targetDay = new Date(now);
         targetDay.setDate(targetDay.getDate() + dayOffset);
 
-        var seed = (targetDay.getFullYear() * 1000 + (targetDay.getMonth() + 1) * 35 + targetDay.getDate()) % 100;
-        var randHour = 14 + (seed % 8);
-        var randMin = (seed * 7) % 60;
+        // -------------------------------------------------------------
+        // 1. QURAN LOGGING NOTIFICATION (App Start / Daytime)
+        // -------------------------------------------------------------
+        if(!(dayOffset === 0 && isTodayQuranLogged())){
+          var logDate = new Date(targetDay);
+          if(dayOffset === 0){
+            // If user opens app and hasn't logged today, schedule a prompt 2 minutes from now
+            logDate = new Date(now.getTime() + 2 * 60000);
+          } else {
+            // Schedule daily morning reminder at 10:00 AM
+            logDate.setHours(10, 0, 0, 0);
+          }
 
-        targetDay.setHours(randHour, randMin, 0, 0);
+          if(logDate.getTime() > now.getTime()){
+            var logTitle = isAr
+              ? '📖 ورد القرآن اليومي'
+              : '📖 Daily Quran Log • روزانہ قرآن کا ورد';
+            var logBody = isAr
+              ? 'هل أتممت وردك القرآني اليوم؟ اضغط لتسجيل الجزء والسورة والركوع.'
+              : 'Have you completed your Quran recitation today? Tap to record Parah, Surah & Rukus.\nکیا آپ نے آج کا قرآنی ورد پڑھ لیا؟ درج کرنے کے لیے ٹیپ کریں۔';
 
-        if(dayOffset === 0 && targetDay.getTime() <= now.getTime()){
-          targetDay = new Date(now.getTime() + 60000);
+            notifsToSchedule.push({
+              id: logNotifId,
+              title: logTitle,
+              body: logBody,
+              channelId: 'salah_alarms_v4',
+              sound: 'classic_48073.mp3',
+              smallIcon: 'ic_launcher',
+              iconColor: '#1db954',
+              schedule: {
+                at: logDate,
+                allowWhileIdle: true
+              },
+              extra: {
+                action: 'open_quran_log',
+                dayOffset: dayOffset
+              }
+            });
+          }
         }
 
-        if(targetDay.getTime() > now.getTime()){
-          var notifTitle = isAr 
-            ? '📖 ورد القرآن اليومي • Daily Quran Tracker' 
-            : '📖 Daily Quran Tracker • ورد القرآن اليومي';
-          var notifBody = isAr 
-            ? 'كم ركوعاً وآية قرأت اليوم؟ اضغط لتسجيل قراءتك.' 
-            : 'How many Rukus & Ayat did you read today? Tap to log your reading.';
+        // -------------------------------------------------------------
+        // 2. AFTER MAGHRIB: SURAH AL-MULK, AS-SAJDAH & AL-WAQI'AH REMINDER
+        // -------------------------------------------------------------
+        var dayTimings = (dayOffset === 0 && timings) ? timings : calculateOfflineTimings(targetDay, state.lat, state.lng, state.method, state.school);
+        var maghribStr = (dayTimings && dayTimings.Maghrib) ? dayTimings.Maghrib : '18:30';
+        var parts = cleanTime(maghribStr).split(':');
+        var mHour = parseInt(parts[0], 10) || 18;
+        var mMin = parseInt(parts[1], 10) || 30;
+
+        var mulkDate = new Date(targetDay);
+        mulkDate.setHours(mHour, mMin, 0, 0);
+        // 15 minutes after Maghrib prayer
+        mulkDate = new Date(mulkDate.getTime() + 15 * 60000);
+
+        if(mulkDate.getTime() > now.getTime()){
+          var mulkTitle = isAr
+            ? '🌙 سورة الملك، السجدة والواقعة'
+            : '🌙 Surah Al-Mulk, As-Sajdah & Al-Waqi\'ah • سورۃ الملک، السجدہ اور الواقعہ';
+          var mulkBody = isAr
+            ? 'هل قرأت سورة الملك وسورة السجدة وسورة الواقعة الليلة؟ اضغط للقراءة الآن.'
+            : 'کیا آپ نے سورۃ الملک، سورۃ السجدہ (الم سجدہ) اور سورۃ الواقعہ پڑھ لی ہے؟ تلاوت کے لیے یہاں ٹیپ کریں۔\nHave you read Surah Al-Mulk, Surah As-Sajdah and Surah Al-Waqi\'ah? Tap to read.';
 
           notifsToSchedule.push({
-            id: notifId,
-            title: notifTitle,
-            body: notifBody,
+            id: mulkNotifId,
+            title: mulkTitle,
+            body: mulkBody,
             channelId: 'salah_alarms_v4',
             sound: 'classic_48073.mp3',
             smallIcon: 'ic_launcher',
-            iconColor: '#1db954',
+            iconColor: '#4ade80',
             schedule: {
-              at: targetDay,
+              at: mulkDate,
               allowWhileIdle: true
             },
             extra: {
-              action: 'open_quran_log',
+              action: 'open_surah_mulk_sajdah',
               dayOffset: dayOffset
             }
           });
@@ -6615,6 +6669,7 @@ if('serviceWorker' in navigator){
 
       if(notifsToSchedule.length > 0){
         await ln.schedule({ notifications: notifsToSchedule });
+        console.log('Successfully scheduled ' + notifsToSchedule.length + ' Quran & Surah Mulk/Sajdah notifications in Android OS');
       }
     } catch(e){
       console.warn('updateDailyQuranTrackerNotification error:', e);
@@ -7299,6 +7354,9 @@ if('serviceWorker' in navigator){
     }
     if(tabId === 'quranlog'){
       renderQuranLogPanel();
+    }
+    if(tabId === 'salah'){
+      renderSalah();
     }
   }
 
@@ -10005,6 +10063,7 @@ window.TAJWEED_BOOK_PAGES = [
     loadSettings();
     initMobileNotifications(); // Must come before applyInitialPrayerTimes so channels exist
     applyInitialPrayerTimes();
+    updateDailyQuranTrackerNotification();
     initTasbih();
     initKhutbahTranslator();
     initQuranReaderControls();
