@@ -3550,8 +3550,8 @@
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: clamp(8px, 1.4vh, 12px) !important;
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
+    flex: none !important;
+    min-height: fit-content !important;
     margin-bottom: clamp(8px, 1.4vh, 14px) !important;
   }
   [data-layout="cards"] .prayer-row {
@@ -3559,6 +3559,10 @@
     flex-direction: column !important;
     justify-content: space-between !important;
     align-items: stretch !important;
+    flex: none !important;
+    flex-shrink: 0 !important;
+    min-height: 52px !important;
+    box-sizing: border-box !important;
     padding: clamp(9px, 1.4vh, 14px) clamp(10px, 2.5vw, 15px) !important;
     border-radius: clamp(14px, 2vh, 20px) !important;
     background: var(--bg-card, rgba(6,24,34,0.55)) !important;
@@ -3659,16 +3663,21 @@
   [data-layout="list"] .prayer-list {
     display: flex !important;
     flex-direction: column !important;
-    gap: 7px !important;
-    flex: 1 1 auto !important;
-    margin-bottom: 10px !important;
+    gap: clamp(5px, 0.9vh, 8px) !important;
+    flex: none !important;
+    min-height: fit-content !important;
+    margin-bottom: clamp(6px, 1.2vh, 10px) !important;
   }
   [data-layout="list"] .prayer-row {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: clamp(8px, 1.2vh, 11px) clamp(10px, 2.5vw, 14px) !important;
+    flex: none !important;
+    flex-shrink: 0 !important;
+    min-height: 48px !important;
+    box-sizing: border-box !important;
+    padding: clamp(7px, 1.1vh, 11px) clamp(10px, 2.5vw, 14px) !important;
     background: var(--bg-card, rgba(11,28,36,0.72)) !important;
     backdrop-filter: blur(28px) saturate(200%) !important;
     -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
@@ -4726,25 +4735,27 @@
      ================================================================ */
   body.tab-salah-active,
   body.tab-salah-active html {
-    height: 100% !important;
-    overflow: hidden !important;
+    min-height: 100% !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
   body.tab-salah-active .app {
-    height: 100vh !important;
-    height: 100dvh !important;
     min-height: 100vh !important;
     min-height: 100dvh !important;
-    max-height: 100vh !important;
-    max-height: 100dvh !important;
+    height: auto !important;
+    max-height: none !important;
     display: flex !important;
     flex-direction: column !important;
     padding-top: max(6px, calc(env(safe-area-inset-top, 0px) + 4px)) !important;
-    padding-bottom: max(72px, calc(env(safe-area-inset-bottom, 0px) + 68px)) !important;
+    padding-bottom: max(78px, calc(env(safe-area-inset-bottom, 0px) + 74px)) !important;
     padding-left: max(10px, calc(env(safe-area-inset-left, 0px) + 10px)) !important;
     padding-right: max(10px, calc(env(safe-area-inset-right, 0px) + 10px)) !important;
     box-sizing: border-box !important;
-    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
   }
 
   body.tab-salah-active .app-header {
@@ -4761,36 +4772,36 @@
   body.tab-salah-active #tab-salah.show {
     display: flex !important;
     flex-direction: column !important;
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    height: 100% !important;
-    overflow: hidden !important;
+    flex: 1 0 auto !important;
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
   }
 
   #content,
   body.tab-salah-active #content {
     display: flex !important;
     flex-direction: column !important;
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    height: 100% !important;
-    justify-content: space-between !important;
+    flex: 1 0 auto !important;
+    min-height: auto !important;
+    height: auto !important;
+    justify-content: flex-start !important;
     width: 100% !important;
   }
 
   /* Next Prayer Card: Scalable with viewport */
   .next-prayer-card {
     flex-shrink: 0 !important;
-    padding: clamp(6px, 1.1vh, 14px) clamp(10px, 2.5vw, 16px) !important;
-    margin-bottom: clamp(3px, 0.6vh, 8px) !important;
-    border-radius: clamp(10px, 1.5vh, 16px) !important;
+    padding: clamp(8px, 1.3vh, 14px) clamp(12px, 2.5vw, 16px) !important;
+    margin-bottom: clamp(6px, 1vh, 10px) !important;
+    border-radius: clamp(12px, 1.8vh, 18px) !important;
     position: relative !important;
     overflow: hidden !important;
     transition: all .2s ease;
   }
   .next-prayer-badge {
-    margin-bottom: clamp(1px, 0.25vh, 3px) !important;
-    font-size: clamp(8px, 1.1vh, 10px) !important;
+    margin-bottom: clamp(2px, 0.3vh, 4px) !important;
+    font-size: clamp(8.5px, 1.1vh, 10.5px) !important;
     letter-spacing: 0.1em !important;
   }
   .next-prayer-badge svg {
@@ -4798,13 +4809,13 @@
     height: clamp(10px, 1.3vh, 13px) !important;
   }
   .next-prayer-name {
-    font-size: clamp(18px, 3vh, 28px) !important;
+    font-size: clamp(20px, 3.2vh, 28px) !important;
     line-height: 1.1 !important;
-    margin-bottom: clamp(1px, 0.25vh, 3px) !important;
+    margin-bottom: clamp(2px, 0.3vh, 4px) !important;
   }
   .next-prayer-time-row {
-    font-size: clamp(9.5px, 1.3vh, 12px) !important;
-    margin-bottom: clamp(3px, 0.6vh, 8px) !important;
+    font-size: clamp(10px, 1.4vh, 12.5px) !important;
+    margin-bottom: clamp(4px, 0.8vh, 8px) !important;
   }
   .next-prayer-time-row svg {
     width: clamp(11px, 1.4vh, 14px) !important;
@@ -4814,7 +4825,7 @@
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: clamp(3px, 1vw, 6px) !important;
+    gap: clamp(4px, 1.2vw, 8px) !important;
   }
   .countdown-segment {
     display: flex !important;
@@ -4824,14 +4835,14 @@
   .countdown-num {
     font-family: 'Inter', sans-serif !important;
     font-weight: 800 !important;
-    font-size: clamp(19px, 3.6vh, 30px) !important;
+    font-size: clamp(20px, 3.4vh, 28px) !important;
     line-height: 1 !important;
   }
   .countdown-colon {
     font-family: 'Inter', sans-serif !important;
     font-weight: 700 !important;
-    font-size: clamp(15px, 2.8vh, 23px) !important;
-    height: clamp(19px, 3.6vh, 30px) !important;
+    font-size: clamp(16px, 2.6vh, 22px) !important;
+    height: clamp(20px, 3.4vh, 28px) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -4853,10 +4864,10 @@
   /* Hijri Date Row */
   .hijri-date-row {
     flex-shrink: 0 !important;
-    padding: clamp(3px, 0.6vh, 7px) clamp(8px, 2vw, 12px) !important;
-    margin-bottom: clamp(3px, 0.6vh, 7px) !important;
-    font-size: clamp(9.5px, 1.3vh, 12.5px) !important;
-    border-radius: clamp(8px, 1.2vh, 12px) !important;
+    padding: clamp(6px, 1vh, 10px) clamp(10px, 2.4vw, 14px) !important;
+    margin-bottom: clamp(6px, 1vh, 10px) !important;
+    font-size: clamp(10px, 1.4vh, 12.5px) !important;
+    border-radius: clamp(10px, 1.4vh, 14px) !important;
   }
   .hijri-date-row svg {
     width: clamp(13px, 1.8vh, 16px) !important;
@@ -4866,14 +4877,14 @@
   /* Prayer Section Header */
   .prayer-section-header {
     flex-shrink: 0 !important;
-    margin-bottom: clamp(2px, 0.4vh, 6px) !important;
+    margin-bottom: clamp(4px, 0.7vh, 8px) !important;
     padding: 0 2px !important;
   }
   .prayer-section-title {
-    font-size: clamp(10px, 1.3vh, 12px) !important;
+    font-size: clamp(10.5px, 1.35vh, 12px) !important;
   }
   .prayer-section-badge {
-    font-size: clamp(9px, 1.2vh, 11px) !important;
+    font-size: clamp(9.5px, 1.25vh, 11px) !important;
     padding: clamp(2px, 0.4vh, 4px) clamp(6px, 1.5vw, 10px) !important;
   }
   .prayer-section-badge svg {
@@ -4881,15 +4892,15 @@
     height: clamp(10px, 1.3vh, 12px) !important;
   }
 
-  /* Prayer List: Stretches and fills remaining vertical space dynamically */
+  /* Prayer List: Guaranteed non-collapsing, clean spacing */
   .prayer-list {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
+    flex: none !important;
+    min-height: fit-content !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
-    gap: clamp(4px, 0.8vh, 8px) !important;
-    margin-bottom: clamp(3px, 0.6vh, 8px) !important;
+    gap: clamp(5px, 0.9vh, 8px) !important;
+    margin-bottom: clamp(6px, 1vh, 10px) !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -4897,19 +4908,22 @@
     overflow: visible !important;
   }
 
-  /* Prayer Row: Evenly distributes space across all 6 prayers as separate cards */
+  /* Prayer Row: Guaranteed minimum height, never overlapping, flex-shrink: 0 */
   .prayer-row {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
+    flex: none !important;
+    flex-shrink: 0 !important;
+    min-height: 46px !important;
     display: flex !important;
     align-items: center !important;
-    padding: clamp(4px, 0.8vh, 10px) clamp(8px, 2.2vw, 14px) !important;
+    padding: clamp(6px, 1vh, 10px) clamp(10px, 2.2vw, 14px) !important;
     background: var(--bg-card) !important;
     backdrop-filter: blur(28px) saturate(200%) !important;
     -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
     border: 1px solid var(--border) !important;
-    border-radius: clamp(10px, 1.5vh, 16px) !important;
+    border-radius: clamp(10px, 1.5vh, 14px) !important;
     box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
+    box-sizing: border-box !important;
+    position: relative !important;
   }
   .prayer-row.active {
     background: linear-gradient(90deg, var(--green-glow) 0%, var(--bg-card) 100%) !important;
@@ -4917,36 +4931,38 @@
     box-shadow: 0 6px 24px 0 rgba(0, 0, 0, 0.45), 0 0 16px var(--green-glow), inset 0 1px 0 0 rgba(255, 255, 255, 0.15) !important;
   }
   .prayer-row-icon {
-    width: clamp(22px, 3.2vh, 32px) !important;
-    height: clamp(22px, 3.2vh, 32px) !important;
-    margin-right: clamp(6px, 1.5vw, 10px) !important;
-    border-radius: clamp(5px, 0.8vh, 8px) !important;
+    width: clamp(26px, 3.5vh, 34px) !important;
+    height: clamp(26px, 3.5vh, 34px) !important;
+    margin-right: clamp(8px, 1.8vw, 12px) !important;
+    border-radius: clamp(6px, 0.9vh, 9px) !important;
     flex-shrink: 0 !important;
   }
   .prayer-row-icon svg {
-    width: clamp(12px, 1.7vh, 16px) !important;
-    height: clamp(12px, 1.7vh, 16px) !important;
+    width: clamp(13px, 1.8vh, 17px) !important;
+    height: clamp(13px, 1.8vh, 17px) !important;
   }
   .prayer-row-name {
-    font-size: clamp(12.5px, 1.7vh, 15px) !important;
+    font-size: clamp(13px, 1.8vh, 15px) !important;
     font-weight: 600 !important;
+    line-height: 1.2 !important;
   }
   .prayer-row-subtitle {
-    font-size: clamp(9px, 1.15vh, 11px) !important;
-    margin-top: 0 !important;
+    font-size: clamp(9.5px, 1.2vh, 11px) !important;
+    margin-top: 1px !important;
+    line-height: 1.2 !important;
   }
   .prayer-row-time {
-    font-size: clamp(13px, 1.8vh, 16px) !important;
+    font-size: clamp(13.5px, 1.9vh, 16px) !important;
     font-weight: 700 !important;
     font-variant-numeric: tabular-nums !important;
   }
   .mute-btn {
-    width: clamp(28px, 4vh, 36px) !important;
-    height: clamp(28px, 4vh, 36px) !important;
+    width: clamp(28px, 4vh, 34px) !important;
+    height: clamp(28px, 4vh, 34px) !important;
   }
   .mute-btn svg {
-    width: clamp(17px, 2.4vh, 22px) !important;
-    height: clamp(17px, 2.4vh, 22px) !important;
+    width: clamp(16px, 2.3vh, 20px) !important;
+    height: clamp(16px, 2.3vh, 20px) !important;
   }
 
   /* Action Row (Adhkar, Masjids, Quran) */
@@ -4955,8 +4971,8 @@
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    margin-top: clamp(3px, 0.6vh, 6px) !important;
-    margin-bottom: clamp(10px, 1.6vh, 16px) !important;
+    margin-top: clamp(4px, 0.8vh, 8px) !important;
+    margin-bottom: clamp(8px, 1.4vh, 14px) !important;
     gap: clamp(6px, 1.4vw, 10px) !important;
     border-radius: 0 !important;
     overflow: visible !important;
@@ -4981,12 +4997,12 @@
   /* Themes dynamic adaptation for prayer rows and list */
   [data-theme="emeraldwhite"] .prayer-list,
   [data-theme="azuresky"] .prayer-list {
-    gap: clamp(2px, 0.4vh, 6px) !important;
+    gap: clamp(4px, 0.7vh, 7px) !important;
   }
   [data-theme="emeraldwhite"] .prayer-row,
   [data-theme="azuresky"] .prayer-row {
-    padding: clamp(4px, 0.7vh, 9px) clamp(8px, 2.2vw, 14px) !important;
-    border-radius: clamp(8px, 1.2vh, 14px) !important;
+    padding: clamp(6px, 0.9vh, 10px) clamp(10px, 2.2vw, 14px) !important;
+    border-radius: clamp(10px, 1.4vh, 14px) !important;
   }
 
   /* Compact Daily Quran Card when inside Salah page */
