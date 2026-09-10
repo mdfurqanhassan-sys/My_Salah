@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="midnightMosque" data-layout="cards">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
@@ -1660,48 +1660,41 @@
   .theme-card.active .theme-card-check{ opacity: 1; transform: scale(1); }
 
   /* ================================================================
-     ISLAMIC CUSTOM THEME COLOR CARD & SWATCHES
+     CUSTOM THEME STUDIO — 3 CHANNELS (BACKGROUND, FOREGROUND, FONT)
      ================================================================ */
   .custom-color-card {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, rgba(18, 24, 28, 0.94) 0%, rgba(10, 14, 16, 0.96) 100%);
-    backdrop-filter: blur(28px) saturate(160%);
-    -webkit-backdrop-filter: blur(28px) saturate(160%);
-    border: 1px solid rgba(212, 160, 23, 0.16);
+    background: linear-gradient(180deg, rgba(16, 22, 28, 0.94) 0%, rgba(9, 13, 16, 0.97) 100%);
+    backdrop-filter: blur(28px) saturate(170%);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.24);
     border-radius: 22px;
-    padding: 18px 16px 16px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    padding: 16px 15px 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
   .custom-color-card::before {
     content: '';
     position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cpath fill='none' stroke='%23D4A017' stroke-opacity='0.11' stroke-width='0.7' d='M36 4 L42 20 H58 L45 30 L51 46 L36 36 L21 46 L27 30 L14 20 H30 Z'/%3E%3Ccircle cx='36' cy='36' r='11' fill='none' stroke='%23D4A017' stroke-opacity='0.07' stroke-width='0.6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cpath fill='none' stroke='%232DD4BF' stroke-opacity='0.08' stroke-width='0.7' d='M36 4 L42 20 H58 L45 30 L51 46 L36 36 L21 46 L27 30 L14 20 H30 Z'/%3E%3Ccircle cx='36' cy='36' r='11' fill='none' stroke='%232DD4BF' stroke-opacity='0.05' stroke-width='0.6'/%3E%3C/svg%3E");
     background-size: 72px 72px;
     pointer-events: none;
-    opacity: 0.55;
-  }
-  .custom-color-card::after {
-    content: '';
-    position: absolute; left: 16px; right: 16px; top: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(212,160,23,0.45), transparent);
-    pointer-events: none;
+    opacity: 0.5;
   }
   .ccc-header {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     position: relative;
     z-index: 1;
   }
   .ccc-icon {
-    width: 40px; height: 40px; border-radius: 14px;
+    width: 38px; height: 38px; border-radius: 12px;
     display: inline-flex; align-items: center; justify-content: center;
-    background: rgba(212, 160, 23, 0.08);
-    border: 1px solid rgba(212, 160, 23, 0.22);
-    color: #D4A017;
+    background: rgba(var(--glow-rgb, 13,148,136), 0.12);
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.28);
+    color: var(--green-soft, #2DD4BF);
     flex-shrink: 0;
   }
   .ccc-icon svg { width: 18px; height: 18px; }
@@ -1711,122 +1704,198 @@
     font-size: 15px;
     font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: 0.01em;
     line-height: 1.25;
   }
   .ccc-titles p {
-    margin: 3px 0 0;
-    font-family: 'Amiri', serif;
-    font-size: 13px;
-    color: rgba(212, 160, 23, 0.85);
+    margin: 2px 0 0;
+    font-size: 11.5px;
+    color: var(--text-tertiary);
     line-height: 1.2;
   }
-  .ccc-live {
-    width: 30px; height: 30px; border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.88);
-    background: #059669;
-    flex-shrink: 0;
-    box-shadow: 0 0 0 3px rgba(5,150,105,0.18), 0 0 16px rgba(5,150,105,0.45);
-    transition: background .28s ease, box-shadow .28s ease;
+
+  /* Live Miniature Prayer Card Preview */
+  .ccc-live-preview-box {
+    position: relative;
+    z-index: 1;
+    border-radius: 16px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    border: 1.5px solid #059669;
+    background-color: #071922;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.40);
+    transition: all .25s ease;
   }
-  .ccc-section-label {
+  .ccc-prev-top-row {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .ccc-prev-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color .2s ease;
+  }
+  .ccc-prev-time {
+    font-size: 11.5px;
+    font-weight: 700;
+    transition: color .2s ease;
+  }
+  .ccc-prev-prayer-name {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    transition: color .2s ease;
+  }
+  .ccc-prev-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ccc-prev-subtitle {
+    font-size: 11px;
+    font-weight: 500;
+    transition: color .2s ease;
+  }
+  .ccc-prev-btn {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 8px;
+    color: #FFFFFF;
+    transition: all .2s ease;
+  }
+
+  /* 3-Channel Tabs */
+  .ccc-channel-nav {
+    display: flex;
+    gap: 6px;
     margin-bottom: 12px;
     position: relative;
     z-index: 1;
   }
-  .ccc-section-label span:first-child {
+  .ccc-channel-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 9px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    cursor: pointer;
+    transition: all .2s ease;
+    text-align: left;
+    outline: none;
+  }
+  html[dir="rtl"] .ccc-channel-tab {
+    text-align: right;
+  }
+  .ccc-channel-tab:hover {
+    border-color: rgba(var(--glow-rgb, 13,148,136), 0.4);
+    background: rgba(255,255,255,0.06);
+  }
+  .ccc-channel-tab.active {
+    background: rgba(var(--glow-rgb, 13,148,136), 0.18) !important;
+    border-color: var(--green-soft, #2DD4BF) !important;
+    box-shadow: 0 0 14px rgba(var(--glow-rgb, 13,148,136), 0.28);
+  }
+  .ccc-channel-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.6);
+    flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(0,0,0,0.4);
+    transition: background .2s ease;
+  }
+  .ccc-channel-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .ccc-channel-name {
     font-size: 11px;
     font-weight: 700;
-    color: rgba(232, 220, 192, 0.72);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+    color: var(--text-primary);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .ccc-section-label span:last-child {
-    font-size: 10px;
+  .ccc-channel-val {
+    font-size: 9.5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     color: var(--text-tertiary);
-    letter-spacing: 0.02em;
+    line-height: 1.2;
   }
+
+  /* Swatches row */
   .custom-swatch-row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 12px 8px;
+    gap: 8px 6px;
     justify-items: center;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     position: relative;
     z-index: 1;
   }
   .custom-swatch-chip {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.18);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.2s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.38);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     outline: none;
     padding: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .custom-swatch-chip.light-swatch {
-    border-color: rgba(255,255,255,0.42);
-    box-shadow: inset 0 0 0 1px rgba(11,20,27,0.18), 0 2px 10px rgba(0,0,0,0.38);
   }
   .custom-swatch-chip:hover {
-    transform: translateY(-1px) scale(1.06);
-    border-color: rgba(255, 255, 255, 0.55);
-  }
-  .custom-swatch-chip:focus-visible {
-    box-shadow: 0 0 0 3px rgba(212,160,23,0.45);
+    transform: scale(1.08);
+    border-color: rgba(255, 255, 255, 0.6);
   }
   .custom-swatch-chip.active {
-    transform: scale(1.08);
-    border-color: #ffffff;
-    z-index: 1;
+    transform: scale(1.12);
+    border-color: #FFFFFF !important;
+    box-shadow: 0 0 14px rgba(255,255,255,0.45);
   }
   .custom-swatch-chip.active::after {
     content: '';
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+    background: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
-  .custom-swatch-chip.light-swatch.active::after {
-    background: #0B141B;
+  .custom-swatch-chip.light-chip.active::after {
+    background: #000000;
   }
-  .color-insight-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 14px;
-    padding: 12px 13px;
-    margin-bottom: 12px;
-    position: relative;
-    z-index: 1;
-    transition: border-color 0.25s ease, background 0.25s ease;
-  }
+
+  /* Hex Row & Native Picker */
   .ccc-hex-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(0, 0, 0, 0.28);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 10px 10px 10px 11px;
+    background: rgba(0, 0, 0, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 14px;
+    padding: 8px 10px;
+    margin-bottom: 12px;
     position: relative;
     z-index: 1;
   }
   .ccc-picker-wrap {
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     flex-shrink: 0;
   }
   .ccc-picker-wrap input[type="color"] {
@@ -1837,11 +1906,11 @@
   .ccc-hex-meta { flex: 1; min-width: 0; }
   .ccc-hex-meta label {
     display: block;
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--text-tertiary);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
   }
   .ccc-hex-meta input[type="text"] {
     width: 100%;
@@ -1849,36 +1918,105 @@
     border: none;
     color: var(--text-primary);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.04em;
     outline: none;
-    padding: 3px 0 0;
-  }
-  .ccc-apply {
-    border: none;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    padding: 10px 16px;
-    cursor: pointer;
-    flex-shrink: 0;
-    min-width: 72px;
-    transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.18s ease;
-  }
-  .ccc-apply:active { transform: scale(0.97); }
-  .ccc-apply:focus-visible { outline: 2px solid #D4A017; outline-offset: 2px; }
-  @media (prefers-reduced-motion: reduce) {
-    .custom-swatch-chip, .ccc-live, .ccc-apply, .color-insight-box {
-      transition: none;
-    }
-    .custom-swatch-chip:hover, .custom-swatch-chip.active {
-      transform: none;
-    }
+    padding: 2px 0 0;
   }
 
-  /* ================================================================
+  /* Quick Harmonious Presets */
+  .ccc-preset-section {
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .ccc-preset-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .ccc-preset-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 6px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+  .ccc-preset-btn:hover {
+    border-color: var(--green-soft);
+    background: rgba(255,255,255,0.06);
+  }
+  .ccc-preset-dots {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .ccc-preset-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  .ccc-preset-name {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  /* Action Buttons */
+  .ccc-actions-row {
+    display: flex;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .ccc-btn-apply {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: none;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--green, #059669);
+    color: #FFFFFF;
+    box-shadow: 0 4px 16px rgba(var(--glow-rgb, 5,150,105), 0.35);
+    transition: all .2s ease;
+  }
+  .ccc-btn-apply:active { transform: scale(0.98); }
+  .ccc-btn-reset {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.05);
+    color: var(--text-tertiary);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+  .ccc-btn-reset:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+  }
+
+    /* ================================================================
      HIJRI CALENDAR (PRESERVED)
      ================================================================ */
   .calendar-container { margin-top: 10px; }
@@ -2977,6 +3115,768 @@
     background: #FFFFFF !important;
     border: 1.5px solid #1E88E5 !important;
     color: #111827 !important;
+  }
+
+  /* ========== MIDNIGHT MOSQUE THEME (Walkthrough 2-Column Cards Layout) ========== */
+  /* Fallback defaults for general themes */
+  .prayer-row-header-wrap { display: flex; align-items: center; gap: 10px; }
+  .prayer-row-name-box { display: flex; flex-direction: column; }
+  .prayer-row-icon-box { display: flex; align-items: center; }
+  .prayer-row-time-wrap { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .prayer-row-status-pill { display: none; }
+
+  /* =========================================================================
+     WALKTHROUGH CARD LAYOUT — UNIVERSAL FOR ALL THEMES
+     Uses CSS variables (--green, --green-soft, --glow-rgb) set by applyTheme()
+     ========================================================================= */
+
+
+  /* Layout Switcher Bar & Buttons */
+  .layout-switch-bar {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .layout-toggle-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .25s ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .layout-toggle-btn svg {
+    flex-shrink: 0;
+  }
+  .layout-toggle-btn:hover {
+    border-color: var(--green-soft);
+    color: var(--text-primary);
+  }
+  .layout-toggle-btn.active {
+    background: rgba(var(--glow-rgb), 0.22) !important;
+    border-color: var(--green-soft) !important;
+    color: var(--green-soft) !important;
+    box-shadow: 0 0 16px rgba(var(--glow-rgb), 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  }
+
+  /* Sleek floating top bar */
+  .app-header {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    padding: 6px 14px 2px 14px !important;
+    min-height: auto !important;
+  }
+  [data-layout="cards"] .header-location {
+    display: none !important;
+  }
+  [data-layout="list"] .header-location {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--bg-card, rgba(11,28,36,0.72)) !important;
+    border: 1px solid rgba(var(--glow-rgb, 45,212,191), 0.22) !important;
+    border-radius: 20px !important;
+    padding: 6px 14px !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    max-width: 65% !important;
+    cursor: pointer !important;
+  }
+  [data-layout="list"] .header-location:hover {
+    border-color: var(--green-soft, #2DD4BF) !important;
+  }
+  .header-btn {
+    background: var(--bg-card, rgba(6,24,34,0.58)) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.20) !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+  }
+
+  /* ────────── 1. CARDS LAYOUT (2-COLUMN WALKTHROUGH MOCKUP) ────────── */
+  [data-layout="cards"] .next-prayer-card {
+    background: var(--bg-card, rgba(6,24,34,0.58)) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.28) !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55), 0 0 24px rgba(var(--glow-rgb, 13,148,136), 0.14), inset 0 1px 0 rgba(255,255,255,0.14) !important;
+    border-radius: clamp(16px, 2.2vh, 22px) !important;
+    padding: clamp(12px, 1.8vh, 18px) clamp(14px, 3vw, 22px) !important;
+    text-align: center !important;
+    margin-bottom: clamp(8px, 1.3vh, 14px) !important;
+  }
+  [data-layout="cards"] .next-prayer-badge {
+    justify-content: center !important;
+    color: var(--text-tertiary, rgba(200,235,242,0.70)) !important;
+    font-size: clamp(9px, 1.2vh, 11px) !important;
+    letter-spacing: 0.15em !important;
+    margin-bottom: clamp(3px, 0.6vh, 6px) !important;
+    text-transform: uppercase !important;
+  }
+  [data-layout="cards"] .next-prayer-badge svg {
+    display: none !important;
+  }
+  [data-layout="cards"] .next-prayer-glow-headline {
+    display: block !important;
+    font-size: clamp(22px, 3.5vh, 30px) !important;
+    font-weight: 800 !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    text-shadow: 0 0 18px rgba(var(--glow-rgb, 13,148,136), 0.65), 0 0 32px rgba(var(--glow-rgb, 13,148,136), 0.35) !important;
+    letter-spacing: -0.01em !important;
+    margin-bottom: clamp(5px, 0.9vh, 9px) !important;
+    line-height: 1.15 !important;
+  }
+  [data-layout="cards"] .next-prayer-countdown-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: clamp(4px, 0.7vh, 7px) clamp(12px, 2.8vw, 18px) !important;
+    border-radius: 20px !important;
+    background: rgba(var(--glow-rgb, 13,148,136), 0.22) !important;
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.38) !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    font-size: clamp(9.5px, 1.3vh, 12px) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: clamp(5px, 0.8vh, 9px) !important;
+    box-shadow: 0 0 14px rgba(var(--glow-rgb, 13,148,136), 0.22) !important;
+  }
+  [data-layout="cards"] .next-prayer-sub-loc {
+    display: block !important;
+    font-size: clamp(9px, 1.2vh, 11px) !important;
+    font-weight: 600 !important;
+    color: var(--text-tertiary, rgba(160,205,215,0.75)) !important;
+    letter-spacing: 0.12em !important;
+    cursor: pointer !important;
+    transition: color .2s ease !important;
+  }
+  [data-layout="cards"] .next-prayer-sub-loc:hover {
+    color: var(--green-soft, #2DD4BF) !important;
+  }
+  [data-layout="cards"] .next-prayer-name,
+  [data-layout="cards"] .next-prayer-time-row,
+  [data-layout="cards"] .countdown-container,
+  [data-layout="cards"] .dome-decoration,
+  [data-layout="cards"] .prayer-section-header,
+  [data-layout="cards"] .quran-daily-tracker-card {
+    display: none !important;
+  }
+
+  /* ────────── 2. CLASSIC LIST LAYOUT (MATCHING USER SCREENSHOT) ────────── */
+  [data-layout="list"] .next-prayer-card {
+    position: relative !important;
+    overflow: hidden !important;
+    background: var(--bg-card, rgba(11,28,36,0.72)) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border: 1px solid rgba(var(--glow-rgb, 45,212,191), 0.22) !important;
+    border-radius: 18px !important;
+    padding: clamp(12px, 1.8vh, 16px) clamp(14px, 3vw, 20px) !important;
+    text-align: left !important;
+    margin-bottom: clamp(8px, 1.4vh, 12px) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.10) !important;
+  }
+  html[dir="rtl"] [data-layout="list"] .next-prayer-card,
+  [data-layout="list"] html[dir="rtl"] .next-prayer-card {
+    text-align: right !important;
+  }
+  [data-layout="list"] .next-prayer-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    justify-content: flex-start !important;
+    color: var(--text-tertiary, #94A3B8) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    margin-bottom: 4px !important;
+    text-transform: uppercase !important;
+  }
+  [data-layout="list"] .next-prayer-badge svg {
+    display: inline-block !important;
+    width: 12px !important;
+    height: 12px !important;
+    color: var(--green-soft, #2DD4BF) !important;
+  }
+  [data-layout="list"] .next-prayer-name {
+    display: block !important;
+    font-size: clamp(26px, 4vh, 32px) !important;
+    font-weight: 800 !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.1 !important;
+    margin-bottom: 2px !important;
+    text-transform: uppercase !important;
+  }
+  [data-layout="list"] .next-prayer-time-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    color: var(--text-tertiary, #94A3B8) !important;
+    margin-bottom: 10px !important;
+  }
+  [data-layout="list"] .next-prayer-time-row svg {
+    width: 14px !important;
+    height: 14px !important;
+    color: var(--green-soft, #2DD4BF) !important;
+  }
+  [data-layout="list"] .countdown-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  [data-layout="list"] .countdown-segment {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  [data-layout="list"] .countdown-num {
+    font-size: clamp(24px, 3.8vh, 30px) !important;
+    font-weight: 800 !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    line-height: 1 !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+  [data-layout="list"] .countdown-colon {
+    display: block !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    opacity: 0.8 !important;
+    margin-bottom: 12px !important;
+  }
+  [data-layout="list"] .countdown-label {
+    display: block !important;
+    font-size: 8.5px !important;
+    font-weight: 700 !important;
+    color: var(--text-tertiary, #64748B) !important;
+    letter-spacing: 0.08em !important;
+    margin-top: 4px !important;
+  }
+  [data-layout="list"] .dome-decoration {
+    display: block !important;
+    position: absolute !important;
+    right: 8px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: clamp(90px, 18vw, 125px) !important;
+    height: clamp(110px, 20vh, 145px) !important;
+    opacity: 0.20 !important;
+    pointer-events: none !important;
+  }
+  html[dir="rtl"] [data-layout="list"] .dome-decoration,
+  [data-layout="list"] html[dir="rtl"] .dome-decoration {
+    right: auto !important;
+    left: 8px !important;
+  }
+  [data-layout="list"] .next-prayer-glow-headline,
+  [data-layout="list"] .next-prayer-countdown-tag,
+  [data-layout="list"] .next-prayer-sub-loc {
+    display: none !important;
+  }
+  [data-layout="list"] .prayer-section-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 8px !important;
+    padding: 0 4px !important;
+  }
+  [data-layout="list"] .prayer-section-title {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: var(--text-tertiary, #64748B) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.12em !important;
+  }
+  [data-layout="list"] .prayer-section-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    background: rgba(var(--glow-rgb, 45,212,191), 0.12) !important;
+    border: 1px solid rgba(var(--glow-rgb, 45,212,191), 0.25) !important;
+    border-radius: 8px !important;
+    padding: 3px 9px !important;
+    font-size: 10.5px !important;
+    font-weight: 600 !important;
+    color: var(--green-soft, #2DD4BF) !important;
+  }
+  [data-layout="list"] .prayer-section-badge svg {
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  /* Hijri & Gregorian Dates Row — Universal Glassmorphism */
+  .hijri-date-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: clamp(8px, 2vw, 12px) !important;
+    padding: clamp(8px, 1.2vh, 12px) clamp(12px, 2.8vw, 16px) !important;
+    border-radius: clamp(14px, 2vh, 18px) !important;
+    background: var(--bg-card, rgba(6,24,34,0.55)) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.22) !important;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+    margin-bottom: clamp(8px, 1.4vh, 13px) !important;
+    flex-shrink: 0 !important;
+    cursor: pointer !important;
+    transition: all .2s ease !important;
+  }
+  .hijri-date-row:hover {
+    border-color: rgba(var(--glow-rgb, 13,148,136), 0.45) !important;
+    background: var(--card-active, rgba(var(--glow-rgb, 13,148,136), 0.12)) !important;
+    transform: translateY(-1px);
+  }
+  .hijri-date-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: clamp(10px, 2.2vw, 14px) !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+  .hijri-date-icon {
+    width: clamp(18px, 2.4vh, 22px) !important;
+    height: clamp(18px, 2.4vh, 22px) !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    flex-shrink: 0 !important;
+    filter: drop-shadow(0 0 8px rgba(var(--glow-rgb, 13,148,136), 0.35));
+  }
+  .hijri-date-text-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+  .hijri-date-primary {
+    font-size: clamp(12px, 1.6vh, 14px) !important;
+    font-weight: 700 !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    line-height: 1.25 !important;
+  }
+  .hijri-date-ar-tag {
+    font-family: 'Amiri', 'Traditional Arabic', serif, sans-serif !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    font-size: clamp(12px, 1.5vh, 13.5px) !important;
+    font-weight: 600 !important;
+  }
+  .hijri-date-secondary {
+    font-size: clamp(10px, 1.3vh, 11.5px) !important;
+    font-weight: 500 !important;
+    color: var(--text-tertiary, rgba(160,205,215,0.75)) !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    line-height: 1.25 !important;
+  }
+  .hijri-date-row .date-divider {
+    color: rgba(var(--glow-rgb, 13,148,136), 0.5) !important;
+    font-size: 11px !important;
+  }
+  .hijri-cal-arrow {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    opacity: 0.65 !important;
+    transition: opacity .2s ease, transform .2s ease !important;
+    flex-shrink: 0 !important;
+  }
+  .hijri-cal-arrow svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  .hijri-date-row:hover .hijri-cal-arrow {
+    opacity: 1 !important;
+    transform: translateX(2px);
+  }
+  html[dir="rtl"] .hijri-cal-arrow svg,
+  [data-theme] html[dir="rtl"] .hijri-cal-arrow svg {
+    transform: rotate(180deg);
+  }
+  html[dir="rtl"] .hijri-date-row:hover .hijri-cal-arrow {
+    transform: translateX(-2px);
+  }
+
+  /* Light Theme Specific Enhancements for Hijri Date Row */
+  [data-theme="emeraldwhite"] .hijri-date-row {
+    background: #FFFFFF !important;
+    border: 1.5px solid #2E9E5B !important;
+    box-shadow: 0 4px 18px rgba(46,158,91,0.12) !important;
+  }
+  [data-theme="emeraldwhite"] .hijri-date-primary {
+    color: #1F2937 !important;
+  }
+  [data-theme="emeraldwhite"] .hijri-date-ar-tag {
+    color: #2E9E5B !important;
+  }
+  [data-theme="emeraldwhite"] .hijri-date-secondary {
+    color: #4B5563 !important;
+  }
+  [data-theme="emeraldwhite"] .hijri-date-icon,
+  [data-theme="emeraldwhite"] .hijri-cal-arrow {
+    color: #2E9E5B !important;
+  }
+
+  /* ────────── 3. CARDS LAYOUT PRAYER GRID ────────── */
+  [data-layout="cards"] .prayer-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: clamp(8px, 1.4vh, 12px) !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    margin-bottom: clamp(8px, 1.4vh, 14px) !important;
+  }
+  [data-layout="cards"] .prayer-row {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+    padding: clamp(9px, 1.4vh, 14px) clamp(10px, 2.5vw, 15px) !important;
+    border-radius: clamp(14px, 2vh, 20px) !important;
+    background: var(--bg-card, rgba(6,24,34,0.55)) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.22) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.10) !important;
+    position: relative !important;
+    transition: all .25s ease !important;
+  }
+  [data-layout="cards"] .prayer-row::before {
+    display: none !important;
+  }
+  [data-layout="cards"] .prayer-row.active {
+    background: var(--card-active, rgba(var(--glow-rgb, 13,148,136), 0.15)) !important;
+    border: 1.8px solid var(--green-soft, #2DD4BF) !important;
+    box-shadow: 0 0 24px rgba(var(--glow-rgb, 13,148,136), 0.45), inset 0 0 14px rgba(var(--glow-rgb, 13,148,136), 0.18) !important;
+  }
+  [data-layout="cards"] .prayer-row-header-wrap {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  [data-layout="cards"] .prayer-row-name-box {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  [data-layout="cards"] .prayer-row-name {
+    font-size: clamp(11.5px, 1.6vh, 14px) !important;
+    font-weight: 700 !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+  }
+  [data-layout="cards"] .prayer-row-subtitle {
+    display: none !important;
+  }
+  [data-layout="cards"] .prayer-row-icon-box {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  [data-layout="cards"] .prayer-row-icon {
+    width: clamp(18px, 2.5vh, 22px) !important;
+    height: clamp(18px, 2.5vh, 22px) !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+  [data-layout="cards"] .prayer-row-icon svg {
+    width: 100% !important;
+    height: 100% !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    filter: drop-shadow(0 0 4px rgba(var(--glow-rgb, 13,148,136), 0.4));
+  }
+  [data-layout="cards"] .mute-btn {
+    width: clamp(20px, 2.8vh, 26px) !important;
+    height: clamp(20px, 2.8vh, 26px) !important;
+    border-radius: 6px !important;
+    background: rgba(255,255,255,0.06) !important;
+  }
+  [data-layout="cards"] .prayer-row-time-wrap {
+    display: flex !important;
+    align-items: baseline !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    margin-top: clamp(4px, 0.8vh, 8px) !important;
+  }
+  [data-layout="cards"] .prayer-row-time {
+    font-size: clamp(15px, 2.4vh, 20px) !important;
+    font-weight: 800 !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    font-variant-numeric: tabular-nums !important;
+    line-height: 1.1 !important;
+  }
+  [data-layout="cards"] .prayer-row.active .prayer-row-time {
+    color: var(--text-primary, #FFFFFF) !important;
+    text-shadow: 0 0 14px rgba(var(--glow-rgb, 13,148,136), 0.65) !important;
+  }
+  [data-layout="cards"] .prayer-row-status-pill {
+    display: inline-block !important;
+    font-size: clamp(8px, 1.1vh, 10px) !important;
+    font-weight: 600 !important;
+    padding: 2px 6px !important;
+    border-radius: 6px !important;
+    background: rgba(255,255,255,0.06) !important;
+    color: var(--text-tertiary) !important;
+    letter-spacing: 0.04em !important;
+  }
+  [data-layout="cards"] .prayer-row-status-pill.active {
+    background: rgba(var(--glow-rgb, 13,148,136), 0.20) !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.40) !important;
+    box-shadow: 0 0 8px rgba(var(--glow-rgb, 13,148,136), 0.25) !important;
+  }
+
+  /* ────────── 4. CLASSIC LIST LAYOUT PRAYER ROWS ────────── */
+  [data-layout="list"] .prayer-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 7px !important;
+    flex: 1 1 auto !important;
+    margin-bottom: 10px !important;
+  }
+  [data-layout="list"] .prayer-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: clamp(8px, 1.2vh, 11px) clamp(10px, 2.5vw, 14px) !important;
+    background: var(--bg-card, rgba(11,28,36,0.72)) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border: 1px solid rgba(var(--glow-rgb, 45,212,191), 0.18) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    transition: all .2s ease !important;
+  }
+  [data-layout="list"] .prayer-row.active {
+    background: linear-gradient(90deg, rgba(var(--glow-rgb, 45,212,191), 0.20) 0%, var(--bg-card, rgba(11,28,36,0.72)) 100%) !important;
+    border: 1.5px solid var(--green-soft, #2DD4BF) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.40), 0 0 16px rgba(var(--glow-rgb, 45,212,191), 0.25), inset 0 1px 0 rgba(255,255,255,0.12) !important;
+  }
+  [data-layout="list"] .prayer-row.active::before {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 6px !important;
+    bottom: 6px !important;
+    width: 4px !important;
+    border-radius: 0 4px 4px 0 !important;
+    background: var(--green-soft, #2DD4BF) !important;
+    box-shadow: 0 0 12px var(--green-soft, #2DD4BF), 0 0 20px var(--green-soft, #2DD4BF) !important;
+  }
+  html[dir="rtl"] [data-layout="list"] .prayer-row.active::before,
+  [data-layout="list"] html[dir="rtl"] .prayer-row.active::before {
+    left: auto !important;
+    right: 0 !important;
+    border-radius: 4px 0 0 4px !important;
+  }
+  [data-layout="list"] .prayer-row-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    min-width: 0 !important;
+  }
+  [data-layout="list"] .prayer-row-icon {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 10px !important;
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(var(--glow-rgb, 45,212,191), 0.20) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--text-secondary, #94A3B8) !important;
+    flex-shrink: 0 !important;
+  }
+  [data-layout="list"] .prayer-row-icon svg {
+    width: 17px !important;
+    height: 17px !important;
+  }
+  [data-layout="list"] .prayer-row.active .prayer-row-icon {
+    background: rgba(var(--glow-rgb, 45,212,191), 0.25) !important;
+    border-color: var(--green-soft, #2DD4BF) !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    box-shadow: 0 0 14px rgba(var(--glow-rgb, 45,212,191), 0.35), inset 0 1px 0 rgba(255,255,255,0.2) !important;
+  }
+  [data-layout="list"] .prayer-row-name-box {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1px !important;
+  }
+  [data-layout="list"] .prayer-row-name {
+    font-size: 14.5px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    letter-spacing: 0.02em !important;
+  }
+  [data-layout="list"] .prayer-row-subtitle {
+    display: block !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: var(--text-tertiary, #64748B) !important;
+  }
+  [data-layout="list"] .prayer-row-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-shrink: 0 !important;
+  }
+  [data-layout="list"] .prayer-row-time {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+  [data-layout="list"] .prayer-row.active .prayer-row-time {
+    color: var(--green-soft, #2DD4BF) !important;
+  }
+  [data-layout="list"] .mute-btn {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    color: var(--text-tertiary, #94A3B8) !important;
+    background: transparent !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all .2s ease !important;
+  }
+  [data-layout="list"] .mute-btn svg {
+    width: 17px !important;
+    height: 17px !important;
+  }
+  [data-layout="list"] .mute-btn.on {
+    color: var(--green-soft, #2DD4BF) !important;
+  }
+
+  /* ────────── 5. ACTION ROW & BOTTOM NAVIGATION — UNIVERSAL ────────── */
+    /* Action Row & Bottom Navigation — Universal */
+  .action-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+    gap: clamp(8px, 2vw, 14px) !important;
+    margin-top: clamp(4px, 0.8vh, 10px) !important;
+    margin-bottom: clamp(10px, 1.6vh, 16px) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .action-btn {
+    flex: 1 1 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: clamp(10px, 1.5vh, 14px) clamp(6px, 1.5vw, 10px) !important;
+    min-height: clamp(60px, 8vh, 72px) !important;
+    border-radius: clamp(14px, 2vh, 18px) !important;
+    background: var(--bg-card, rgba(6,24,34,0.52)) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.22) !important;
+    color: var(--text-primary, #FFFFFF) !important;
+    font-size: clamp(10px, 1.35vh, 11.5px) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12) !important;
+    transition: transform .18s ease, background .18s ease !important;
+  }
+  .action-btn:active {
+    transform: scale(0.95) !important;
+  }
+  .action-btn svg {
+    width: clamp(22px, 3vh, 26px) !important;
+    height: clamp(22px, 3vh, 26px) !important;
+    color: var(--green-soft, #2DD4BF) !important;
+    filter: drop-shadow(0 0 6px rgba(var(--glow-rgb, 13,148,136), 0.45)) !important;
+  }
+  nav.bottom {
+    background: rgba(var(--glow-rgb, 13,148,136), 0.06) !important;
+    backdrop-filter: blur(28px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+    border-top: 1px solid rgba(var(--glow-rgb, 13,148,136), 0.18) !important;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08) !important;
+  }
+  .nav-btn.active {
+    color: var(--green-soft, #2DD4BF) !important;
+    position: relative !important;
+  }
+  .nav-btn.active::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 32px;
+    border-radius: 16px;
+    background: radial-gradient(circle, rgba(var(--glow-rgb, 13,148,136), 0.28) 0%, rgba(var(--glow-rgb, 13,148,136), 0.10) 65%, transparent 100%);
+    box-shadow: 0 0 16px rgba(var(--glow-rgb, 13,148,136), 0.35);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .nav-btn.active svg,
+  .nav-btn.active span {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 8px rgba(var(--glow-rgb, 13,148,136), 0.7));
+  }
+
+  /* Light theme overrides for Pearl & Jade */
+  [data-theme="pearlJade"] .next-prayer-card {
+    background: rgba(255,255,255,0.90) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.8) !important;
+  }
+  [data-theme="pearlJade"] .prayer-row {
+    background: rgba(255,255,255,0.85) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+  }
+  [data-theme="pearlJade"] .action-btn {
+    background: rgba(255,255,255,0.85) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+  }
+  [data-theme="pearlJade"] nav.bottom {
+    background: rgba(255,255,255,0.82) !important;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.06) !important;
+  }
+  [data-theme="pearlJade"] .mute-btn {
+    background: rgba(0,0,0,0.05) !important;
   }
 
   /* =========================================================================
@@ -4188,7 +5088,7 @@
 
 </style>
 </head>
-<body class="tab-salah-active">
+<body class="tab-salah-active" data-theme="midnightMosque" data-layout="cards">
 <div class="app">
 
   <!-- ============================================================
@@ -4279,14 +5179,6 @@
         <button class="compass-theme-pill" data-compass-theme="slate" id="btnCompassThemeSlate" type="button">
           <span class="theme-dot" style="background:#94a3b8; border:1px solid #cbd5e1;"></span>
           <span>Minimal Slate</span>
-        </button>
-        <button class="compass-theme-pill" data-compass-theme="cyber" id="btnCompassThemeCyber" type="button">
-          <span class="theme-dot" style="background:#38bdf8;"></span>
-          <span>Celestial Cyan</span>
-        </button>
-        <button class="compass-theme-pill" data-compass-theme="gold" id="btnCompassThemeGold" type="button">
-          <span class="theme-dot" style="background:#facc15;"></span>
-          <span>Royal Gold</span>
         </button>
         <button class="compass-theme-pill" data-compass-theme="white" id="btnCompassThemeWhite" type="button">
           <span class="theme-dot" style="background:#ffffff; border:1.5px solid #0f6d39;"></span>
@@ -5210,6 +6102,24 @@
         </div>
       </div>
 
+      <!-- PRAYER SCREEN LAYOUT PREFERENCE -->
+      <div style="margin-top:18px; padding-top:16px; border-top:1px solid var(--border);">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <label style="font-size:12px; font-weight:700; color:var(--text-primary); margin:0;" id="lblSettingsLayoutTitle">Prayer Screen Layout / نمط العرض</label>
+          <span style="font-size:11px; color:var(--text-tertiary);" id="lblSettingsLayoutSub">Cards vs Classic List</span>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="layout-toggle-btn btn-choose-cards-layout" onclick="setLayout('cards')" aria-label="2-Column Cards">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            <span class="lbl-layout-cards-text">2-Column Cards</span>
+          </button>
+          <button type="button" class="layout-toggle-btn btn-choose-list-layout" onclick="setLayout('list')" aria-label="Classic List">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            <span class="lbl-layout-list-text">Classic List</span>
+          </button>
+        </div>
+      </div>
+
       <!-- LANGUAGE PREFERENCE -->
       <div style="margin-top:18px; padding-top:16px; border-top:1px solid var(--border);">
         <div class="field">
@@ -5231,58 +6141,116 @@
     </div>
     <div class="card">
       <p style="font-size:12px; color:var(--text-secondary); margin:0 0 10px;" id="themesSubDesc">Select your preferred colorway:</p>
+      <div class="layout-switch-bar">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <span style="font-size:12px; font-weight:700; color:var(--text-primary);" id="lblLayoutStyleTitle">Layout Style</span>
+          <span style="font-size:11px; color:var(--text-tertiary);" id="lblLayoutStyleSub">Choose prayer display</span>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="layout-toggle-btn btn-choose-cards-layout" id="btnChooseCardsLayout" onclick="setLayout('cards')" aria-label="2-Column Cards">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            <span class="lbl-layout-cards-text" id="lblLayoutCards">2-Column Cards</span>
+          </button>
+          <button type="button" class="layout-toggle-btn btn-choose-list-layout" id="btnChooseListLayout" onclick="setLayout('list')" aria-label="Classic List">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            <span class="lbl-layout-list-text" id="lblLayoutList">Classic List</span>
+          </button>
+        </div>
+      </div>
       <div class="theme-grid" id="themeGrid"></div>
     </div>
 
-    <!-- CUSTOM THEME COLOR PICKER -->
+    <!-- CUSTOM THEME COLOR STUDIO (3 CHANNELS) -->
     <div class="custom-color-card" style="margin-top:14px;">
       <div class="ccc-header">
         <span class="ccc-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/><path d="M8 12h8"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/><path d="M8 12h8"/></svg>
         </span>
         <div class="ccc-titles">
-          <h2 id="customColorTitle">Custom Theme Color</h2>
-          <p id="customColorSub">لون مخصص</p>
+          <h2 id="customColorTitle">Custom Theme Studio</h2>
+          <p id="customColorSub">Background • Foreground • Font</p>
         </div>
-        <div id="customColorCurrentPreview" class="ccc-live" role="img" aria-label="Selected accent preview"></div>
       </div>
 
-      <div class="ccc-section-label">
-        <span id="quickSwatchesLabel">Popular Accents</span>
-        <span id="swatchesCountLabel">10 curated tones</span>
+      <!-- Live Miniature Preview Card -->
+      <div class="ccc-live-preview-box" id="cccLivePreviewBox">
+        <div class="ccc-prev-top-row">
+          <span class="ccc-prev-badge" id="cccPrevBadge">★ NEXT PRAYER</span>
+          <span class="ccc-prev-time" id="cccPrevTime">11:37 AM</span>
+        </div>
+        <div class="ccc-prev-prayer-name" id="cccPrevTitle">DHUHR</div>
+        <div class="ccc-prev-bottom-row">
+          <span class="ccc-prev-subtitle" id="cccPrevSub">Midday Prayer</span>
+          <span class="ccc-prev-btn" id="cccPrevBtn">Active</span>
+        </div>
       </div>
-      <div class="custom-swatch-row" id="customSwatchRow" role="listbox" aria-label="Popular Islamic accent colors"></div>
 
-      <div class="color-insight-box" id="colorInsightBox">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:5px; gap:8px;">
-          <div style="display:flex; align-items:center; gap:7px; min-width:0;">
-            <span id="colorInsightBadge" style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#059669; box-shadow:0 0 8px rgba(5,150,105,0.55); flex-shrink:0;"></span>
-            <span id="colorInsightName" style="font-size:13px; font-weight:700; color:var(--text-primary);">Emerald Green</span>
+      <!-- 3 Channel Selectors -->
+      <div class="ccc-channel-nav" role="tablist">
+        <button type="button" class="ccc-channel-tab active" data-channel="fg" id="tabChannelFg" onclick="setStudioChannel('fg')" role="tab" aria-selected="true">
+          <span class="ccc-channel-dot" id="dotChannelFg" style="background:#059669;"></span>
+          <div class="ccc-channel-text">
+            <span class="ccc-channel-name" id="lblChannelFgTitle">Foreground</span>
+            <span class="ccc-channel-val" id="valChannelFg">#059669</span>
           </div>
-          <span id="colorInsightRank" style="font-size:10px; font-weight:700; color:#059669; background:rgba(5,150,105,0.12); border:1px solid rgba(5,150,105,0.28); border-radius:999px; padding:3px 8px; white-space:nowrap;">Default</span>
-        </div>
-        <div id="colorInsightWhy" style="font-size:12px; color:var(--text-secondary); margin-bottom:4px; line-height:1.45;">Classic Islamic green – peaceful, fresh, premium</div>
-        <div id="colorInsightUse" style="font-size:11px; color:var(--text-tertiary); line-height:1.4;"><span style="color:var(--text-secondary); font-weight:600;">Suggested use:</span> Primary accent (buttons, icons)</div>
+        </button>
+        <button type="button" class="ccc-channel-tab" data-channel="bg" id="tabChannelBg" onclick="setStudioChannel('bg')" role="tab" aria-selected="false">
+          <span class="ccc-channel-dot" id="dotChannelBg" style="background:#071922;"></span>
+          <div class="ccc-channel-text">
+            <span class="ccc-channel-name" id="lblChannelBgTitle">Background</span>
+            <span class="ccc-channel-val" id="valChannelBg">#071922</span>
+          </div>
+        </button>
+        <button type="button" class="ccc-channel-tab" data-channel="font" id="tabChannelFont" onclick="setStudioChannel('font')" role="tab" aria-selected="false">
+          <span class="ccc-channel-dot" id="dotChannelFont" style="background:#FFFFFF;"></span>
+          <div class="ccc-channel-text">
+            <span class="ccc-channel-name" id="lblChannelFontTitle">Font / Text</span>
+            <span class="ccc-channel-val" id="valChannelFont">#FFFFFF</span>
+          </div>
+        </button>
       </div>
 
+      <!-- Hex Row & Native Color Picker -->
       <div class="ccc-hex-row">
         <div class="ccc-picker-wrap">
-          <input type="color" id="customNativeColorPicker" value="#059669" aria-label="Open color picker">
-          <div id="customColorPickerBtn" style="width:100%; height:100%; border-radius:12px; background:#059669; border:1.5px solid rgba(255,255,255,0.28); box-shadow:0 0 14px rgba(5,150,105,0.35); display:flex; align-items:center; justify-content:center; pointer-events:none; transition:background .25s ease, box-shadow .25s ease;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="width:16px;height:16px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.5));"><circle cx="12" cy="12" r="9"/><path d="M12 3a7 7 0 0 1 7 7"/></svg>
+          <input type="color" id="customNativeColorPicker" value="#059669" aria-label="Pick color on spectrum">
+          <div id="customColorPickerBtn" style="width:100%; height:100%; border-radius:10px; background:#059669; border:1.5px solid rgba(255,255,255,0.3); display:flex; align-items:center; justify-content:center; pointer-events:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="width:15px;height:15px;"><circle cx="12" cy="12" r="9"/><path d="M12 3a7 7 0 0 1 7 7"/></svg>
           </div>
         </div>
         <div class="ccc-hex-meta">
-          <label for="customColorHexInput" id="customHexLabel">Hex color code</label>
-          <input type="text" id="customColorHexInput" maxlength="7" value="#059669" spellcheck="false" autocomplete="off" inputmode="text" aria-describedby="customHexLabel">
+          <label for="customColorHexInput" id="customHexLabel">Active Channel Hex</label>
+          <input type="text" id="customColorHexInput" maxlength="7" value="#059669" spellcheck="false" autocomplete="off" inputmode="text">
         </div>
-        <button type="button" class="ccc-apply" id="applyCustomColorBtn" style="background:#059669; color:#fff; box-shadow:0 6px 18px rgba(5,150,105,0.28);">Apply</button>
+      </div>
+
+      <!-- Swatches for Selected Channel -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+        <span style="font-size:11px; font-weight:700; color:var(--text-secondary);" id="lblChannelSwatches">Curated Tones</span>
+        <span style="font-size:10px; color:var(--text-tertiary);" id="lblActiveChannelDesc">Tap to choose</span>
+      </div>
+      <div class="custom-swatch-row" id="customSwatchRow" role="listbox"></div>
+
+      <!-- Harmonious Combos / Presets -->
+      <div class="ccc-preset-section">
+        <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-bottom:8px;" id="lblHarmoniousPresets">Quick Harmonious Combos</div>
+        <div class="ccc-preset-grid" id="cccPresetGrid"></div>
+      </div>
+
+      <!-- Apply & Reset Actions -->
+      <div class="ccc-actions-row">
+        <button type="button" class="ccc-btn-apply" id="applyCustomThemeBtn" onclick="applyStudioCustomTheme()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="lblApplyCustom">Apply Custom Theme</span>
+        </button>
+        <button type="button" class="ccc-btn-reset" id="resetCustomThemeBtn" onclick="resetStudioCustomTheme()">
+          <span id="lblResetCustom">Reset</span>
+        </button>
       </div>
     </div>
   </div>
 
-  
-  <!-- DAILY QURAN LOG HISTORY SUB-PANEL -->
+    <!-- DAILY QURAN LOG HISTORY SUB-PANEL -->
   <div class="tab-panel" id="tab-quranlog">
     <div class="sub-panel-header">
       <button class="back-btn" data-back="more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
@@ -6392,6 +7360,10 @@ if('serviceWorker' in navigator){
     method: '4', school: '0', theme: 'midnightMosque', soundOn: true, vibrateOn: true, notifOn: true,
     quranReminderOn: true, mulkReminderOn: true,
     customColor: '#059669',
+    customFgColor: '#059669',
+    customBgColor: '#071922',
+    customFontColor: '#FFFFFF',
+    layout: 'cards',
     customSoundUrl: '',
     lang: 'en',
     quranReciter: 'ar.alafasy',
@@ -6895,206 +7867,333 @@ if('serviceWorker' in navigator){
     return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
   }
 
-  function buildCustomTheme(hex){
-    if(!hex || !hex.startsWith('#')) hex = '#' + (hex || '059669');
-    var rgb = hexToRgb(hex);
+  function buildCustomTheme(fg, bg, font){
+    fg = (fg || state.customFgColor || state.customColor || '#059669').toUpperCase();
+    if(!fg.startsWith('#')) fg = '#' + fg;
+    bg = (bg || state.customBgColor || '#071922').toUpperCase();
+    if(!bg.startsWith('#')) bg = '#' + bg;
+    font = (font || state.customFontColor || '#FFFFFF').toUpperCase();
+    if(!font.startsWith('#')) font = '#' + font;
+
+    var rgb = hexToRgb(fg);
+    var bgRgb = hexToRgb(bg);
+    var fontRgb = hexToRgb(font);
     var glowRgb = rgb.r + ',' + rgb.g + ',' + rgb.b;
-    var soft = lightenDarkenColor(hex, 35);
-    var deep = lightenDarkenColor(hex, -35);
+    var soft = lightenDarkenColor(fg, 35);
+    var deep = lightenDarkenColor(fg, -35);
+    var bgBot = lightenDarkenColor(bg, -25);
+    var isLight = isLightAccent(bg);
+
+    var cardSurface = isLight
+      ? 'rgba(255, 255, 255, 0.90)'
+      : 'rgba(' + Math.min(255, Math.max(0, bgRgb.r + 8)) + ',' + Math.min(255, Math.max(0, bgRgb.g + 12)) + ',' + Math.min(255, Math.max(0, bgRgb.b + 16)) + ', 0.76)';
+
+    var fontSec = 'rgba(' + fontRgb.r + ',' + fontRgb.g + ',' + fontRgb.b + ', 0.78)';
+    var fontDim = 'rgba(' + fontRgb.r + ',' + fontRgb.g + ',' + fontRgb.b + ', 0.55)';
+
     var isAr = state.lang === 'ar';
     return {
-      name: isAr ? 'لون مخصص' : 'Custom Accent',
-      swatches: ['#071922', hex, '#0D2735'],
-      meta: '#071922',
+      name: isAr ? 'استوديو الثيم المخصص' : 'Custom Theme Studio',
+      swatches: [bg, fg, font],
+      meta: bg,
       glowRgb: glowRgb,
+      isLight: isLight,
       vars: {
-        'bg-top': '#071922', 'bg-bot': '#030C10',
-        'card': 'rgba(10,24,30,0.72)', 'card-active': 'rgba(' + glowRgb + ',0.15)',
-        'line': 'rgba(' + glowRgb + ',0.20)', 'line-active': 'rgba(' + glowRgb + ',0.60)',
-        'gold': hex, 'gold-soft': soft, 'gold-deep': deep,
-        'ivory': '#FFFFFF', 'sage': 'rgba(200,230,235,0.82)', 'sage-dim': 'rgba(140,185,195,0.58)',
-        'accent': hex
+        'bg-top': bg, 'bg-bot': bgBot,
+        'card': cardSurface, 'card-active': 'rgba(' + glowRgb + ',0.16)',
+        'line': 'rgba(' + glowRgb + ',0.24)', 'line-active': fg,
+        'gold': fg, 'gold-soft': soft, 'gold-deep': deep,
+        'ivory': font, 'sage': fontSec, 'sage-dim': fontDim,
+        'accent': fg
       }
     };
   }
 
-  var pendingCustomColor = '#059669';
+  var customStudio = {
+    channel: 'fg', // 'fg' | 'bg' | 'font'
+    fg: '#059669',
+    bg: '#071922',
+    font: '#FFFFFF'
+  };
+
+  var CHANNEL_SWATCHES = {
+    fg: [
+      { hex: '#059669', name: 'Emerald Green' },
+      { hex: '#0D9488', name: 'Mosque Teal' },
+      { hex: '#E5A82E', name: 'Mosque Gold' },
+      { hex: '#D97706', name: 'Amber Gold' },
+      { hex: '#2563EB', name: 'Royal Sapphire' },
+      { hex: '#06B6D4', name: 'Electric Cyan' },
+      { hex: '#8B5CF6', name: 'Amethyst Violet' },
+      { hex: '#F43F5E', name: 'Rose Petal' },
+      { hex: '#EA580C', name: 'Vivid Coral' },
+      { hex: '#10B981', name: 'Bright Mint' }
+    ],
+    bg: [
+      { hex: '#071922', name: 'Obsidian Teal' },
+      { hex: '#000000', name: 'Pitch Black' },
+      { hex: '#040E1B', name: 'Midnight Navy' },
+      { hex: '#03170E', name: 'Deep Forest' },
+      { hex: '#0D1117', name: 'Charcoal Slate' },
+      { hex: '#140E12', name: 'Warm Obsidian' },
+      { hex: '#0A121E', name: 'Deep Indigo' },
+      { hex: '#140C08', name: 'Espresso Dark' },
+      { hex: '#F4F6F9', name: 'Pearl White (Light)' },
+      { hex: '#FAF8F5', name: 'Sand Cream (Light)' }
+    ],
+    font: [
+      { hex: '#FFFFFF', name: 'Pure White' },
+      { hex: '#FFFDF7', name: 'Warm Ivory' },
+      { hex: '#FEF3C7', name: 'Golden Light' },
+      { hex: '#D1FAE5', name: 'Mint Ice' },
+      { hex: '#E0F2FE', name: 'Sky Frost' },
+      { hex: '#FFE4E6', name: 'Soft Rose' },
+      { hex: '#E2E8F0', name: 'Silver Pearl' },
+      { hex: '#FDE68A', name: 'Pale Amber' },
+      { hex: '#1F2937', name: 'Deep Charcoal' },
+      { hex: '#090D10', name: 'Obsidian Dark' }
+    ]
+  };
+
+  var CUSTOM_PRESETS = [
+    { name: 'Midnight Emerald', nameAr: 'زمرد ليلي', bg: '#071922', fg: '#059669', font: '#FFFFFF' },
+    { name: 'Royal Gold', nameAr: 'ذهب ملكي', bg: '#060810', fg: '#E5A82E', font: '#FFFDF5' },
+    { name: 'Neon Cyan', nameAr: 'سماوي نيون', bg: '#041116', fg: '#2DD4BF', font: '#E0FAF7' },
+    { name: 'Rose Obsidian', nameAr: 'سبج وردي', bg: '#120A0E', fg: '#FB7185', font: '#FFF1F2' },
+    { name: 'Clean Light', nameAr: 'أبيض ياسمين', bg: '#F4F6F9', fg: '#059669', font: '#0F172A' },
+    { name: 'Pitch Black OLED', nameAr: 'أسود مطلق', bg: '#000000', fg: '#10B981', font: '#FFFFFF' }
+  ];
 
   function isLightAccent(hex){
     var rgb = hexToRgb(hex);
     return (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) > 158;
   }
 
-  function selectPendingColor(hex, opts){
-    if(!hex) return;
-    if(!hex.startsWith('#')) hex = '#' + hex;
-    if(!/^#[0-9A-Fa-f]{6}$/.test(hex)) return;
-    pendingCustomColor = hex.toUpperCase();
-    if(pendingCustomColor.length === 7){
-      pendingCustomColor = '#' + hex.replace('#','').toUpperCase();
-    }
-    updateCustomColorUI();
-    if(opts && opts.apply) setCustomColor(pendingCustomColor);
+  function setStudioChannel(channel){
+    if(channel !== 'fg' && channel !== 'bg' && channel !== 'font') channel = 'fg';
+    customStudio.channel = channel;
+    updateStudioChannelUI();
   }
+  window.setStudioChannel = setStudioChannel;
 
-  function setCustomColor(hex){
-    if(!hex) return;
-    if(!hex.startsWith('#')) hex = '#' + hex;
-    if(!/^#[0-9A-Fa-f]{6}$/.test(hex)) return;
-    hex = '#' + hex.replace('#','').toUpperCase();
-    pendingCustomColor = hex;
-    state.customColor = hex;
-    THEMES.custom = buildCustomTheme(hex);
-    applyTheme('custom');
-    saveSettings();
-    updateCustomColorUI();
-  }
+  function updateStudioChannelUI(){
+    var ch = customStudio.channel;
+    var isAr = state.lang === 'ar';
 
-  function updateCustomColorUI(){
-    var customHex = pendingCustomColor || state.customColor || '#059669';
-    if(!customHex.startsWith('#')) customHex = '#' + customHex;
-    customHex = customHex.toUpperCase();
-    var rgb = hexToRgb(customHex);
-    var glow = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',';
-    var light = isLightAccent(customHex);
-
-    var picker = document.getElementById('customNativeColorPicker');
-    if(picker) picker.value = customHex;
-    var hexInput = document.getElementById('customColorHexInput');
-    if(hexInput && document.activeElement !== hexInput) hexInput.value = customHex;
-    var pickerBtn = document.getElementById('customColorPickerBtn');
-    if(pickerBtn){
-      pickerBtn.style.background = customHex;
-      pickerBtn.style.boxShadow = '0 0 14px ' + glow + '0.4)';
-      var stroke = pickerBtn.querySelector('svg');
-      if(stroke) stroke.setAttribute('stroke', light ? '#0B141B' : '#fff');
-    }
-    var preview = document.getElementById('customColorCurrentPreview');
-    if(preview){
-      preview.style.background = customHex;
-      preview.style.boxShadow = '0 0 0 3px ' + glow + '0.22), 0 0 16px ' + glow + '0.5)';
-    }
-
-    var applyBtn = document.getElementById('applyCustomColorBtn');
-    if(applyBtn){
-      applyBtn.style.background = customHex;
-      applyBtn.style.color = light ? '#0B141B' : '#FFFFFF';
-      applyBtn.style.boxShadow = '0 6px 18px ' + glow + '0.32)';
-    }
-
-    var insightBox = document.getElementById('colorInsightBox');
-    if(insightBox){
-      insightBox.style.borderColor = glow + '0.28)';
-      insightBox.style.background = glow + '0.07)';
-    }
-
-    document.querySelectorAll('.custom-swatch-chip').forEach(function(chip){
-      var c = chip.getAttribute('data-color');
-      var match = c && c.toLowerCase() === customHex.toLowerCase();
-      chip.classList.toggle('active', match);
-      chip.setAttribute('aria-pressed', match ? 'true' : 'false');
-      if(match){
-        chip.style.boxShadow = '0 0 0 3px rgba(10,14,16,0.92), 0 0 0 5px ' + c + ', 0 0 18px ' + glow + '0.65)';
-      } else if(chip.classList.contains('light-swatch')){
-        chip.style.boxShadow = 'inset 0 0 0 1px rgba(11,20,27,0.18), 0 2px 10px rgba(0,0,0,0.38)';
-      } else {
-        chip.style.boxShadow = '0 2px 10px rgba(0,0,0,0.38)';
+    ['fg','bg','font'].forEach(function(c){
+      var tab = document.getElementById('tabChannel' + (c === 'fg' ? 'Fg' : (c === 'bg' ? 'Bg' : 'Font')));
+      if(tab){
+        tab.classList.toggle('active', c === ch);
+        tab.setAttribute('aria-selected', c === ch ? 'true' : 'false');
       }
     });
 
-    var info = ISLAMIC_POPULAR_ACCENTS.find(function(a){ return a.hex.toLowerCase() === customHex.toLowerCase(); });
-    var nameEl = document.getElementById('colorInsightName');
-    var badgeEl = document.getElementById('colorInsightBadge');
-    var rankEl = document.getElementById('colorInsightRank');
-    var whyEl = document.getElementById('colorInsightWhy');
-    var useEl = document.getElementById('colorInsightUse');
-    if(info){
-      if(nameEl) nameEl.textContent = state.lang === 'ar' ? (info.nameAr || info.name) : info.name;
-      if(badgeEl){
-        badgeEl.style.background = info.hex;
-        badgeEl.style.boxShadow = '0 0 8px ' + info.hex + '99';
-      }
-      if(rankEl){
-        rankEl.textContent = info.rank === 1 ? 'Default' : (info.rank <= 3 ? 'Recommended' : 'Accent');
-        rankEl.style.color = light ? '#0B141B' : customHex;
-        rankEl.style.background = glow + '0.14)';
-        rankEl.style.borderColor = glow + '0.32)';
-      }
-      if(whyEl) whyEl.textContent = info.why;
-      if(useEl) useEl.innerHTML = '<span style="color:var(--text-secondary); font-weight:600;">Suggested use:</span> ' + info.use;
-    } else {
-      if(nameEl) nameEl.textContent = customHex;
-      if(badgeEl){
-        badgeEl.style.background = customHex;
-        badgeEl.style.boxShadow = '0 0 8px ' + glow + '0.6)';
-      }
-      if(rankEl){
-        rankEl.textContent = 'Custom hex';
-        rankEl.style.color = light ? '#0B141B' : customHex;
-        rankEl.style.background = glow + '0.14)';
-        rankEl.style.borderColor = glow + '0.32)';
-      }
-      if(whyEl) whyEl.textContent = 'Personalized Islamic app theme accent';
-      if(useEl) useEl.innerHTML = '<span style="color:var(--text-secondary); font-weight:600;">Suggested use:</span> Custom primary accent';
+    // Update channel values
+    var valFg = document.getElementById('valChannelFg'); if(valFg) valFg.textContent = customStudio.fg;
+    var valBg = document.getElementById('valChannelBg'); if(valBg) valBg.textContent = customStudio.bg;
+    var valFont = document.getElementById('valChannelFont'); if(valFont) valFont.textContent = customStudio.font;
+
+    var dotFg = document.getElementById('dotChannelFg'); if(dotFg) dotFg.style.background = customStudio.fg;
+    var dotBg = document.getElementById('dotChannelBg'); if(dotBg) dotBg.style.background = customStudio.bg;
+    var dotFont = document.getElementById('dotChannelFont'); if(dotFont) dotFont.style.background = customStudio.font;
+
+    // Active color for current channel
+    var curColor = customStudio[ch];
+    var picker = document.getElementById('customNativeColorPicker');
+    if(picker) picker.value = curColor;
+    var hexInput = document.getElementById('customColorHexInput');
+    if(hexInput && document.activeElement !== hexInput) hexInput.value = curColor;
+    var pickerBtn = document.getElementById('customColorPickerBtn');
+    if(pickerBtn){
+      pickerBtn.style.background = curColor;
+      var stroke = pickerBtn.querySelector('svg');
+      if(stroke) stroke.setAttribute('stroke', isLightAccent(curColor) ? '#0B141B' : '#FFFFFF');
+    }
+
+    // Update labels
+    var lblSwatches = document.getElementById('lblChannelSwatches');
+    if(lblSwatches){
+      if(ch === 'fg') lblSwatches.textContent = isAr ? 'ألوان الواجهة والتمييز' : 'Foreground Tones';
+      else if(ch === 'bg') lblSwatches.textContent = isAr ? 'ألوان الخلفية' : 'Background Tones';
+      else lblSwatches.textContent = isAr ? 'ألوان الخط والنصوص' : 'Font & Text Tones';
+    }
+
+    // Render swatches for current channel
+    renderChannelSwatches();
+    updateLivePreview();
+  }
+
+  function renderChannelSwatches(){
+    var swatchRow = document.getElementById('customSwatchRow');
+    if(!swatchRow) return;
+    var ch = customStudio.channel;
+    var curColor = customStudio[ch].toUpperCase();
+    var list = CHANNEL_SWATCHES[ch] || [];
+    var html = '';
+
+    list.forEach(function(item){
+      var isLight = isLightAccent(item.hex);
+      var isActive = item.hex.toUpperCase() === curColor;
+      html += '<button type="button" role="option" class="custom-swatch-chip' + (isLight ? ' light-chip' : '') + (isActive ? ' active' : '') + '" data-color="' + item.hex + '" title="' + item.name + ' (' + item.hex + ')" style="background:' + item.hex + ';"></button>';
+    });
+
+    swatchRow.innerHTML = html;
+    swatchRow.querySelectorAll('.custom-swatch-chip').forEach(function(btn){
+      btn.onclick = function(){
+        var c = btn.getAttribute('data-color');
+        setChannelColor(c);
+      };
+    });
+  }
+
+  function setChannelColor(hex){
+    if(!hex) return;
+    if(!hex.startsWith('#')) hex = '#' + hex;
+    if(!/^#[0-9A-Fa-f]{6}$/.test(hex)) return;
+    hex = hex.toUpperCase();
+    customStudio[customStudio.channel] = hex;
+    updateStudioChannelUI();
+  }
+
+  function updateLivePreview(){
+    var box = document.getElementById('cccLivePreviewBox');
+    if(!box) return;
+
+    var bg = customStudio.bg;
+    var fg = customStudio.fg;
+    var font = customStudio.font;
+    var fontRgb = hexToRgb(font);
+    var fgRgb = hexToRgb(fg);
+
+    box.style.backgroundColor = bg;
+    box.style.borderColor = fg;
+    box.style.boxShadow = '0 8px 24px rgba(0,0,0,0.40), 0 0 16px rgba(' + fgRgb.r + ',' + fgRgb.g + ',' + fgRgb.b + ', 0.28)';
+
+    var prevBadge = document.getElementById('cccPrevBadge');
+    if(prevBadge) prevBadge.style.color = fg;
+
+    var prevTime = document.getElementById('cccPrevTime');
+    if(prevTime) prevTime.style.color = font;
+
+    var prevTitle = document.getElementById('cccPrevTitle');
+    if(prevTitle) prevTitle.style.color = font;
+
+    var prevSub = document.getElementById('cccPrevSub');
+    if(prevSub) prevSub.style.color = 'rgba(' + fontRgb.r + ',' + fontRgb.g + ',' + fontRgb.b + ', 0.75)';
+
+    var prevBtn = document.getElementById('cccPrevBtn');
+    if(prevBtn){
+      prevBtn.style.background = fg;
+      prevBtn.style.color = isLightAccent(fg) ? '#0B141B' : '#FFFFFF';
+    }
+
+    var applyBtn = document.getElementById('applyCustomThemeBtn');
+    if(applyBtn){
+      applyBtn.style.background = fg;
+      applyBtn.style.color = isLightAccent(fg) ? '#0B141B' : '#FFFFFF';
+      applyBtn.style.boxShadow = '0 4px 16px rgba(' + fgRgb.r + ',' + fgRgb.g + ',' + fgRgb.b + ', 0.35)';
     }
   }
 
+  function renderPresetGrid(){
+    var container = document.getElementById('cccPresetGrid');
+    if(!container) return;
+    var isAr = state.lang === 'ar';
+    var html = '';
+
+    CUSTOM_PRESETS.forEach(function(p, idx){
+      var name = isAr ? (p.nameAr || p.name) : p.name;
+      html += '<button type="button" class="ccc-preset-btn" onclick="applyStudioPreset(' + idx + ')">';
+      html += '<div class="ccc-preset-dots">';
+      html += '<span class="ccc-preset-dot" style="background:' + p.bg + ';" title="Background"></span>';
+      html += '<span class="ccc-preset-dot" style="background:' + p.fg + ';" title="Foreground"></span>';
+      html += '<span class="ccc-preset-dot" style="background:' + p.font + ';" title="Font"></span>';
+      html += '</div>';
+      html += '<span class="ccc-preset-name">' + name + '</span>';
+      html += '</button>';
+    });
+
+    container.innerHTML = html;
+  }
+
+  function applyStudioPreset(index){
+    var p = CUSTOM_PRESETS[index];
+    if(!p) return;
+    customStudio.bg = p.bg.toUpperCase();
+    customStudio.fg = p.fg.toUpperCase();
+    customStudio.font = p.font.toUpperCase();
+    updateStudioChannelUI();
+  }
+  window.applyStudioPreset = applyStudioPreset;
+
+  function applyStudioCustomTheme(){
+    state.customFgColor = customStudio.fg;
+    state.customBgColor = customStudio.bg;
+    state.customFontColor = customStudio.font;
+    state.customColor = customStudio.fg;
+
+    THEMES.custom = buildCustomTheme(state.customFgColor, state.customBgColor, state.customFontColor);
+    applyTheme('custom');
+    saveSettings();
+    renderThemeGrid();
+    updateStudioChannelUI();
+
+    var applyBtn = document.getElementById('applyCustomThemeBtn');
+    if(applyBtn){
+      var isAr = state.lang === 'ar';
+      var origHtml = applyBtn.innerHTML;
+      applyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:14px;height:14px;"><polyline points="20 6 9 17 4 12"/></svg> ' + (isAr ? 'تم تطبيق الثيم!' : 'Applied!');
+      setTimeout(function(){ applyBtn.innerHTML = origHtml; }, 1600);
+    }
+  }
+  window.applyStudioCustomTheme = applyStudioCustomTheme;
+
+  function resetStudioCustomTheme(){
+    customStudio.fg = '#059669';
+    customStudio.bg = '#071922';
+    customStudio.font = '#FFFFFF';
+    updateStudioChannelUI();
+  }
+  window.resetStudioCustomTheme = resetStudioCustomTheme;
+
+  function updateCustomColorUI(){
+    updateStudioChannelUI();
+  }
+
   function initCustomColorControls(){
-    pendingCustomColor = (state.customColor || '#059669').toUpperCase();
+    customStudio.fg = (state.customFgColor || state.customColor || '#059669').toUpperCase();
+    customStudio.bg = (state.customBgColor || '#071922').toUpperCase();
+    customStudio.font = (state.customFontColor || '#FFFFFF').toUpperCase();
+
     var picker = document.getElementById('customNativeColorPicker');
     if(picker){
-      picker.addEventListener('input', function(e){
-        selectPendingColor(e.target.value);
-      });
-      picker.addEventListener('change', function(e){
-        selectPendingColor(e.target.value);
-      });
+      picker.addEventListener('input', function(e){ setChannelColor(e.target.value); });
+      picker.addEventListener('change', function(e){ setChannelColor(e.target.value); });
     }
+
     var hexInput = document.getElementById('customColorHexInput');
-    var applyBtn = document.getElementById('applyCustomColorBtn');
-    if(applyBtn && hexInput){
-      applyBtn.addEventListener('click', function(){
-        var val = hexInput.value.trim();
-        if(!val.startsWith('#')) val = '#' + val;
-        if(/^#[0-9A-Fa-f]{6}$/.test(val)){
-          setCustomColor(val);
-        }
-      });
+    if(hexInput){
       hexInput.addEventListener('input', function(){
         var val = hexInput.value.trim();
         if(!val.startsWith('#')) val = '#' + val;
         if(/^#[0-9A-Fa-f]{6}$/.test(val)){
-          pendingCustomColor = val.toUpperCase();
-          updateCustomColorUI();
+          setChannelColor(val);
         }
       });
       hexInput.addEventListener('keydown', function(e){
         if(e.key === 'Enter'){
-          applyBtn.click();
+          applyStudioCustomTheme();
         }
       });
     }
 
-    var swatchRow = document.getElementById('customSwatchRow');
-    if(swatchRow && !swatchRow.hasChildNodes()){
-      var sHtml = '';
-      ISLAMIC_POPULAR_ACCENTS.forEach(function(item){
-        var lightClass = isLightAccent(item.hex) ? ' light-swatch' : '';
-        sHtml += '<button type="button" role="option" class="custom-swatch-chip' + lightClass + '" data-color="' + item.hex + '" aria-label="' + item.name + ' ' + item.hex + '" aria-pressed="false" title="' + item.name + ' (' + item.hex + ')" style="background:' + item.hex + ';"></button>';
-      });
-      swatchRow.innerHTML = sHtml;
-      swatchRow.querySelectorAll('.custom-swatch-chip').forEach(function(btn){
-        btn.addEventListener('click', function(){
-          selectPendingColor(btn.getAttribute('data-color'));
-        });
-      });
-    }
-    updateCustomColorUI();
+    renderPresetGrid();
+    updateStudioChannelUI();
   }
 
-  function applyTheme(themeName){
+    function applyTheme(themeName, explicitLayout){
     if(themeName === 'custom'){
-      THEMES.custom = buildCustomTheme(state.customColor || '#059669');
+      THEMES.custom = buildCustomTheme(state.customFgColor || state.customColor, state.customBgColor, state.customFontColor);
     }
     var themeObj = THEMES[themeName] || THEMES.midnightMosque || Object.values(THEMES)[0];
     document.documentElement.setAttribute('data-theme', themeName);
@@ -7157,8 +8256,19 @@ if('serviceWorker' in navigator){
     var meta = document.getElementById('themeMeta');
     if(meta) meta.setAttribute('content', themeObj.meta);
     state.theme = themeName;
+    if(explicitLayout){
+      state.layout = explicitLayout;
+    } else if(!state.layout){
+      state.layout = 'cards';
+    }
+    document.documentElement.setAttribute('data-layout', state.layout);
+    document.body.setAttribute('data-layout', state.layout);
     renderThemeGrid();
     updateCustomColorUI();
+    updateLayoutToggleButtons();
+    if(typeof renderSalah === 'function' && typeof timings !== 'undefined' && timings){
+      renderSalah();
+    }
   }
 
   function pad(n){ return n < 10 ? '0'+n : ''+n; }
@@ -7182,6 +8292,13 @@ if('serviceWorker' in navigator){
         Object.assign(state, parsed);
       }
     }catch(e){}
+
+    // Auto-migrate user to the Walkthrough Midnight Mosque theme as default
+    var walkthroughMigrated = localStorage.getItem('salah_theme_walkthrough_cards_v2');
+    if(!walkthroughMigrated){
+      state.theme = 'midnightMosque';
+      try { localStorage.setItem('salah_theme_walkthrough_cards_v2', '1'); }catch(e){}
+    }
 
     ALL_PRAYERS.forEach(function(p){
       if(!state.prayerConfigs[p]){
@@ -7210,11 +8327,18 @@ if('serviceWorker' in navigator){
       state.quranReciter = 'ar.alafasy';
     }
 
-    state.customColor = state.customColor || '#059669';
-    THEMES.custom = buildCustomTheme(state.customColor);
+    state.customFgColor = state.customFgColor || state.customColor || '#059669';
+    state.customBgColor = state.customBgColor || '#071922';
+    state.customFontColor = state.customFontColor || '#FFFFFF';
+    state.customColor = state.customFgColor;
+    THEMES.custom = buildCustomTheme(state.customFgColor, state.customBgColor, state.customFontColor);
+    state.layout = state.layout || 'cards';
+    document.documentElement.setAttribute('data-layout', state.layout);
+    document.body.setAttribute('data-layout', state.layout);
 
     // Normalize theme names — map old keys to closest new palette
     var themeAliases = {
+      'classicSlate': 'midnightMosque',
       'midnightdark': 'midnightMosque',
       'midnightmosque': 'midnightMosque',
       'mosquesilhouette': 'midnightMosque',
@@ -7245,7 +8369,7 @@ if('serviceWorker' in navigator){
         tasbihDhikr: state.tasbihDhikr, tasbihTarget: state.tasbihTarget, startupTab: state.startupTab,
         lang: state.lang, quranReciter: state.quranReciter, quranTranslation: state.quranTranslation,
         quranReminderOn: state.quranReminderOn, mulkReminderOn: state.mulkReminderOn,
-        customColor: state.customColor
+        customColor: state.customColor, customFgColor: state.customFgColor, customBgColor: state.customBgColor, customFontColor: state.customFontColor, layout: state.layout
       }));
     }catch(e){}
     if(window.scheduleAllPrayerAlarms) scheduleAllPrayerAlarms();
@@ -9161,50 +10285,96 @@ if('serviceWorker' in navigator){
     var mLabel = isAr ? 'دقائق' : 'MINS';
     var sLabel = isAr ? 'ثواني' : 'SECS';
 
+    var isListLayout = state.layout === 'list';
+
     // Daily Quran Tracker Big Card
     html += renderQuranTrackerCardHTML();
 
     // Next Prayer Card
     html += '<div class="next-prayer-card">';
-    html += domeSvg;
-    html += '<div class="next-prayer-badge"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="currentColor"/></svg> ' + nextBadge + '</div>';
-    html += '<div class="next-prayer-name">' + nextPrayerDisplay + '</div>';
-    html += '<div class="next-prayer-time-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + nextTimeStr + '</div>';
-    html += '<div class="countdown-container">';
-    html += '<div class="countdown-segment"><div class="countdown-num cd-h">' + cd.h + '</div><div class="countdown-label">' + hLabel + '</div></div>';
-    html += '<div class="countdown-colon">:</div>';
-    html += '<div class="countdown-segment"><div class="countdown-num cd-m">' + cd.m + '</div><div class="countdown-label">' + mLabel + '</div></div>';
-    html += '<div class="countdown-colon">:</div>';
-    html += '<div class="countdown-segment"><div class="countdown-num cd-s">' + cd.s + '</div><div class="countdown-label">' + sLabel + '</div></div>';
-    html += '</div>';
+    if(isListLayout){
+      html += domeSvg;
+      html += '<div class="next-prayer-badge"><svg viewBox="0 0 24 24" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="currentColor"/></svg> ' + nextBadge + '</div>';
+      html += '<div class="next-prayer-name">' + nextPrayerDisplay + '</div>';
+      html += '<div class="next-prayer-time-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + nextTimeStr + '</div>';
+      html += '<div class="countdown-container">';
+      html += '<div class="countdown-segment"><div class="countdown-num cd-h">' + cd.h + '</div><div class="countdown-label">' + hLabel + '</div></div>';
+      html += '<div class="countdown-colon">:</div>';
+      html += '<div class="countdown-segment"><div class="countdown-num cd-m">' + cd.m + '</div><div class="countdown-label">' + mLabel + '</div></div>';
+      html += '<div class="countdown-colon">:</div>';
+      html += '<div class="countdown-segment"><div class="countdown-num cd-s">' + cd.s + '</div><div class="countdown-label">' + sLabel + '</div></div>';
+      html += '</div>';
+    } else {
+      html += '<div class="next-prayer-badge">' + nextBadge + '</div>';
+      var locCity = state.city ? (state.city + (state.country ? ' | ' + state.country : '')) : (isAr ? 'المسجد النبوي | المدينة المنورة' : 'AL-MASJID AN-NABAWI | MADINAH');
+      var cdPillText = (cd.h ? cd.h + ' ' + hLabel + ' ' : '') + cd.m + ' ' + mLabel + ' ' + (isAr ? 'متبقي' : 'REMAINING');
+      html += '<div class="next-prayer-glow-headline">' + nextPrayerDisplay + ' ' + nextTimeStr + '</div>';
+      html += '<div class="next-prayer-countdown-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + cdPillText + '</div>';
+      html += '<div class="next-prayer-sub-loc" id="nextPrayerSubLoc" title="' + (isAr ? 'اضغط لتغيير الموقع' : 'Click to change location') + '">' + locCity.toUpperCase() + '</div>';
+    }
     html += '</div>';
 
-    // Hijri Date Row (with English/Arabic dates)
+    // Hijri & Gregorian Date Row (Dual Arabic & English Dates)
     if(hijri && gregorian){
-      var hMonth = isAr ? (HIJRI_MONTHS_AR[parseInt(hijri.month.number)] || hijri.month.ar || hijri.month.en) : hijri.month.en;
-      var hSuffix = isAr ? ' هـ' : ' AH';
-      var gMonth = isAr ? (GREG_MONTHS_AR[parseInt(gregorian.month.number)] || gregorian.month.en) : gregorian.month.en;
-      var gSuffix = isAr ? ' م' : '';
-      var gregDateStr = gregorian.day + ' ' + gMonth + ' ' + gregorian.year + gSuffix;
+      var toArDigits = function(str){
+        var d = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+        return String(str == null ? '' : str).replace(/[0-9]/g, function(w){ return d[+w]; });
+      };
 
-      html += '<div class="hijri-date-row">';
-      html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
-      html += '<span style="display:flex;flex-direction:column;gap:2px;">';
-      html += '<span>' + hijri.day + ' ' + hMonth + ' ' + hijri.year + hSuffix + '</span>';
-      html += '<span style="font-size:11px;color:var(--text-tertiary);">' + gregDateStr + '</span>';
-      html += '</span>';
+      var hNum = parseInt(hijri.month.number, 10) || 1;
+      var gNum = parseInt(gregorian.month.number, 10) || (now.getMonth() + 1);
+
+      // Arabic Hijri & Gregorian strings
+      var hMonthAr = (HIJRI_MONTHS_AR && HIJRI_MONTHS_AR[hNum]) || hijri.month.ar || hijri.month.en;
+      var gMonthAr = (GREG_MONTHS_AR && GREG_MONTHS_AR[gNum]) || gregorian.month.en;
+      var hDayAr = toArDigits(hijri.day);
+      var hYearAr = toArDigits(hijri.year);
+      var hijriArStr = hDayAr + ' ' + hMonthAr + ' ' + hYearAr + ' هـ';
+
+      // English Hijri & Gregorian strings
+      var hMonthEn = hijri.month.en || (['','Muharram','Safar','Rabi\' al-Awwal','Rabi\' al-Thani','Jumada al-Awwal','Jumada al-Thani','Rajab','Sha\'ban','Ramadan','Shawwal','Dhu al-Qi\'dah','Dhu al-Hijjah'][hNum]) || ('Month ' + hNum);
+      var gMonthEn = gregorian.month.en || now.toLocaleString('en', { month: 'long' });
+      var hijriEnStr = hijri.day + ' ' + hMonthEn + ' ' + hijri.year + ' AH';
+
+      // Weekday & Gregorian strings
+      var weekDaysEn = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      var weekDaysAr = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+      var weekDayEn = weekDaysEn[now.getDay()];
+      var weekDayAr = weekDaysAr[now.getDay()];
+      var gregDayAr = toArDigits(gregorian.day);
+      var gregYearAr = toArDigits(gregorian.year);
+
+      var gregEnStr = weekDayEn + ', ' + gregorian.day + ' ' + gMonthEn + ' ' + gregorian.year;
+      var gregArStr = weekDayAr + '، ' + gregDayAr + ' ' + gMonthAr + ' ' + gregYearAr + ' م';
+
+      var primaryHijri = isAr ? hijriArStr : hijriEnStr;
+      var secondaryHijri = isAr ? hijriEnStr : hijriArStr;
+      var primaryGreg = isAr ? gregArStr : gregEnStr;
+      var secondaryGreg = isAr ? gregEnStr : gregArStr;
+
+      html += '<div class="hijri-date-row" onclick="switchToSubPanel(\'calendar\')" title="' + (isAr ? 'اضغط لفتح التقويم الهجري' : 'Tap to open Hijri Calendar') + '">';
+      html += '<div class="hijri-date-left">';
+      html += '<svg class="hijri-date-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+      html += '<div class="hijri-date-text-wrap">';
+      html += '<div class="hijri-date-primary"><span class="date-main">' + primaryHijri + '</span><span class="date-divider">•</span><span class="date-sub hijri-date-ar-tag">' + secondaryHijri + '</span></div>';
+      html += '<div class="hijri-date-secondary"><span class="date-greg-main">' + primaryGreg + '</span><span class="date-divider">•</span><span class="date-greg-sub">' + secondaryGreg + '</span></div>';
+      html += '</div>';
+      html += '</div>';
+      html += '<div class="hijri-cal-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>';
       html += '</div>';
     }
 
     // Prayer Times Header
-    html += '<div class="prayer-section-header">';
-    html += '<div class="prayer-section-title">' + (isAr ? 'مواقيت الصلاة' : 'Prayer Times') + '</div>';
-    if(hijri){
-      var hMonth2 = isAr ? (HIJRI_MONTHS_AR[parseInt(hijri.month.number)] || hijri.month.ar || hijri.month.en) : hijri.month.en;
-      var hSuffix2 = isAr ? ' هـ' : ' AH';
-      html += '<div class="prayer-section-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + hijri.day + ' ' + hMonth2 + ' ' + hijri.year + hSuffix2 + '</div>';
+    if(isListLayout){
+      html += '<div class="prayer-section-header">';
+      html += '<div class="prayer-section-title">' + (isAr ? 'مواقيت الصلاة' : 'PRAYER TIMES') + '</div>';
+      if(hijri){
+        var hMonth2 = isAr ? (HIJRI_MONTHS_AR[parseInt(hijri.month.number)] || hijri.month.ar || hijri.month.en) : hijri.month.en;
+        var hSuffix2 = isAr ? ' هـ' : ' AH';
+        html += '<div class="prayer-section-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + hijri.day + ' ' + hMonth2 + ' ' + hijri.year + hSuffix2 + '</div>';
+      }
+      html += '</div>';
     }
-    html += '</div>';
 
     // Prayer List
     html += '<div class="prayer-list">';
@@ -9217,30 +10387,58 @@ if('serviceWorker' in navigator){
       var rowName = isAr ? (ARABIC[name] || name) : name;
       var rowSub = isAr ? (SUBTITLES.ar[name] || '') : (SUBTITLES.en[name] || '');
 
-      html += '<div class="prayer-row ' + (isActive?'active':'') + ' ' + (isSunrise?'sunrise':'') + '">';
-      html += '<div class="prayer-row-icon">' + ICONS[name] + '</div>';
-      html += '<div class="prayer-row-info">';
-      html += '<div class="prayer-row-name">' + rowName + '</div>';
-      html += '<div class="prayer-row-subtitle">' + rowSub + '</div>';
-      html += '</div>';
-      html += '<div class="prayer-row-right">';
-      if(!isSunrise){
-        html += '<button class="mute-btn ' + (on?'on':'') + '" data-prayer="' + name + '" title="' + (on?'Mute':'Unmute') + '">' + (on ? SPEAKER_ON : SPEAKER_OFF) + '</button>';
+      if(isListLayout){
+        html += '<div class="prayer-row ' + (isActive?'active':'') + ' ' + (isSunrise?'sunrise':'') + '" data-prayer="' + name + '">';
+        html += '<div class="prayer-row-left">';
+        html += '<div class="prayer-row-icon">' + ICONS[name] + '</div>';
+        html += '<div class="prayer-row-name-box">';
+        html += '<span class="prayer-row-name">' + rowName + '</span>';
+        html += '<span class="prayer-row-subtitle">' + rowSub + '</span>';
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="prayer-row-right">';
+        if(!isSunrise){
+          html += '<button class="mute-btn ' + (on?'on':'') + '" data-prayer="' + name + '" title="' + (on?'Mute':'Unmute') + '">' + (on ? SPEAKER_ON : SPEAKER_OFF) + '</button>';
+        }
+        html += '<div class="prayer-row-time">' + fmt12(d) + '</div>';
+        html += '</div>';
+        html += '</div>';
+      } else {
+        var statusBadge = isActive ? (isAr ? 'الآن' : 'Active') : (isAr ? 'قادم' : 'Upcoming');
+        html += '<div class="prayer-row ' + (isActive?'active':'') + ' ' + (isSunrise?'sunrise':'') + '" data-prayer="' + name + '">';
+        html += '<div class="prayer-row-header-wrap">';
+        html += '<div class="prayer-row-name-box">';
+        html += '<span class="prayer-row-name">' + rowName + '</span>';
+        html += '</div>';
+        html += '<div class="prayer-row-icon-box">';
+        html += '<div class="prayer-row-icon">' + ICONS[name] + '</div>';
+        if(!isSunrise){
+          html += '<button class="mute-btn ' + (on?'on':'') + '" data-prayer="' + name + '" title="' + (on?'Mute':'Unmute') + '">' + (on ? SPEAKER_ON : SPEAKER_OFF) + '</button>';
+        }
+        html += '</div>';
+        html += '</div>';
+        html += '<div class="prayer-row-time-wrap">';
+        html += '<div class="prayer-row-time">' + fmt12(d) + '</div>';
+        html += '<div class="prayer-row-status-pill ' + (isActive?'active':'') + '">' + statusBadge + '</div>';
+        html += '</div>';
+        html += '</div>';
       }
-      html += '<div class="prayer-row-time">' + fmt12(d) + '</div>';
-      html += '</div></div>';
     });
     html += '</div>';
 
-    // Action Row
+    // Action Row (Matching Walkthrough Mockup: Adhkar, Masjids, Quran)
     html += '<div class="action-row">';
-    html += '<button class="action-btn" id="actionAdhkar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> ' + (isAr ? 'الأذكار' : 'ADHKAR') + '</button>';
-    html += '<button class="action-btn" id="actionMasjids"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18"/><path d="M5 21V10l7-7 7 7v11"/><path d="M9 21v-4a3 3 0 0 1 6 0v4"/><circle cx="12" cy="5" r="1" fill="currentColor"/></svg> ' + (isAr ? 'المساجد' : 'MASJIDS') + '</button>';
-    html += '<button class="action-btn" id="actionQuran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v6m-3-3h6"/></svg> ' + (isAr ? 'القرآن الكريم' : 'QURAN') + '</button>';
+    html += '<button class="action-btn" id="actionAdhkar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="10" r="6.5" stroke-dasharray="2.5 2.5"/><circle cx="12" cy="18" r="1.5" fill="currentColor"/><path d="M12 16.5v-1"/></svg><span>' + (isAr ? 'الأذكار' : 'ADHKAR') + '</span></button>';
+    html += '<button class="action-btn" id="actionMasjids"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18"/><path d="M5 21V10l7-7 7 7v11"/><path d="M9 21v-4a3 3 0 0 1 6 0v4"/><circle cx="12" cy="5" r="1" fill="currentColor"/></svg><span>' + (isAr ? 'المساجد' : 'MASJIDS') + '</span></button>';
+    html += '<button class="action-btn" id="actionQuran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 4.5A2.5 2.5 0 0 1 4.5 2H11v18H4.5A2.5 2.5 0 0 1 2 17.5v-13z"/><path d="M22 4.5A2.5 2.5 0 0 0 19.5 2H13v18h6.5A2.5 2.5 0 0 0 22 17.5v-13z"/><path d="M12 20v2"/></svg><span>' + (isAr ? 'القرآن الكريم' : 'QURAN') + '</span></button>';
     html += '</div>';
 
     var container = document.getElementById('content');
     if(container) container.innerHTML = html;
+
+    // Bind sub-location click to open location picker
+    var npl = document.getElementById('nextPrayerSubLoc');
+    if(npl) npl.addEventListener('click', function(){ if(typeof openQuickLocModal === 'function') openQuickLocModal(); });
 
     // Bind mute buttons
     document.querySelectorAll('.mute-btn').forEach(function(btn){
@@ -9351,6 +10549,39 @@ if('serviceWorker' in navigator){
     });
   }
 
+  
+  function setLayout(layoutName){
+    if(layoutName !== 'cards' && layoutName !== 'list') layoutName = 'cards';
+    state.layout = layoutName;
+    document.documentElement.setAttribute('data-layout', layoutName);
+    document.body.setAttribute('data-layout', layoutName);
+    saveSettings();
+    updateLayoutToggleButtons();
+    if(typeof renderSalah === 'function' && typeof timings !== 'undefined' && timings){
+      renderSalah();
+    }
+  }
+  window.setLayout = setLayout;
+
+  function updateLayoutToggleButtons(){
+    var isList = state.layout === 'list';
+    var cardsBtns = document.querySelectorAll('.btn-choose-cards-layout');
+    var listBtns = document.querySelectorAll('.btn-choose-list-layout');
+
+    cardsBtns.forEach(function(b){
+      b.classList.toggle('active', !isList);
+      b.setAttribute('aria-pressed', !isList ? 'true' : 'false');
+      b.onclick = function(e){ if(e) e.preventDefault(); setLayout('cards'); };
+    });
+
+    listBtns.forEach(function(b){
+      b.classList.toggle('active', isList);
+      b.setAttribute('aria-pressed', isList ? 'true' : 'false');
+      b.onclick = function(e){ if(e) e.preventDefault(); setLayout('list'); };
+    });
+  }
+  window.updateLayoutToggleButtons = updateLayoutToggleButtons;
+
   function renderThemeGrid(){
     var container = document.getElementById('themeGrid');
     if(!container) return;
@@ -9366,7 +10597,7 @@ if('serviceWorker' in navigator){
         ? ' style="--tc-accent:' + accent + '; background: rgba(' + (t.glowRgb||'13,148,136') + ',0.12); border-color:' + accent + ';"'
         : ' style="--tc-accent:' + accent + ';"';
       var isDefault = key === 'midnightMosque';
-      var defBadge = isDefault ? ' <span style="font-size:8.5px; font-weight:700; padding:2px 5px; border-radius:5px; background:rgba(13,148,136,0.25); color:#2DD4BF; border:1px solid rgba(13,148,136,0.4); vertical-align:middle; text-transform:uppercase; letter-spacing:0.04em;">' + (state.lang==='ar'?'افتراضي':'Default') + '</span>' : '';
+      var defBadge = isDefault ? ' <span style="font-size:8.5px; font-weight:700; padding:2px 6px; border-radius:6px; background:rgba(13,148,136,0.30); color:#2DD4BF; border:1px solid rgba(45,212,191,0.5); vertical-align:middle; text-transform:uppercase; letter-spacing:0.05em; box-shadow:0 0 8px rgba(45,212,191,0.3);">' + (state.lang==='ar'?'افتراضي (معاينة)':'Default / Walkthrough') + '</span>' : '';
       html += '<div class="theme-card ' + (isActive ? 'active' : '') + '" data-theme-key="' + key + '"' + activeStyle + '>';
       html += '<div class="theme-card-info">';
       html += '<span class="theme-card-name">' + t.name + defBadge + '</span>';
@@ -9396,6 +10627,7 @@ if('serviceWorker' in navigator){
       });
     });
     updateCustomColorUI();
+    updateLayoutToggleButtons();
   }
 
   function updateTick(){
@@ -9410,6 +10642,16 @@ if('serviceWorker' in navigator){
     if(hEl) hEl.textContent = cd.h;
     if(mEl) mEl.textContent = cd.m;
     if(sEl) sEl.textContent = cd.s;
+
+    var cdTag = document.querySelector('.next-prayer-countdown-tag');
+    if(cdTag){
+      var isAr = state.lang === 'ar';
+      var hLabel = isAr ? 'ساعات' : 'HR';
+      var mLabel = isAr ? 'دقائق' : 'MIN';
+      var sLabel = isAr ? 'ث' : 'SEC';
+      var cdPillText = (cd.h ? cd.h + ' ' + hLabel + ' ' : '') + cd.m + ' ' + mLabel + ' ' + cd.s + ' ' + sLabel + ' ' + (isAr ? 'متبقي' : 'REMAINING');
+      cdTag.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ' + cdPillText;
+    }
     checkAlarms(now);
   }
 
@@ -9610,12 +10852,12 @@ if('serviceWorker' in navigator){
   }
 
   function setCompassTheme(themeName){
-    var validThemes = ['emerald', 'slate', 'cyber', 'gold', 'white', 'mariner'];
+    var validThemes = ['emerald', 'slate', 'white', 'mariner'];
     if(validThemes.indexOf(themeName) === -1) themeName = 'emerald';
     
     var compassPanel = document.getElementById('tab-compass');
     if(compassPanel){
-      validThemes.forEach(function(t){
+      ['emerald', 'slate', 'cyber', 'gold', 'white', 'mariner'].forEach(function(t){
         compassPanel.classList.remove('compass-theme-' + t);
       });
       compassPanel.classList.add('compass-theme-' + themeName);
@@ -10124,6 +11366,24 @@ function _legacySwitchToSubPanel(panelId){
     var masjP = document.getElementById('masjidsSubPanelTitle'); if(masjP) masjP.textContent = isAr ? 'المساجد القريبة' : 'Nearby Masjids';
     var setP = document.getElementById('settingsSubPanelTitle'); if(setP) setP.textContent = isAr ? 'الإعدادات' : 'Settings';
     var thmP = document.getElementById('themesSubPanelTitle'); if(thmP) thmP.textContent = isAr ? 'المظاهر والألوان' : 'App Themes';
+    var lTitle = document.getElementById('lblLayoutStyleTitle'); if(lTitle) lTitle.textContent = isAr ? 'نمط العرض' : 'Layout Style';
+    var lSub = document.getElementById('lblLayoutStyleSub'); if(lSub) lSub.textContent = isAr ? 'اختر طريقة عرض شاشة الصلاة' : 'Choose prayer display';
+    var sLTitle = document.getElementById('lblSettingsLayoutTitle'); if(sLTitle) sLTitle.textContent = isAr ? 'نمط عرض الصلاة' : 'Prayer Screen Layout';
+    var sLSub = document.getElementById('lblSettingsLayoutSub'); if(sLSub) sLSub.textContent = isAr ? 'بطاقات أو قائمة كلاسيكية' : 'Cards vs Classic List';
+    document.querySelectorAll('.lbl-layout-cards-text').forEach(function(el){ el.textContent = isAr ? 'بطاقات (عمودين)' : '2-Column Cards'; });
+    document.querySelectorAll('.lbl-layout-list-text').forEach(function(el){ el.textContent = isAr ? 'قائمة كلاسيكية' : 'Classic List'; });
+
+    // Custom Theme Studio translations
+    var cTitle = document.getElementById('customColorTitle'); if(cTitle) cTitle.textContent = isAr ? 'استوديو الثيم المخصص' : 'Custom Theme Studio';
+    var cSub = document.getElementById('customColorSub'); if(cSub) cSub.textContent = isAr ? 'الخلفية • الواجهة • الخط' : 'Background • Foreground • Font';
+    var lChFg = document.getElementById('lblChannelFgTitle'); if(lChFg) lChFg.textContent = isAr ? 'الواجهة' : 'Foreground';
+    var lChBg = document.getElementById('lblChannelBgTitle'); if(lChBg) lChBg.textContent = isAr ? 'الخلفية' : 'Background';
+    var lChFont = document.getElementById('lblChannelFontTitle'); if(lChFont) lChFont.textContent = isAr ? 'الخط والنصوص' : 'Font / Text';
+    var lPresets = document.getElementById('lblHarmoniousPresets'); if(lPresets) lPresets.textContent = isAr ? 'توليفات متناسقة جاهزة' : 'Quick Harmonious Combos';
+    var lApplyC = document.getElementById('lblApplyCustom'); if(lApplyC) lApplyC.textContent = isAr ? 'تطبيق الثيم المخصص' : 'Apply Custom Theme';
+    var lResetC = document.getElementById('lblResetCustom'); if(lResetC) lResetC.textContent = isAr ? 'إعادة ضبط' : 'Reset';
+    if(typeof renderPresetGrid === 'function') renderPresetGrid();
+    if(typeof updateStudioChannelUI === 'function') updateStudioChannelUI();
     var abtP = document.getElementById('aboutSubPanelTitle'); if(abtP) abtP.textContent = isAr ? 'حول التطبيق' : 'About';
     var khP = document.getElementById('khutbahSubPanelTitle'); if(khP) khP.textContent = isAr ? 'مترجم الخطبة المباشر' : 'Khutbah Translator';
     var khL = document.getElementById('khutbahLiveText'); if(khL) khL.textContent = isAr ? 'مباشر' : 'LIVE';
@@ -13768,6 +15028,7 @@ window.TAJWEED_BOOK_PAGES = [
     if(state.customSoundUrl && document.getElementById('customUrl')) document.getElementById('customUrl').value = state.customSoundUrl;
     initCustomColorControls();
     renderThemeGrid();
+    updateLayoutToggleButtons();
     renderAlarmTab();
     applyLanguage(state.lang || 'en');
     startAlwaysOnCompass();
